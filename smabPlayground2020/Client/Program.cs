@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Syncfusion.Blazor;
 
 namespace smabPlayground2020.Client
 {
@@ -15,7 +16,15 @@ namespace smabPlayground2020.Client
 	{
 		public static async Task Main(string[] args)
 		{
+			//Register Syncfusion license 
+			if (System.IO.File.Exists(System.IO.Directory.GetCurrentDirectory() + "/SyncfusionLicense.txt"))
+			{
+				string licenseKey = System.IO.File.ReadAllText(System.IO.Directory.GetCurrentDirectory() + "/SyncfusionLicense.txt");
+				Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(licenseKey);
+			}
+
 			var builder = WebAssemblyHostBuilder.CreateDefault(args);
+			builder.Services.AddSyncfusionBlazor();
 			builder.RootComponents.Add<App>("app");
 
 			builder.Services.AddHttpClient("smabPlayground2020.ServerAPI", client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
