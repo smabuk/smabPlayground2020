@@ -1,22 +1,22 @@
 ﻿@page "/plex/details/{Id:int}"
-@using Microsoft.AspNetCore.Authorization
-@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using smabPlayground2020.Shared.PlexInfo.Models
-@attribute [Authorize]
-@inject HttpClient Http
+@inject PlexApiClient plexClient
 
 
 @if (item == null)
 {
-    <h1>Item Detail @Id</h1>
-    <p><em>Loading...</em></p>
+    <p><em>Loading... item @Id</em></p>
 }
 else
 {
     <h1>@item.MediaContainer.Metadata.FirstOrDefault().Title</h1>
-    <h4>Add on: @item.MediaContainer.Metadata.FirstOrDefault().AddedAt.ToString("yyyy-MM-dd")</h4>
+    <h4>Added on: @item.MediaContainer.Metadata.FirstOrDefault().AddedAt.ToString("yyyy-MM-dd")</h4>
 
     <p>@item.MediaContainer.Metadata.FirstOrDefault().Summary</p>
+
+    <p>
+        @JsonSerializer.Serialize(item)
+    </p>
     
 }
 
@@ -28,14 +28,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        try
-        {
-            item = await Http.GetFromJsonAsync<LibraryItem>($"api/PlexInfo/item/{Id}");
-        }
-        catch (AccessTokenNotAvailableException exception)
-        {
-            exception.Redirect();
-        }
+        item = await plexClient.GetItem(Id);
     }
 
 }

@@ -39,7 +39,7 @@ namespace smabPlayground2020.Server.Controllers
 		[HttpGet]
 		public async Task<IActionResult> LibraryRoot()
 		{
-			using HttpClient client = clientFactory.CreateClient("Plex");
+			HttpClient client = clientFactory.CreateClient("Plex");
 			string rawJson = await client.GetStringAsync($"library?X-Plex-Token={Token}");
 			return Ok(JsonSerializer.Deserialize<LibraryRoot>(rawJson));
 		}
@@ -47,7 +47,7 @@ namespace smabPlayground2020.Server.Controllers
 		[HttpGet]
 		public async Task<IActionResult> LibrarySections()
 		{
-			using HttpClient client = clientFactory.CreateClient("Plex");
+			HttpClient client = clientFactory.CreateClient("Plex");
 			string rawJson = await client.GetStringAsync($"library/sections?X-Plex-Token={Token}");
 			return Ok(JsonSerializer.Deserialize<LibrarySections>(rawJson));
 		}
@@ -55,7 +55,7 @@ namespace smabPlayground2020.Server.Controllers
 		[HttpGet]
 		public async Task<IActionResult> AllMovies()
 		{
-			using HttpClient client = clientFactory.CreateClient("Plex");
+			HttpClient client = clientFactory.CreateClient("Plex");
 			string rawJson = await client.GetStringAsync($"library/sections/3/all?X-Plex-Token={Token}&includeCollections=0&sort=titleSort");
 			return Ok(JsonSerializer.Deserialize<LibraryMovies>(rawJson));
 		}
@@ -64,7 +64,7 @@ namespace smabPlayground2020.Server.Controllers
 		[Route("{id}")]
 		public async Task<IActionResult> Item(int id)
 		{
-			using HttpClient client = clientFactory.CreateClient("Plex");
+			HttpClient client = clientFactory.CreateClient("Plex");
 			string rawJson = await client.GetStringAsync($"library/metadata/{id}?X-Plex-Token={Token}");
 			LibraryItem libraryItem = JsonSerializer.Deserialize<LibraryItem>(rawJson);
 			return Ok(libraryItem);
