@@ -13,6 +13,9 @@ using Microsoft.Extensions.Hosting;
 using System.Linq;
 using smabPlayground2020.Server.Data;
 using smabPlayground2020.Server.Models;
+using smabPlayground2020.Shared.PlexInfo;
+using System;
+using System.Net.Http;
 
 namespace smabPlayground2020.Server
 {
@@ -29,6 +32,25 @@ namespace smabPlayground2020.Server
 		// For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
 		public void ConfigureServices(IServiceCollection services)
 		{
+			services.Configure<PlexSettings>(Configuration.GetSection(nameof(PlexSettings)));
+			
+			services.AddHttpClient("Plex", c =>
+			{
+				c.BaseAddress = new Uri(Configuration.GetValue<string>("PlexSettings:Server"));
+				c.DefaultRequestHeaders.Add("Accept", "application/json");
+			})
+				// The local Plex Server will not have a proper certificate so we have to ignore this
+				.ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+			{
+				ClientCertificateOptions = ClientCertificateOption.Manual,
+				ServerCertificateCustomValidationCallback =
+				(httpRequestMessage, cert, cetChain, policyErrors) =>
+				{
+					return true;
+				}
+			});
+
+
 			services.AddDbContext<ApplicationDbContext>(options =>
 				options.UseSqlServer(
 					Configuration.GetConnectionString("DefaultConnection")));
