@@ -33,22 +33,18 @@ namespace smabPlayground2020.Server
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.Configure<PlexSettings>(Configuration.GetSection(nameof(PlexSettings)));
-			
-			services.AddHttpClient("Plex", c =>
-			{
-				c.BaseAddress = new Uri(Configuration.GetValue<string>("PlexSettings:Server"));
-				c.DefaultRequestHeaders.Add("Accept", "application/json");
-			})
+
+			services.AddHttpClient<IPlexClient, PlexClient>()
 				// The local Plex Server will not have a proper certificate so we have to ignore this
 				.ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
-			{
-				ClientCertificateOptions = ClientCertificateOption.Manual,
-				ServerCertificateCustomValidationCallback =
-				(httpRequestMessage, cert, cetChain, policyErrors) =>
 				{
-					return true;
-				}
-			});
+					ClientCertificateOptions = ClientCertificateOption.Manual,
+					ServerCertificateCustomValidationCallback =
+					(httpRequestMessage, cert, certChain, policyErrors) =>
+					{
+						return true;
+					}
+				});
 
 
 			services.AddDbContext<ApplicationDbContext>(options =>

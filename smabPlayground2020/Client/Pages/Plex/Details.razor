@@ -1,7 +1,6 @@
 ﻿@page "/plex/details/{Id:int}"
 @using smabPlayground2020.Shared.PlexInfo.Models
-@inject PlexApiClient plexClient
-
+@inject PlexInfoClient plexClient
 
 @if (item == null)
 {
@@ -14,21 +13,19 @@ else
 
     <p>@item.MediaContainer.Metadata.FirstOrDefault().Summary</p>
 
-    <p>
-        @JsonSerializer.Serialize(item)
-    </p>
-    
 }
 
 @code {
 
     private LibraryItem? item { get; set; }
 
-    [Parameter] public int Id { get; set; }
+    [Parameter]
+    public int Id { get; set; }
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnParametersSetAsync()
     {
         item = await plexClient.GetItem(Id);
+        await base.OnParametersSetAsync();
     }
 
 }

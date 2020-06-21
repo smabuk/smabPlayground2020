@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using AutoMapper.Configuration;
 
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 
 using smabPlayground2020.Shared.PlexInfo;
 using smabPlayground2020.Shared.PlexInfo.Models;
@@ -21,53 +20,48 @@ namespace smabPlayground2020.Server.Controllers
 	[Route("api/[controller]/[action]")]
 	public class PlexInfoController : ControllerBase
 	{
-		private readonly IHttpClientFactory clientFactory;
-		//private readonly HttpClient client;
-		private readonly PlexSettings plexSettings;
-		public string BaseUri { get; set; } = "";
-		public string Token { get; set; } = "";
+		private readonly IPlexClient _plexClient;
 
-		public PlexInfoController(IOptions<PlexSettings> options, IHttpClientFactory ClientFactory)
+		public PlexInfoController(IPlexClient plexClient)
 		{
-			clientFactory = ClientFactory;
-			//client = ClientFactory.CreateClient("Plex");
-			plexSettings = options.Value;
-			BaseUri = plexSettings.Server;
-			Token = plexSettings.Token;	
+			_plexClient = plexClient;
 		}
 
 		[HttpGet]
 		public async Task<IActionResult> LibraryRoot()
 		{
-			HttpClient client = clientFactory.CreateClient("Plex");
-			string rawJson = await client.GetStringAsync($"library?X-Plex-Token={Token}");
-			return Ok(JsonSerializer.Deserialize<LibraryRoot>(rawJson));
+			var libraryRoot = await _plexClient.GetLibraryRoot();
+			return Ok(libraryRoot);
 		}
 
 		[HttpGet]
 		public async Task<IActionResult> LibrarySections()
 		{
-			HttpClient client = clientFactory.CreateClient("Plex");
-			string rawJson = await client.GetStringAsync($"library/sections?X-Plex-Token={Token}");
-			return Ok(JsonSerializer.Deserialize<LibrarySections>(rawJson));
+			var librarySections = await _plexClient.GetLibrarySections();
+			return Ok(librarySections);
 		}
 
 		[HttpGet]
 		public async Task<IActionResult> AllMovies()
 		{
-			HttpClient client = clientFactory.CreateClient("Plex");
-			string rawJson = await client.GetStringAsync($"library/sections/3/all?X-Plex-Token={Token}&includeCollections=0&sort=titleSort");
-			return Ok(JsonSerializer.Deserialize<LibraryMovies>(rawJson));
+			var allMovies = await _plexClient.GetAllMovies();
+			return Ok(allMovies);
 		}
 
 		[HttpGet]
 		[Route("{id}")]
 		public async Task<IActionResult> Item(int id)
 		{
-			HttpClient client = clientFactory.CreateClient("Plex");
-			string rawJson = await client.GetStringAsync($"library/metadata/{id}?X-Plex-Token={Token}");
-			LibraryItem libraryItem = JsonSerializer.Deserialize<LibraryItem>(rawJson);
-			return Ok(libraryItem);
+			var item = await _plexClient.GetItem(id);
+			return Ok(item);
+		}
+
+		[HttpGet]
+		[Route("{id}")]
+		public async Task<IActionResult> ItemChildren(int id)
+		{
+			var item = await _plexClient.GetItem(id);
+			return Ok(item);
 		}
 
 	}

@@ -11,11 +11,11 @@ using smabPlayground2020.Shared.PlexInfo.Models;
 
 namespace smabPlayground2020.Client
 {
-	public class PlexApiClient
+	public class PlexInfoClient
 	{
 		public HttpClient Client { get; }
 
-		public PlexApiClient(HttpClient httpClient)
+		public PlexInfoClient(HttpClient httpClient)
 		{
 			Client = httpClient;
 		}
