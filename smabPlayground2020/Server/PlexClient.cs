@@ -26,9 +26,9 @@ namespace smabPlayground2020.Server
 			token = plexSettings.Value.Token;
 		}
 
-		public async Task<LibraryRoot> GetLibraryRoot()
+		public async Task<LibraryItem> GetLibraryRoot()
 		{
-			LibraryRoot? result = await CallPlexApi<LibraryRoot>($"library");
+			LibraryItem? result = await CallPlexApi<LibraryItem>($"library");
 			if (result is null)
 			{
 				throw new NullReferenceException("Library root not found");
@@ -36,9 +36,9 @@ namespace smabPlayground2020.Server
 			return result;
 		}
 
-		public async Task<LibrarySections> GetLibrarySections()
+		public async Task<LibraryItem> GetLibrarySections()
 		{
-			LibrarySections? result = await CallPlexApi<LibrarySections>($"library/sections");
+			LibraryItem? result = await CallPlexApi<LibraryItem>($"library/sections");
 			if (result is null)
 			{
 				throw new NullReferenceException("No library sections found");
@@ -46,7 +46,7 @@ namespace smabPlayground2020.Server
 			return result;
 		}
 
-		public async Task<LibraryMovies> GetAllMovies()
+		public async Task<LibraryItem> GetAllMovies()
 		{
 			List<PlexOption> options = new List<PlexOption>
 			{
@@ -61,7 +61,7 @@ namespace smabPlayground2020.Server
 				new PlexOption("includeMeta", true),
 				new PlexOption("sort", "titleSort")
 			};
-			LibraryMovies? result = await CallPlexApi<LibraryMovies>($"library/sections/{MOVIE_LIBRARY_ID}/all", options);
+			LibraryItem? result = await CallPlexApi<LibraryItem>($"library/sections/{MOVIE_LIBRARY_ID}/all", options);
 			if (result is null)
 			{
 				throw new NullReferenceException("No movies found");
@@ -69,7 +69,7 @@ namespace smabPlayground2020.Server
 			return result;
 		}
 
-		public async Task<LibraryMovies> GetMovieCollections()
+		public async Task<LibraryItem> GetMovieCollections()
 		{
 			List<PlexOption> options = new List<PlexOption>
 			{
@@ -81,7 +81,7 @@ namespace smabPlayground2020.Server
 				new PlexOption("includeMeta", true),
 				new PlexOption("sort", "titleSort")
 			};
-			LibraryMovies? result = await CallPlexApi<LibraryMovies>($"library/sections/{MOVIE_LIBRARY_ID}/collections", options);
+			LibraryItem? result = await CallPlexApi<LibraryItem>($"library/sections/{MOVIE_LIBRARY_ID}/collections", options);
 			if (result is null)
 			{
 				throw new NullReferenceException("No collections found");
@@ -98,6 +98,25 @@ namespace smabPlayground2020.Server
 		public async Task<LibraryItem?> GetItemChildren(int id)
 		{
 			LibraryItem? result = await CallPlexApi<LibraryItem>($"library/metadata/{id}/children");
+			return result;
+		}
+
+		public async Task<LibraryItem> GetRelated(int id)
+		{
+			List<PlexOption> options = new List<PlexOption>
+			{
+				new PlexOption("X-Plex-Features", "external-media,indirect-media"),
+				new PlexOption("X-Plex-Model", "bundled"),
+				new PlexOption("exclude-fields", "summary"),
+				new PlexOption("includeExternalMedia", true),
+				new PlexOption("includeExternalMetadata", true),
+				new PlexOption("asyncAugmentMetadata", true)
+			};
+			LibraryItem? result = await CallPlexApi<LibraryItem>($"hubs/metadata/{id}/related", options);
+			if (result is null)
+			{
+				throw new NullReferenceException("No related movies found");
+			}
 			return result;
 		}
 

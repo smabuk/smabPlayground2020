@@ -13,6 +13,31 @@ namespace smabPlayground2020.Shared.Helpers
 			=> writer.WriteNumberValue((value.Year == 1) ? 0 : (value - Unix.Epoch).TotalSeconds);
 	}
 
+	public sealed class JsonUnixDateConverterWithNulls : JsonConverter<DateTime?>
+	{
+		public override DateTime? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+			=> reader.GetDouble().FromUnixDate();
+
+		public override void Write(Utf8JsonWriter writer, DateTime? value, JsonSerializerOptions options)
+		{
+			if (value is null)
+			{
+				writer.WriteNullValue();
+			}
+			if (value.HasValue)
+			{
+				if (value.Value.Year == 1)
+				{
+					writer.WriteNullValue();
+				}
+				else
+				{
+					writer.WriteNumberValue((value.Value - Unix.Epoch).TotalSeconds);
+				}
+			}
+		}
+	}
+
 	internal static class Unix
 	{
 		internal readonly static DateTime Epoch = new DateTime(year: 1970, month: 1, day: 1, hour: 0, minute: 0, second: 0, millisecond: 0, kind: DateTimeKind.Utc);

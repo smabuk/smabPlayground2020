@@ -2,22 +2,29 @@
 @using smabPlayground2020.Shared.PlexInfo.Models
 @inject PlexInfoClient plexClient
 
-@if (item == null)
+@if (info == null)
 {
     <p><em>Loading... item @Id</em></p>
 }
 else
 {
-    <h1>@item.MediaContainer.Metadata.FirstOrDefault().Title</h1>
-    <h4>Added on: @item.MediaContainer.Metadata.FirstOrDefault().AddedAt.ToString("yyyy-MM-dd")</h4>
-
-    <p>@item.MediaContainer.Metadata.FirstOrDefault().Summary</p>
+    <h4>Added on: @info.AddedAt.ToString("yyyy-MM-dd")</h4>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title"><h1>@info.Title</h1></div>
+            <div class="card-title">@info.Year</div>
+            <div>@(info.Duration / 60000) min @info.ContentRating</div>
+            <div></div>
+        </div>
+        <div class="card-body">@info.Summary</div>
+    </div>
 
 }
 
 @code {
 
     private LibraryItem? item { get; set; }
+    private Metadata? info { get; set; }
 
     [Parameter]
     public int Id { get; set; }
@@ -25,6 +32,7 @@ else
     protected override async Task OnParametersSetAsync()
     {
         item = await plexClient.GetItem(Id);
+        info = item.MediaContainer.Metadata.FirstOrDefault();
         await base.OnParametersSetAsync();
     }
 

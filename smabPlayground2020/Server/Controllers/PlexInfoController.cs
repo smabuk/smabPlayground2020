@@ -30,28 +30,36 @@ namespace smabPlayground2020.Server.Controllers
 		[HttpGet]
 		public async Task<IActionResult> LibraryRoot()
 		{
-			var libraryRoot = await _plexClient.GetLibraryRoot();
-			return Ok(libraryRoot);
+			var item = await _plexClient.GetLibraryRoot();
+			return Ok(item);
 		}
 
 		[HttpGet]
 		public async Task<IActionResult> LibrarySections()
 		{
-			var librarySections = await _plexClient.GetLibrarySections();
-			return Ok(librarySections);
+			var items = await _plexClient.GetLibrarySections();
+			return Ok(items);
 		}
 
 		[HttpGet]
 		public async Task<IActionResult> AllMovies()
 		{
-			var allMovies = await _plexClient.GetAllMovies();
-			return Ok(allMovies);
+			var items = await _plexClient.GetAllMovies();
+			return Ok(items);
+		}
+
+		[HttpGet]
+		[Route("{id}")]
+		public async Task<IActionResult> Related(int id)
+		{
+			var items = await _plexClient.GetRelated(id);
+			return Ok(items);
 		}
 
 		public async Task<IActionResult> MovieCollections()
 		{
-			var collections = await _plexClient.GetMovieCollections();
-			return Ok(collections);
+			var items = await _plexClient.GetMovieCollections();
+			return Ok(items);
 		}
 
 		[HttpGet]

@@ -9,10 +9,11 @@ namespace smabPlayground2020.Server
 {
     public interface IPlexClient
     {
-        Task<LibraryRoot> GetLibraryRoot() => throw new NotImplementedException();
-        Task<LibrarySections> GetLibrarySections() => throw new NotImplementedException();
-        Task<LibraryMovies> GetAllMovies() => throw new NotImplementedException();
-        Task<LibraryMovies> GetMovieCollections() => throw new NotImplementedException();
+        Task<LibraryItem> GetLibraryRoot() => throw new NotImplementedException();
+        Task<LibraryItem> GetLibrarySections() => throw new NotImplementedException();
+        Task<LibraryItem> GetAllMovies() => throw new NotImplementedException();
+        Task<LibraryItem> GetRelated(int id) => throw new NotImplementedException();
+        Task<LibraryItem> GetMovieCollections() => throw new NotImplementedException();
         Task<LibraryItem?> GetItem(int id) => throw new NotImplementedException();
         Task<LibraryItem?> GetItemChildren(int id) => throw new NotImplementedException();
     }
