@@ -12,7 +12,7 @@ namespace smabPlayground2020.Server
         Task<LibraryRoot> GetLibraryRoot() => throw new NotImplementedException();
         Task<LibrarySections> GetLibrarySections() => throw new NotImplementedException();
         Task<LibraryMovies> GetAllMovies() => throw new NotImplementedException();
-        Task<LibraryItem> GetItem(int id) => throw new NotImplementedException();
-        Task<LibraryItem> GetItemChildren(int id) => throw new NotImplementedException();
+        Task<LibraryItem?> GetItem(int id) => throw new NotImplementedException();
+        Task<LibraryItem?> GetItemChildren(int id) => throw new NotImplementedException();
     }
 }

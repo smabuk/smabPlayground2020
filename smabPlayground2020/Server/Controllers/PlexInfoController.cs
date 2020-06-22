@@ -53,6 +53,10 @@ namespace smabPlayground2020.Server.Controllers
 		public async Task<IActionResult> Item(int id)
 		{
 			var item = await _plexClient.GetItem(id);
+			if ((item is null) || (item.MediaContainer.Size == 0))
+			{
+				return NotFound(null);
+			}
 			return Ok(item);
 		}
 
@@ -61,6 +65,10 @@ namespace smabPlayground2020.Server.Controllers
 		public async Task<IActionResult> ItemChildren(int id)
 		{
 			var item = await _plexClient.GetItem(id);
+			if ((item is null) || (item.MediaContainer.Size == 0))
+			{
+				return NotFound(null);
+			}
 			return Ok(item);
 		}
 

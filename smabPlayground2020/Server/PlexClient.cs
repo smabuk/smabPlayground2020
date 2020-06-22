@@ -27,13 +27,21 @@ namespace smabPlayground2020.Server
 
 		public async Task<LibraryRoot> GetLibraryRoot()
 		{
-			LibraryRoot result = await CallPlexApi<LibraryRoot>($"library");
+			LibraryRoot? result = await CallPlexApi<LibraryRoot>($"library");
+			if (result is null)
+			{
+				throw new NullReferenceException("Library root not found");
+			}
 			return result;
 		}
 
 		public async Task<LibrarySections> GetLibrarySections()
 		{
-			LibrarySections result = await CallPlexApi<LibrarySections>($"library/sections");
+			LibrarySections? result = await CallPlexApi<LibrarySections>($"library/sections");
+			if (result is null)
+			{
+				throw new NullReferenceException("No library sections found");
+			}
 			return result;
 		}
 
@@ -44,32 +52,58 @@ namespace smabPlayground2020.Server
 				new PlexOption("includeCollections", false),
 				new PlexOption("sort", "titleSort")
 			};
-			LibraryMovies result = await CallPlexApi<LibraryMovies>($"library/sections/3/all", options);
+			LibraryMovies? result = await CallPlexApi<LibraryMovies>($"library/sections/3/all", options);
+			if (result is null)
+			{
+				throw new NullReferenceException("No movies found");
+			}
 			return result;
 		}
 
-		public async Task<LibraryItem> GetItem(int id)
+		public async Task<LibraryItem?> GetItem(int id)
 		{
-			LibraryItem result = await CallPlexApi<LibraryItem>($"library/metadata/{id}");
+			LibraryItem? result = await CallPlexApi<LibraryItem>($"library/metadata/{id}");
 			return result;
 		}
 
-		public async Task<LibraryItem> GetItemChildren(int id)
+		public async Task<LibraryItem?> GetItemChildren(int id)
 		{
-			LibraryItem result = await CallPlexApi<LibraryItem>($"library/metadata/{id}/children");
+			LibraryItem? result = await CallPlexApi<LibraryItem>($"library/metadata/{id}/children");
 			return result;
 		}
 
 
-		private async Task<T> CallPlexApi<T>(string query, IEnumerable<PlexOption>? options = null)
+		private async Task<T?> CallPlexApi<T>(string query, IEnumerable<PlexOption>? options = null) where T: class
 		{
 			string optionsString = "";
 			foreach (PlexOption option in options ?? new List<PlexOption>())
 			{
 				optionsString += $"&{option}";
 			}
-			var result = await _httpClient.GetFromJsonAsync<T>($"{query}?X-Plex-Token={token}{optionsString}");
-			return result;
+
+			var response = await _httpClient.GetAsync($"{query}?X-Plex-Token={token}{optionsString}");
+			if (response.IsSuccessStatusCode)
+			{
+				try
+				{
+					T result = await response.Content.ReadFromJsonAsync<T>();
+					return result;
+				}
+				catch (NotSupportedException)
+				{
+					throw;
+				}
+				catch (JsonException)
+				{
+					throw;
+				}
+				catch (Exception)
+				{
+					throw;
+				}
+			}
+
+			return null;
 		}
 	}
 }
