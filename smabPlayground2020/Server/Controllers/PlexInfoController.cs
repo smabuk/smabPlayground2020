@@ -48,6 +48,12 @@ namespace smabPlayground2020.Server.Controllers
 			return Ok(allMovies);
 		}
 
+		public async Task<IActionResult> MovieCollections()
+		{
+			var collections = await _plexClient.GetMovieCollections();
+			return Ok(collections);
+		}
+
 		[HttpGet]
 		[Route("{id}")]
 		public async Task<IActionResult> Item(int id)

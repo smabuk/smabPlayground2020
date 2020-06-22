@@ -23,6 +23,12 @@ namespace smabPlayground2020.Shared.PlexInfo
 			Value = (value == true) ? "1" : "0";
 		}
 
+		public PlexOption(string key, int value)
+		{
+			Key = key;
+			Value = value.ToString();
+		}
+
 		public override string ToString() => $"{Key}={Value}";
 	}
 }

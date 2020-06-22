@@ -16,6 +16,7 @@ namespace smabPlayground2020.Server
 	{
 		private readonly HttpClient _httpClient;
 		private readonly string token = "";
+		private readonly int MOVIE_LIBRARY_ID = 3;
 
 		public PlexClient(HttpClient httpClient, IOptions<PlexSettings> plexSettings)
 		{
@@ -49,13 +50,41 @@ namespace smabPlayground2020.Server
 		{
 			List<PlexOption> options = new List<PlexOption>
 			{
+				//new PlexOption("X-Plex-Container-Start", 0),
+				//new PlexOption("X-Plex-Container-Size", 5),
+				new PlexOption("X-Plex-Features", "external-media,indirect-media"),
+				new PlexOption("X-Plex-Model", "bundled"),
+				new PlexOption("type", 1),
 				new PlexOption("includeCollections", false),
+				new PlexOption("includeExternalMedia", true),
+				new PlexOption("includeAdvanced", true),
+				new PlexOption("includeMeta", true),
 				new PlexOption("sort", "titleSort")
 			};
-			LibraryMovies? result = await CallPlexApi<LibraryMovies>($"library/sections/3/all", options);
+			LibraryMovies? result = await CallPlexApi<LibraryMovies>($"library/sections/{MOVIE_LIBRARY_ID}/all", options);
 			if (result is null)
 			{
 				throw new NullReferenceException("No movies found");
+			}
+			return result;
+		}
+
+		public async Task<LibraryMovies> GetMovieCollections()
+		{
+			List<PlexOption> options = new List<PlexOption>
+			{
+				new PlexOption("X-Plex-Features", "external-media,indirect-media"),
+				new PlexOption("X-Plex-Model", "bundled"),
+				new PlexOption("includeCollections", true),
+				new PlexOption("includeExternalMedia", true),
+				new PlexOption("includeAdvanced", true),
+				new PlexOption("includeMeta", true),
+				new PlexOption("sort", "titleSort")
+			};
+			LibraryMovies? result = await CallPlexApi<LibraryMovies>($"library/sections/{MOVIE_LIBRARY_ID}/collections", options);
+			if (result is null)
+			{
+				throw new NullReferenceException("No collections found");
 			}
 			return result;
 		}
