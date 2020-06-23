@@ -16,6 +16,7 @@ using smabPlayground2020.Server.Models;
 using smabPlayground2020.Shared.PlexInfo;
 using System;
 using System.Net.Http;
+using Microsoft.Extensions.Options;
 
 namespace smabPlayground2020.Server
 {
@@ -48,10 +49,19 @@ namespace smabPlayground2020.Server
 
 
 			services.AddDbContext<ApplicationDbContext>(options =>
-				options.UseSqlite(
-					Configuration.GetConnectionString("DefaultConnection")));
+				options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
-			services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+			services.AddDefaultIdentity<ApplicationUser>(options => 
+				{
+					options.SignIn.RequireConfirmedAccount = false;
+					options.Password.RequiredLength = 6;
+					options.Password.RequireDigit = false;
+					options.Password.RequireUppercase = false;
+					options.Password.RequireLowercase = false;
+					options.Password.RequireNonAlphanumeric = false;
+					options.User.RequireUniqueEmail = true;
+				} )
+				.AddRoles<IdentityRole>()
 				.AddEntityFrameworkStores<ApplicationDbContext>();
 
 			services.AddIdentityServer()
