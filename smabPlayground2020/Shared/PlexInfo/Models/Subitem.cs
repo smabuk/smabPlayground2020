@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace smabPlayground2020.Shared.PlexInfo.Models
 {
+#pragma warning disable CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
     public class Subitem
     {
         [JsonPropertyName("id")]
@@ -19,4 +20,5 @@ namespace smabPlayground2020.Shared.PlexInfo.Models
         public string Tag { get; set; }
 
     }
+#pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 }

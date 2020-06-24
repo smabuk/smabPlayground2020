@@ -6,6 +6,7 @@ using smabPlayground2020.Shared.Helpers;
 
 namespace smabPlayground2020.Shared.PlexInfo.Models
 {
+#pragma warning disable CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 	public class LibraryDirectory
 	{
 		[JsonPropertyName("allowSync")]
@@ -73,10 +74,11 @@ namespace smabPlayground2020.Shared.PlexInfo.Models
 		public int? Hidden { get; set; }
 
 		[JsonPropertyName("Location")]
-		public IEnumerable<Location>? Location { get; set; }
+		public IList<Location>? Locations { get; set; }
 
 		[JsonPropertyName("enableAutoPhotoTags")]
 		public bool? EnableAutoPhotoTags { get; set; }
 	}
+#pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 
 }

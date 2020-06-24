@@ -1,7 +1,10 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace smabPlayground2020.Shared.PlexInfo.Models
 {
+#pragma warning disable CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 	public class Part
 	{
 		[JsonPropertyName("id")]
@@ -36,6 +39,11 @@ namespace smabPlayground2020.Shared.PlexInfo.Models
 
 		[JsonPropertyName("hasThumbnail")]
 		public string HasThumbnail { get; set; }
+
+		[JsonPropertyName("Stream")]
+		public IList<Stream>? Streams { get; set; }
+
 	}
+#pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 
 }

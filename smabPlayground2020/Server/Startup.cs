@@ -70,7 +70,11 @@ namespace smabPlayground2020.Server
 			services.AddAuthentication()
 				.AddIdentityServerJwt();
 
-			services.AddControllersWithViews();
+			services.AddControllersWithViews()
+				.AddJsonOptions(options =>
+				{
+					options.JsonSerializerOptions.IgnoreNullValues = true;
+				});
 			services.AddRazorPages();
 		}
 

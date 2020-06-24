@@ -6,17 +6,39 @@ using smabPlayground2020.Shared.Helpers;
 
 namespace smabPlayground2020.Shared.PlexInfo.Models
 {
-	public class Metadata
+#pragma warning disable CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
+    public class Metadata
     {
+
+        [JsonPropertyName("historyKey")]
+        public string? HistoryKey { get; set; }
 
         [JsonPropertyName("ratingKey")]
         public string RatingKey { get; set; }
 
+        [JsonPropertyName("parentRatingKey")]
+        public string? ParentRatingKey { get; set; }
+
+        [JsonPropertyName("grandparentRatingKey")]
+        public string? GrandparentRatingKey { get; set; }
+
         [JsonPropertyName("key")]
         public string Key { get; set; }
 
+        [JsonPropertyName("parentKey")]
+        public string? ParentKey { get; set; }
+
+        [JsonPropertyName("grandparentKey")]
+        public string? GrandparentKey { get; set; }
+
         [JsonPropertyName("guid")]
         public string Guid { get; set; }
+
+        [JsonPropertyName("parentGuid")]
+        public string? ParentGuid { get; set; }
+
+        [JsonPropertyName("grandparentGuid")]
+        public string? GrandparentGuid { get; set; }
 
         [JsonPropertyName("studio")]
         public string? Studio { get; set; }
@@ -29,6 +51,12 @@ namespace smabPlayground2020.Shared.PlexInfo.Models
 
         [JsonPropertyName("title")]
         public string Title { get; set; }
+
+        [JsonPropertyName("parentTitle")]
+        public string? ParentTitle { get; set; }
+
+        [JsonPropertyName("grandparentTitle")]
+        public string? GrandparentTitle { get; set; }
 
         [JsonPropertyName("librarySectionTitle")]
         public string? LibrarySectionTitle { get; set; }
@@ -47,6 +75,9 @@ namespace smabPlayground2020.Shared.PlexInfo.Models
 
         [JsonPropertyName("index")]
         public int? Index { get; set; }
+
+        [JsonPropertyName("parentIndex")]
+        public int? ParentIndex { get; set; }
 
         [JsonPropertyName("rating")]
         public double? Rating { get; set; }
@@ -76,14 +107,29 @@ namespace smabPlayground2020.Shared.PlexInfo.Models
         [JsonPropertyName("thumb")]
         public string? Thumb { get; set; }
 
+        [JsonPropertyName("parentThumb")]
+        public string? ParentThumb { get; set; }
+
+        [JsonPropertyName("grandparentThumb")]
+        public string? GrandparentThumb { get; set; }
+
         [JsonPropertyName("art")]
         public string? Art { get; set; }
+
+        [JsonPropertyName("parentArt")]
+        public string? ParentArt { get; set; }
+
+        [JsonPropertyName("grandparentArt")]
+        public string? GrandparentArt { get; set; }
 
         [JsonPropertyName("banner")]
         public string? Banner { get; set; }
 
         [JsonPropertyName("theme")]
         public string? Theme { get; set; }
+
+        [JsonPropertyName("parentTheme")]
+        public string? ParentTheme { get; set; }
 
         [JsonPropertyName("duration")]
         public int? Duration { get; set; }
@@ -120,37 +166,46 @@ namespace smabPlayground2020.Shared.PlexInfo.Models
         [JsonPropertyName("ratingImage")]
         public string? RatingImage { get; set; }
 
+        [JsonPropertyName("accountID")]
+        public int? AccountId { get; set; }
+
+        [JsonPropertyName("deviceID")]
+        public int? DeviceId { get; set; }
+
+
+
 
 
         [JsonPropertyName("Media")]
-        public IEnumerable<Medium>? Media { get; set; }
+        public IList<Medium>? Media { get; set; }
 
         [JsonPropertyName("Genre")]
-        public IEnumerable<Subitem>? Genres { get; set; }
+        public IList<Subitem>? Genres { get; set; }
 
         [JsonPropertyName("Director")]
-        public IEnumerable<Subitem>? Directors { get; set; }
+        public IList<Subitem>? Directors { get; set; }
 
         [JsonPropertyName("Writer")]
-        public IEnumerable<Subitem>? Writers { get; set; }
+        public IList<Subitem>? Writers { get; set; }
 
         [JsonPropertyName("Producer")]
-        public IEnumerable<Subitem>? Producers { get; set; }
+        public IList<Subitem>? Producers { get; set; }
 
         [JsonPropertyName("Country")]
-        public IEnumerable<Subitem>? Countries { get; set; }
+        public IList<Subitem>? Countries { get; set; }
 
         [JsonPropertyName("Role")]
-        public IEnumerable<RoleSubitem>? Roles { get; set; }
+        public IList<RoleSubitem>? Roles { get; set; }
 
         [JsonPropertyName("Collection")]
-        public IEnumerable<Subitem>? Collections{ get; set; }
+        public IList<Subitem>? Collections { get; set; }
 
         [JsonPropertyName("Similar")]
-        public IEnumerable<Subitem>? Similar { get; set; }
+        public IList<Subitem>? Similar { get; set; }
 
         [JsonPropertyName("Location")]
-        public IEnumerable<Location>? Location { get; set; }
+        public IList<Location>? Locations { get; set; }
     }
+#pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 
 }

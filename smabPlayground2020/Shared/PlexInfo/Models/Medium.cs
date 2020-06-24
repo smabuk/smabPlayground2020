@@ -3,6 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace smabPlayground2020.Shared.PlexInfo.Models
 {
+#pragma warning disable CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 	public class Medium
 	{
 		[JsonPropertyName("id")]
@@ -45,16 +46,17 @@ namespace smabPlayground2020.Shared.PlexInfo.Models
 		public string VideoProfile { get; set; }
 
 		[JsonPropertyName("Part")]
-		public IEnumerable<Part>? Part { get; set; }
+		public IList<Part>? Parts { get; set; }
 
 		[JsonPropertyName("optimizedForStreaming")]
-		public int OptimizedForStreaming { get; set; }
+		public int? OptimizedForStreaming { get; set; }
 
 		[JsonPropertyName("audioProfile")]
-		public string AudioProfile { get; set; }
+		public string? AudioProfile { get; set; }
 
 		[JsonPropertyName("has64bitOffsets")]
-		public bool Has64bitOffsets { get; set; }
+		public bool? Has64bitOffsets { get; set; }
 	}
+#pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 
 }

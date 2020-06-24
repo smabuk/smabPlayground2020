@@ -2,7 +2,8 @@
 
 namespace smabPlayground2020.Shared.PlexInfo.Models
 {
-	public class RoleSubitem : Subitem
+#pragma warning disable CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
+    public class RoleSubitem : Subitem
     {
         [JsonPropertyName("role")]
         public string? Role { get; set; }
@@ -11,5 +12,6 @@ namespace smabPlayground2020.Shared.PlexInfo.Models
         public string? Thumb { get; set; }
 
     }
+#pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 
 }
