@@ -205,7 +205,20 @@ namespace smabPlayground2020.Shared.PlexInfo.Models
 
         [JsonPropertyName("Location")]
         public IList<Location>? Locations { get; set; }
-    }
+
+
+        public bool HasGenres => !(Genres is null);
+        public bool HasDirectors => !(Directors is null);
+        public bool HasWriters => !(Writers is null);
+        public bool HasProducers => !(Producers is null);
+        public bool HasCountries => !(Countries is null);
+        public bool HasRoles => !(Roles is null);
+        public bool HasCollections => !(Collections is null);
+        public bool HasSimilar => !(Similar is null);
+        public bool HasLocations => !(Locations is null);
+
+
+	}
 #pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 
 }

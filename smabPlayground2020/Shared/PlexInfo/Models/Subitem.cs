@@ -19,6 +19,8 @@ namespace smabPlayground2020.Shared.PlexInfo.Models
         [JsonPropertyName("tag")]
         public string Tag { get; set; }
 
+		public override string ToString() => Tag;
+
     }
 #pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 }

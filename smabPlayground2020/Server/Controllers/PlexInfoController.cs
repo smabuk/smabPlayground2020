@@ -17,7 +17,7 @@ using smabPlayground2020.Shared.PlexInfo.Models;
 namespace smabPlayground2020.Server.Controllers
 {
 	[ApiController]
-	[Route("api/[controller]/[action]")]
+	[Route("[controller]/[action]")]
 	public class PlexInfoController : ControllerBase
 	{
 		private readonly IPlexClient _plexClient;
@@ -78,12 +78,24 @@ namespace smabPlayground2020.Server.Controllers
 		[Route("{id}")]
 		public async Task<IActionResult> ItemChildren(int id)
 		{
-			var item = await _plexClient.GetItem(id);
+			var item = await _plexClient.GetItemChildren(id);
 			if ((item is null) || (item.MediaContainer.Size == 0))
 			{
 				return NotFound(null);
 			}
 			return Ok(item);
+		}
+
+		[HttpGet]
+		//[Route("{id}")]
+		public async Task<IActionResult> Photo([FromQuery] string url, [FromQuery] int width = 180, [FromQuery] int height = 270)
+		{
+			byte[]? item = await _plexClient.GetPhotoFromUrl(url, width, height);
+			if (item is null)
+			{
+				return NotFound(null);
+			}
+			return new FileContentResult(item, "image/jpeg");
 		}
 
 	}

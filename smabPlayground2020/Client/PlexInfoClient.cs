@@ -22,7 +22,7 @@ namespace smabPlayground2020.Client
 
 		public async Task<LibraryItem> GetItem(int id)
 		{
-			LibraryItem item = await Client.GetFromJsonAsync<LibraryItem>($"api/PlexInfo/item/{id}");
+			LibraryItem item = await Client.GetFromJsonAsync<LibraryItem>($"PlexInfo/item/{id}");
 			return item;
 		}
 

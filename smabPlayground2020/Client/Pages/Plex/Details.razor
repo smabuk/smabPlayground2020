@@ -1,5 +1,6 @@
 ﻿@page "/plex/details/{Id:int}"
 @using smabPlayground2020.Shared.PlexInfo.Models
+@using Syncfusion.Blazor.Cards
 @inject PlexInfoClient plexClient
 
 @if (info == null)
@@ -8,17 +9,66 @@
 }
 else
 {
-    <h4>Added on: @info.AddedAt.ToString("yyyy-MM-dd")</h4>
     <div class="card">
         <div class="card-header">
-            <div class="card-title"><h1>@info.Title</h1></div>
-            <div class="card-title">@info.Year</div>
-            <div>@(info.Duration / 60000) min @info.ContentRating</div>
-            <div></div>
+            <div class="row g-0">
+                <div class="col-md-3">
+                    <img src="/PlexInfo/Photo?url=@(info.Thumb)" alt="Thumbnail">
+                </div>
+                <div class="col-md-9">
+                    <h1 class="card-title">@info.Title</h1>
+                    <div class="card-title">@info.Year</div>
+                    <div>@(info.Duration / 60000) min @info.ContentRating</div>
+                    <hr />
+                    @if (info.HasDirectors)
+                    {<div>Directed by: @(StringList(info.Directors))</div>}
+                    @if (info.HasWriters)
+                    {<div>Written by: @(StringList(info.Writers))</div>}
+                    @if (!(info.Studio is null))
+                    {<div>Studio: @info.Studio</div>}
+                    @if (info.HasGenres)
+                    {<div>Genres: @(StringList(info.Genres))</div>}
+                </div>
+            </div>
         </div>
         <div class="card-body">@info.Summary</div>
     </div>
+    <br />
+    @if (info.HasRoles)
+	{
+        <h2>Cast</h2>
+        <ul>
+            @foreach (var role in info.Roles)
+	    {
+                <li>@(role.Role) - @(role.Tag)</li>
+	    }
+        </ul>
+	}
+    @*<div class="card mb-3">
+        <div class="row g-0">
+            <div class="col-md-3">
+                <img src="/PlexInfo/Photo?url=@(info.Thumb)" alt="...">
+            </div>
+            <div class="col-md-9">
+                <div class="card-body">
+                    <h2 class="card-title">@info.Title</h2>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <SfCard Orientation="CardOrientation.Horizontal">
+        <CardImage></CardImage>
+        <CardStacked>
+            <CardHeader Title="@info.Title"
+                        SubTitle="@info.Year.ToString()">
+                <CardContent Content="@info.Summary">
 
+                </CardContent>
+            </CardHeader>
+        </CardStacked>
+    </SfCard>*@
 }
 
 @code {
@@ -34,6 +84,27 @@ else
         item = await plexClient.GetItem(Id);
         info = item.MediaContainer.Metadata.FirstOrDefault();
         await base.OnParametersSetAsync();
+    }
+
+    private string StringList(IList<Subitem>? group)
+    {
+        bool FirstItem = true;
+        string strT = "";
+
+        foreach (var item in group)
+        {
+            if (FirstItem)
+            {
+                strT = item.Tag;
+                FirstItem = false;
+            }
+            else
+            {
+                strT += $", {item.Tag}";
+            }
+        }
+
+        return strT;
     }
 
 }

@@ -50,8 +50,6 @@ namespace smabPlayground2020.Server
 		{
 			List<PlexOption> options = new List<PlexOption>
 			{
-				//new PlexOption("X-Plex-Container-Start", 0),
-				//new PlexOption("X-Plex-Container-Size", 5),
 				new PlexOption("X-Plex-Features", "external-media,indirect-media"),
 				new PlexOption("X-Plex-Model", "bundled"),
 				new PlexOption("type", 1),
@@ -69,6 +67,28 @@ namespace smabPlayground2020.Server
 			return result;
 		}
 
+		public async Task<LibraryItem> GetAllMovies(int start, int size)
+		{
+			List<PlexOption> options = new List<PlexOption>
+			{
+				new PlexOption("X-Plex-Container-Start", start),
+				new PlexOption("X-Plex-Container-Size", size),
+				new PlexOption("X-Plex-Features", "external-media,indirect-media"),
+				new PlexOption("X-Plex-Model", "bundled"),
+				new PlexOption("type", 1),
+				new PlexOption("includeCollections", false),
+				new PlexOption("includeExternalMedia", true),
+				new PlexOption("includeAdvanced", true),
+				new PlexOption("includeMeta", true),
+				new PlexOption("sort", "titleSort")
+			};
+			LibraryItem? result = await CallPlexApi<LibraryItem>($"library/sections/{MOVIE_LIBRARY_ID}/all", options);
+			if (result is null)
+			{
+				throw new NullReferenceException("No movies found");
+			}
+			return result;
+		}
 		public async Task<LibraryItem> GetMovieCollections()
 		{
 			List<PlexOption> options = new List<PlexOption>
@@ -98,6 +118,20 @@ namespace smabPlayground2020.Server
 		public async Task<LibraryItem?> GetItemChildren(int id)
 		{
 			LibraryItem? result = await CallPlexApi<LibraryItem>($"library/metadata/{id}/children");
+			return result;
+		}
+
+		public async Task<byte[]?> GetPhotoFromUrl(string url, int width = 180, int height = 270)
+		{
+			List<PlexOption> options = new List<PlexOption>
+			{
+				new PlexOption("width", width),
+				new PlexOption("height", height),
+				new PlexOption("minsize", true),
+				new PlexOption("upscale", true),
+				new PlexOption("url", url)
+			};
+			byte[]? result = await CallPlexApiAndReturnImage($"photo/:/transcode", options);
 			return result;
 		}
 
@@ -132,22 +166,58 @@ namespace smabPlayground2020.Server
 			var response = await _httpClient.GetAsync($"{query}?X-Plex-Token={token}{optionsString}");
 			if (response.IsSuccessStatusCode)
 			{
-				try
+
+				switch (response.Content.Headers.ContentType.ToString())
 				{
-					T result = await response.Content.ReadFromJsonAsync<T>();
-					return result;
+					//case "image/jpeg":
+					//	var result = await response.Content.ReadAsStreamAsync();
+					//	return result;
+					case "application/json":
+						try
+						{
+							return await response.Content.ReadFromJsonAsync<T>();
+						}
+						catch (NotSupportedException)
+						{
+							throw;
+						}
+						catch (JsonException)
+						{
+							throw;
+						}
+						catch (Exception)
+						{
+							throw;
+						}
+					default:
+						break;
 				}
-				catch (NotSupportedException)
+			}
+
+			return null;
+		}
+
+		private async Task<byte[]?> CallPlexApiAndReturnImage(string query, IEnumerable<PlexOption>? options = null)
+		{
+			string optionsString = "";
+			foreach (PlexOption option in options ?? new List<PlexOption>())
+			{
+				optionsString += $"&{option}";
+			}
+
+			var response = await _httpClient.GetAsync($"{query}?X-Plex-Token={token}{optionsString}");
+			if (response.IsSuccessStatusCode)
+			{
+
+				switch (response.Content.Headers.ContentType.ToString())
 				{
-					throw;
-				}
-				catch (JsonException)
-				{
-					throw;
-				}
-				catch (Exception)
-				{
-					throw;
+					case "image/jpeg":
+						byte[]? result = await response.Content.ReadAsByteArrayAsync();
+						return result;
+					case "application/json":
+						break;
+					default:
+						break;
 				}
 			}
 
