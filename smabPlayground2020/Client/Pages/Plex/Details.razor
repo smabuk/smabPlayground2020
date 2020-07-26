@@ -91,6 +91,11 @@ else
         bool FirstItem = true;
         string strT = "";
 
+        if (group is null)
+        {
+            return strT;
+        }
+
         foreach (var item in group)
         {
             if (FirstItem)

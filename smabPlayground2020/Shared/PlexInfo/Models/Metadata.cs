@@ -207,6 +207,7 @@ namespace smabPlayground2020.Shared.PlexInfo.Models
         public IList<Location>? Locations { get; set; }
 
 
+        public bool HasMedia => !(Media is null);
         public bool HasGenres => !(Genres is null);
         public bool HasDirectors => !(Directors is null);
         public bool HasWriters => !(Writers is null);
