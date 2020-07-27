@@ -10,16 +10,21 @@
 else
 {
     <div class="card">
-        <div class="card-header">
-            <div class="row g-0">
-                <div class="col-md-3">
-                    <img src="/PlexInfo/Photo?url=@(info.Thumb)" alt="Thumbnail">
-                </div>
-                <div class="col-md-9">
-                    <h1 class="card-title">@info.Title</h1>
+        <div class="card-header movie-header">
+            <div class="movie-header-thumbnail">
+                <img src="/PlexInfo/Photo?url=@(info.Thumb)&width=235&height=353" alt="Thumbnail">
+            </div>
+            <div class="movie-header-info">
+                <div class="movie-header-title"><h1 class="card-title">@info.Title</h1></div>
+                <div class="movie-header-info-lh">
                     <div class="card-title">@info.Year</div>
                     <div>@(info.Duration / 60000) min @info.ContentRating</div>
-                    <hr />
+                </div>
+                <div class="movie-header-info-rh">
+                    <div class="card-title">Rating</div>
+                </div>
+                <hr />
+                <div class="card-title movie-header-credits">
                     @if (info.HasDirectors)
                     {<div>Directed by: @(StringList(info.Directors))</div>}
                     @if (info.HasWriters)
@@ -31,44 +36,79 @@ else
                 </div>
             </div>
         </div>
-        <div class="card-body">@info.Summary</div>
+        <div class="card-body movie-header-summary">@info.Summary</div>
     </div>
     <br />
     @if (info.HasRoles)
-	{
+    {
         <h2>Cast</h2>
         <ul>
             @foreach (var role in info.Roles)
-	    {
+            {
                 <li>@(role.Role) - @(role.Tag)</li>
-	    }
+            }
         </ul>
-	}
+    }
     @*<div class="card mb-3">
-        <div class="row g-0">
-            <div class="col-md-3">
-                <img src="/PlexInfo/Photo?url=@(info.Thumb)" alt="...">
-            </div>
-            <div class="col-md-9">
-                <div class="card-body">
-                    <h2 class="card-title">@info.Title</h2>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            <div class="row g-0">
+                <div class="col-md-3">
+                    <img src="/PlexInfo/Photo?url=@(info.Thumb)" alt="...">
+                </div>
+                <div class="col-md-9">
+                    <div class="card-body">
+                        <h2 class="card-title">@info.Title</h2>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <SfCard Orientation="CardOrientation.Horizontal">
-        <CardImage></CardImage>
-        <CardStacked>
-            <CardHeader Title="@info.Title"
-                        SubTitle="@info.Year.ToString()">
-                <CardContent Content="@info.Summary">
+        <SfCard Orientation="CardOrientation.Horizontal">
+            <CardImage></CardImage>
+            <CardStacked>
+                <CardHeader Title="@info.Title"
+                            SubTitle="@info.Year.ToString()">
+                    <CardContent Content="@info.Summary">
 
-                </CardContent>
-            </CardHeader>
-        </CardStacked>
-    </SfCard>*@
+                    </CardContent>
+                </CardHeader>
+            </CardStacked>
+        </SfCard>*@
+
+    <style>
+                .movie-header {
+                    display: grid;
+                    grid-template-columns: 250px 1fr;
+                    grid-template-rows: 1fr;
+                    grid-column-gap: 0px;
+                    grid-row-gap: 0px;
+                }
+
+                .movie-header-thumbnail {
+                    grid-area: 1 / 1 / 2 / 2;
+                }
+
+                movie-header-info {
+                    grid-area: 1 / 2 / 2 / 3;
+                }
+
+                /*        movie-header-title {
+                    grid-area: 1 / 2 / 2 / 4;
+                }
+
+                movie-header-info-lh {
+                    grid-area: 2 / 2 / 3 / 3;
+                }
+
+                movie-header-info-rh {
+                    grid-area: 2 / 3 / 3 / 4;
+                }
+
+                movie-header-credits {
+                    grid-area: 3 / 2 / 4 / 4;
+                }
+        */
+    </style>
 }
 
 @code {
