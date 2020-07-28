@@ -39,16 +39,7 @@ else
         <div class="card-body movie-header-summary">@info.Summary</div>
     </div>
     <br />
-    @if (info.HasRoles)
-    {
-        <h2>Cast</h2>
-        <div class="card-group">
-            @foreach (var role in info.Roles)
-            {
-                <CastMember Role="@role" />
-            }
-        </div>
-    }
+    <CastMembers Roles="@info.Roles" />
 
     <style>
         .movie-header {
