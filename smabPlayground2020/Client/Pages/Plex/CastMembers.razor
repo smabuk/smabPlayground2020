@@ -9,6 +9,37 @@
             <CastMember Role="@role" />
         }
     </div>
+
+    <style>
+        .cast-card {
+            min-width: 180px;
+            max-width: 230px;
+        }
+        .cast-card > .card-header {
+            height: 230px;
+        }
+        .cast-photo {
+            width: 140px;
+            height: 210px;
+            border-radius: 70px;
+        }
+            .cast-card img:before {
+                content: 'Broken image';
+                display: block;
+                position: absolute;
+                margin-top: 40px;
+                height: 140px;
+                width: 140px;
+                font-size: 2rem;
+                color: red;
+                background-image: url("/images/head-and-shoulders.png");
+            }
+        .cast-no-photo {
+            width: 140px;
+            height: 140px;
+            margin-top: 40px;
+        }
+    </style>
 }
 
 @code {

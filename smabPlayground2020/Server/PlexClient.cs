@@ -17,6 +17,8 @@ namespace smabPlayground2020.Server
 		private readonly HttpClient _httpClient;
 		private readonly string token = "";
 		private readonly int MOVIE_LIBRARY_ID = 3;
+		private readonly int OTHER_MOVIE_LIBRARY_ID = 7;
+		private readonly int SHORT_MOVIE_LIBRARY_ID = 8;
 
 		public PlexClient(HttpClient httpClient, IOptions<PlexSettings> plexSettings)
 		{
@@ -46,7 +48,7 @@ namespace smabPlayground2020.Server
 			return result;
 		}
 
-		public async Task<LibraryItem> GetAllMovies()
+		public async Task<IList<LibraryItem>> GetAllMovies()
 		{
 			List<PlexOption> options = new List<PlexOption>
 			{
@@ -59,15 +61,29 @@ namespace smabPlayground2020.Server
 				new PlexOption("includeMeta", true),
 				new PlexOption("sort", "titleSort")
 			};
-			LibraryItem? result = await CallPlexApi<LibraryItem>($"library/sections/{MOVIE_LIBRARY_ID}/all", options);
-			if (result is null)
+			Task<LibraryItem?> task1 = CallPlexApi<LibraryItem>($"library/sections/{MOVIE_LIBRARY_ID}/all", options);
+			Task<LibraryItem?> task2 = CallPlexApi<LibraryItem>($"library/sections/{OTHER_MOVIE_LIBRARY_ID}/all", options);
+			Task<LibraryItem?> task3 = CallPlexApi<LibraryItem>($"library/sections/{SHORT_MOVIE_LIBRARY_ID}/all", options);
+			IList<LibraryItem> results = new List<LibraryItem>();
+			LibraryItem? result1 = await task1;
+			LibraryItem? result2 = await task2;
+			LibraryItem? result3 = await task3;
+			if (!(result1 is null))
 			{
-				throw new NullReferenceException("No movies found");
+				results.Add(result1);
 			}
-			return result;
+			if (!(result2 is null))
+			{
+				results.Add(result2);
+			}
+			if (!(result3 is null))
+			{
+				results.Add(result3);
+			}
+			return results;
 		}
 
-		public async Task<LibraryItem> GetAllMovies(int start, int size)
+		public async Task<IList<LibraryItem>> GetAllMovies(int start, int size)
 		{
 			List<PlexOption> options = new List<PlexOption>
 			{
@@ -83,11 +99,13 @@ namespace smabPlayground2020.Server
 				new PlexOption("sort", "titleSort")
 			};
 			LibraryItem? result = await CallPlexApi<LibraryItem>($"library/sections/{MOVIE_LIBRARY_ID}/all", options);
+			IList<LibraryItem> results = new List<LibraryItem>();
 			if (result is null)
 			{
 				throw new NullReferenceException("No movies found");
 			}
-			return result;
+			results.Add(result);
+			return results;
 		}
 		public async Task<LibraryItem> GetMovieCollections()
 		{

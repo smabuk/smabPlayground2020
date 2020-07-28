@@ -32,6 +32,8 @@ namespace smabPlayground2020.Client
 			// Supply HttpClient instances that include access tokens when making requests to the server project
 			builder.Services.AddTransient(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("smabPlayground2020.ServerAPI"));
 
+			builder.Services.AddSingleton<PlexInfoState>();
+
 			builder.Services.AddApiAuthorization();
 
 			await builder.Build().RunAsync();

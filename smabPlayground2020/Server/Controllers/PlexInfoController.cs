@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text.Json;
+﻿using System.Linq;
 using System.Threading.Tasks;
-
-using AutoMapper.Configuration;
 
 using Microsoft.AspNetCore.Mvc;
 
-using smabPlayground2020.Shared.PlexInfo;
 using smabPlayground2020.Shared.PlexInfo.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -46,6 +39,27 @@ namespace smabPlayground2020.Server.Controllers
 		{
 			var items = await _plexClient.GetAllMovies();
 			return Ok(items);
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> MoviesList()
+		{
+			var items = await _plexClient.GetAllMovies();
+			// SelectMany flattens the returned structure to IEnumerable<ItemSummary>
+			var itemsList = items.SelectMany(i => i.MediaContainer.Metadata.Select(m =>
+				new ItemSummary() { 
+						LibraryId = i.MediaContainer.LibrarySectionId ?? 0,
+						LibraryTitle = i.MediaContainer.LibrarySectionTitle ?? "",
+						Id = int.Parse(m.Key.Replace(@"/library/metadata/", "")),
+						Title = m.Title,
+						Year = m.Year,
+						Duration = m.Duration ?? 0,
+						Thumb = m.Thumb,
+						AddedAt = m.AddedAt,
+						Rating = m.Rating,
+						OriginallyAvailableAt = m.OriginallyAvailableAt
+					}));
+			return Ok(itemsList);
 		}
 
 		[HttpGet]

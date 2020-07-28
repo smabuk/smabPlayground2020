@@ -1,0 +1,82 @@
+﻿@page "/plex/movies"
+@using smabPlayground2020.Shared.PlexInfo.Models
+@using Syncfusion.Blazor.Grids
+@inject PlexInfoClient plexClient
+@inject PlexInfoState piState
+
+@if (items == null)
+{
+    <p><em>Loading Movies ...</em></p>
+}
+else
+{
+    @*<SfGrid DataSource="@items" AllowPaging="true" AllowExcelExport="true" AllowSelection="true" AllowSorting="true" AllowFiltering="true">
+            <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Menu"></GridFilterSettings>
+            <GridPageSettings PageSize="30"></GridPageSettings>
+            <GridSelectionSettings CheckboxOnly="true" PersistSelection="true" Type="SelectionType.Multiple"></GridSelectionSettings>
+            <GridColumns>
+                <GridColumn Type="ColumnType.CheckBox" AllowFiltering="false" AllowSorting="false" Width="60"></GridColumn>
+                <GridColumn Field=@nameof(ItemSummary.Id) Visible="false" IsPrimaryKey="true" Width="130"></GridColumn>
+                <GridColumn Field=@nameof(ItemSummary.Year) TextAlign="TextAlign.Center" HeaderTextAlign="TextAlign.Center" Width="70"></GridColumn>
+                <GridColumn Field=@nameof(ItemSummary.Title) ClipMode="ClipMode.EllipsisWithTooltip"></GridColumn>
+
+            </GridColumns>
+        </SfGrid>*@
+    <div class="card-group">
+        @foreach (var item in items.Where(m => m.LibraryId != 8).OrderBy(m => m.LibraryTitle)@*.ThenBy(m => m.Title)*@)
+{
+<div class="card movie-card m-1 h-100">
+    <img src="/PlexInfo/Photo?url=@(item.Thumb)&width=@(THUMB_WIDTH)&height=@(THUMB_HEIGHT)" class="card-img-top" loading="lazy" alt="..." />
+    <div class="card-body p-1">
+        <a class="card-link" href="/Plex/Details/@item.Id" title="@item.Title"><h6 class="card-title text-truncate">@item.Title</h6></a>
+        <h6 class="card-subtitle text-muted">@item.Year</h6>
+    </div>
+</div>
+}
+    </div>
+
+    <style>
+        .movie-card {
+            min-width: @(THUMB_WIDTH)px;
+            max-width: @(THUMB_WIDTH)px;
+        }
+
+            .movie-card a {
+            }
+
+           .movie-card > img {
+                width: @(THUMB_WIDTH)px;
+                height: @(THUMB_HEIGHT)px;
+                /* border-radius: 90px;*/
+            }
+
+            .movie-card > .card-body {
+                @*height: @(THUMB_HEIGHT/3)px;*@
+            }
+    </style>
+
+}
+
+
+@code {
+
+    private const int THUMB_WIDTH = 200;
+    private const int THUMB_HEIGHT = 300;
+
+    private List<ItemSummary>? items { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (piState.MoviesList is null)
+        {
+            piState.MoviesList = (await plexClient.GetMoviesList()).ToList();
+        }
+        items = piState.MoviesList;
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+    }
+
+}

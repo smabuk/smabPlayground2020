@@ -1,26 +1,30 @@
 ﻿@using smabPlayground2020.Shared.PlexInfo.Models
 
-<div class="card h-100 m-1" style="min-width: 180px; max-width: 230px;">
-    <div class="card-header text-center" style="height: 230px; ">
-        @if (String.IsNullOrWhiteSpace(Role.Thumb))
-        {
-            <img src="/images/head-and-shoulders.png" alt="No thumbnail" style="width: 140px; height: 140px; margin-top: 40px;" />
-        }
-        else
-        {
-            <img src="@(Role.Thumb)" alt="Role thumbnail" style="width: 140px; height: 210px;" />
-        }
+@if (!(Role is null))
+{
+    <div class="card h-100 m-1 cast-card">
+        <div class="card-header text-center">
+            @if (String.IsNullOrWhiteSpace(Role.Thumb))
+            {
+                <img src="/images/head-and-shoulders.png" class="cast-no-photo" />
+            }
+            else
+            {
+                <img src="@(Role.Thumb)" loading="lazy" class="cast-photo" />
+            }
+        </div>
+        <div class="card-body text-center">
+            <div class="card-text font-weight-bold">@Role.Tag</div>
+            @if (!String.IsNullOrWhiteSpace(Role.Role))
+            {
+                <div class="card-text font-italic">@Role.Role</div>
+            }
+        </div>
     </div>
-    <div class="card-body text-center">
-        <div class="card-text font-weight-bold">@Role.Tag</div>
-        @if (!String.IsNullOrWhiteSpace(Role.Role))
-        {
-            <div class="card-text font-italic">@Role.Role</div>
-        }
-    </div>
-</div>
+
+}
 
 @code {
     [Parameter]
-    public RoleSubitem Role { get; set; }
+    public RoleSubitem? Role { get; set; }
 }
