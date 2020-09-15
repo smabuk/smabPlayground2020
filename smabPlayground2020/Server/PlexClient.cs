@@ -199,9 +199,9 @@ namespace smabPlayground2020.Server
 						{
 							throw;
 						}
-						catch (JsonException)
+						catch (JsonException ex)
 						{
-							throw;
+							throw ex;
 						}
 						catch (Exception)
 						{

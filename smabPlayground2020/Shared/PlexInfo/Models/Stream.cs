@@ -31,10 +31,10 @@ namespace smabPlayground2020.Shared.PlexInfo.Models
         public string ChromaSubsampling { get; set; }
 
         [JsonPropertyName("codedHeight")]
-        public string CodedHeight { get; set; }
+        public int CodedHeight { get; set; }
 
         [JsonPropertyName("codedWidth")]
-        public string CodedWidth { get; set; }
+        public int CodedWidth { get; set; }
 
         [JsonPropertyName("frameRate")]
         public double FrameRate { get; set; }
