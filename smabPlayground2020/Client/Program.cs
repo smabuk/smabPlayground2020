@@ -30,7 +30,7 @@ namespace smabPlayground2020.Client
 			builder.Services.AddHttpClient<PlexInfoClient>(client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress));
 
 			// Supply HttpClient instances that include access tokens when making requests to the server project
-			builder.Services.AddTransient(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("smabPlayground2020.ServerAPI"));
+			builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("smabPlayground2020.ServerAPI"));
 
 			builder.Services.AddSingleton<PlexInfoState>();
 
