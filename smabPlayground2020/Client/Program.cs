@@ -18,7 +18,7 @@ namespace smabPlayground2020.Client
 		public static async Task Main(string[] args)
 		{
 			//Register Syncfusion license 
-			Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(@"MjcyNjI5QDMxMzgyZTMxMmUzMFJpWitrVGhzL2hzZ294M3Qwem9SNFdBbENCSVRSMEh2eTlCSWZFYzdSWUk9;MjcyNjMwQDMxMzgyZTMxMmUzMFFGSk0wVU1kQU5PWDdBczVpc1c4M2ZDY09Sb0w2OGROZ01rVnRmV01KUFE9");
+			Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(@"Mjk3NzYyQDMxMzgyZTMyMmUzMEJjcTdIZVR2cjArQm5GVjgxeGZrbW85Q0dwdmgvN2hjcjlFczdjZGFNVDA9;Mjk3NzYzQDMxMzgyZTMyMmUzMEZLcmg1aGRsei9LUmtoMW5YUDBJMjM5bktYdHlhRXNwU0Z3MDZnblFBZTg9");
 
 			var builder = WebAssemblyHostBuilder.CreateDefault(args);
 			builder.Services.AddSyncfusionBlazor();

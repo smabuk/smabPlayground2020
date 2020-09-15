@@ -4,9 +4,10 @@
 @inject PlexInfoClient plexClient
 @inject PlexInfoState piState
 
+<p><em>@Message</em></p>
 @if (items == null)
 {
-    <p><em>Loading Movies ...</em></p>
+    @*<p><em>Loading Movies ...</em></p>*@
 }
 else
 {
@@ -22,18 +23,18 @@ else
 
             </GridColumns>
         </SfGrid>*@
-    <div class="card-group">
-        @foreach (var item in items.Where(m => m.LibraryId != 8).OrderBy(m => m.LibraryTitle)@*.ThenBy(m => m.Title)*@)
-{
-<div class="card movie-card m-1 h-100">
-    <img src="/PlexInfo/Photo?url=@(item.Thumb)&width=@(THUMB_WIDTH)&height=@(THUMB_HEIGHT)" class="card-img-top" loading="lazy" alt="..." />
-    <div class="card-body p-1">
-        <a class="card-link" href="/Plex/Details/@item.Id" title="@item.Title"><h6 class="card-title text-truncate">@item.Title</h6></a>
-        <h6 class="card-subtitle text-muted">@item.Year</h6>
-    </div>
+<div class="card-group">
+    @foreach (var item in items)
+    {
+        <div class="card movie-card m-1 h-100">
+            <img src="/PlexInfo/Photo?url=@(item.Thumb)&width=@(THUMB_WIDTH)&height=@(THUMB_HEIGHT)" class="card-img-top" loading="lazy" alt="..." />
+            <div class="card-body p-1">
+                <a class="card-link" href="/Plex/Details/@item.Id" title="@item.Title"><h6 class="card-title text-truncate">@item.Title</h6></a>
+                <h6 class="card-subtitle text-muted">@item.Year</h6>
+            </div>
+        </div>
+    }
 </div>
-}
-    </div>
 
     <style>
         .movie-card {
@@ -63,6 +64,8 @@ else
     private const int THUMB_WIDTH = 200;
     private const int THUMB_HEIGHT = 300;
 
+    public string Message { get; set; } = "Loading Movies ...";
+
     private List<ItemSummary>? items { get; set; }
 
     protected override async Task OnInitializedAsync()
@@ -71,12 +74,8 @@ else
         {
             piState.MoviesList = (await plexClient.GetMoviesList()).ToList();
         }
-        items = piState.MoviesList;
+        items = piState.MoviesList.Where(m => m.LibraryId != 8).OrderBy(m => m.LibraryTitle).ToList();
+        Message = $"Showing {items.Count} movies";
+        await base.OnInitializedAsync();
     }
-
-    protected override async Task OnParametersSetAsync()
-    {
-        await base.OnParametersSetAsync();
-    }
-
 }
