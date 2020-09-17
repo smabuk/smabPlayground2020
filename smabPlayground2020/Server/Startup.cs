@@ -17,6 +17,7 @@ using smabPlayground2020.Shared.PlexInfo;
 using System;
 using System.Net.Http;
 using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
 
 namespace smabPlayground2020.Server
 {
@@ -51,6 +52,8 @@ namespace smabPlayground2020.Server
 			services.AddDbContext<ApplicationDbContext>(options =>
 				options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
+			services.AddDatabaseDeveloperPageExceptionFilter();
+
 			services.AddDefaultIdentity<ApplicationUser>(options => 
 				{
 					options.SignIn.RequireConfirmedAccount = false;
@@ -75,6 +78,10 @@ namespace smabPlayground2020.Server
 				{
 					options.JsonSerializerOptions.IgnoreNullValues = true;
 				});
+			services.AddSwaggerGen(c =>
+			{
+				c.SwaggerDoc("v1", new OpenApiInfo { Title = "webapi", Version = "v1" });
+			});
 			services.AddRazorPages();
 		}
 
@@ -84,8 +91,9 @@ namespace smabPlayground2020.Server
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
-				app.UseDatabaseErrorPage();
 				app.UseWebAssemblyDebugging();
+				app.UseSwagger();
+				app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "webapi v1"));
 			}
 			else
 			{
