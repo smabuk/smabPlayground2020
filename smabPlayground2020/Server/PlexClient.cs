@@ -68,15 +68,15 @@ namespace smabPlayground2020.Server
 			LibraryItem? result1 = await task1;
 			LibraryItem? result2 = await task2;
 			LibraryItem? result3 = await task3;
-			if (!(result1 is null))
+			if (result1 is not null)
 			{
 				results.Add(result1);
 			}
-			if (!(result2 is null))
+			if (result2 is not null)
 			{
 				results.Add(result2);
 			}
-			if (!(result3 is null))
+			if (result3 is not null)
 			{
 				results.Add(result3);
 			}
@@ -185,7 +185,7 @@ namespace smabPlayground2020.Server
 			if (response.IsSuccessStatusCode)
 			{
 
-				switch (response.Content.Headers.ContentType.ToString())
+				switch (response.Content.Headers.ContentType?.ToString())
 				{
 					//case "image/jpeg":
 					//	var result = await response.Content.ReadAsStreamAsync();
@@ -199,9 +199,9 @@ namespace smabPlayground2020.Server
 						{
 							throw;
 						}
-						catch (JsonException ex)
+						catch (JsonException)
 						{
-							throw ex;
+							throw;
 						}
 						catch (Exception)
 						{
@@ -227,7 +227,7 @@ namespace smabPlayground2020.Server
 			if (response.IsSuccessStatusCode)
 			{
 
-				switch (response.Content.Headers.ContentType.ToString())
+				switch (response.Content.Headers.ContentType?.ToString())
 				{
 					case "image/jpeg":
 						byte[]? result = await response.Content.ReadAsByteArrayAsync();

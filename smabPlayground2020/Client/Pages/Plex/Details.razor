@@ -29,7 +29,7 @@ else
                     {<div>Directed by: @(StringList(info.Directors))</div>}
                     @if (info.HasWriters)
                     {<div>Written by: @(StringList(info.Writers))</div>}
-                    @if (!(info.Studio is null))
+                    @if (info.Studio is not null)
                     {<div>Studio: @info.Studio</div>}
                     @if (info.HasGenres)
                     {<div>Genres: @(StringList(info.Genres))</div>}
@@ -71,8 +71,7 @@ else
     protected override async Task OnParametersSetAsync()
     {
         item = await plexClient.GetItem(Id);
-        info = item.MediaContainer.Metadata.FirstOrDefault();
-        await base.OnParametersSetAsync();
+        info = item?.MediaContainer.Metadata?.FirstOrDefault();
     }
 
     private string StringList(IList<Subitem>? group)
@@ -80,21 +79,19 @@ else
         bool FirstItem = true;
         string strT = "";
 
-        if (group is null)
+        if (group is not null)
         {
-            return strT;
-        }
-
-        foreach (var item in group)
-        {
-            if (FirstItem)
+            foreach (var item in group)
             {
-                strT = item.Tag;
-                FirstItem = false;
-            }
-            else
-            {
-                strT += $", {item.Tag}";
+                if (FirstItem)
+                {
+                    strT = item.Tag;
+                    FirstItem = false;
+                }
+                else
+                {
+                    strT += $", {item.Tag}";
+                }
             }
         }
 

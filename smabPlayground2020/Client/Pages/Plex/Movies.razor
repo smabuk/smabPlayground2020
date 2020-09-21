@@ -76,6 +76,5 @@ else
         }
         items = piState.MoviesList.Where(m => m.LibraryId != 8).OrderBy(m => m.LibraryTitle).ToList();
         Message = $"Showing {items.Count} movies";
-        await base.OnInitializedAsync();
     }
 }
