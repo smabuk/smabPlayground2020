@@ -1,0 +1,18 @@
+﻿[
+  {
+    "outputFile": "Pages/Plex/Details.razor.css",
+    "inputFile": "Pages/Plex/Details.razor.scss"
+  },
+  {
+    "outputFile": "Pages/Plex/Movies.razor.css",
+    "inputFile": "Pages/Plex/Movies.razor.scss"
+  },
+  {
+    "outputFile": "Pages/Plex/CastMember.razor.css",
+    "inputFile": "Pages/Plex/CastMember.razor.scss"
+  },
+  {
+    "outputFile": "Pages/Sf/Index.razor.css",
+    "inputFile": "Pages/Sf/Index.razor.scss"
+  }
+]
