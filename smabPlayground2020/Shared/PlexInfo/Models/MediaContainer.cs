@@ -67,19 +67,19 @@ namespace smabPlayground2020.Shared.PlexInfo.Models
 
 
 		[JsonPropertyName("Directory")]
-		public IList<LibraryDirectory>? Directories { get; set; }
+		public List<LibraryDirectory>? Directories { get; set; }
 
 		[JsonPropertyName("Metadata")]
-		public IList<Metadata>? Metadata { get; set; }
+		public List<Metadata>? Metadata { get; set; }
 
 		[JsonPropertyName("Hub")]
-		public IList<Hub>? Hubs { get; set; }
+		public List<Hub>? Hubs { get; set; }
 
 		[JsonPropertyName("Setting")]
-		public IList<Setting>? Settings { get; set; }
+		public List<Setting>? Settings { get; set; }
 
 		[JsonPropertyName("Server")]
-		public IList<Server>? Servers { get; set; }
+		public List<Server>? Servers { get; set; }
 	}
 #pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 

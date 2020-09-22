@@ -177,46 +177,46 @@ namespace smabPlayground2020.Shared.PlexInfo.Models
 
 
         [JsonPropertyName("Media")]
-        public IList<Medium>? Media { get; set; }
+        public List<Medium>? Media { get; set; }
 
         [JsonPropertyName("Genre")]
-        public IList<Subitem>? Genres { get; set; }
+        public List<Subitem>? Genres { get; set; }
 
         [JsonPropertyName("Director")]
-        public IList<Subitem>? Directors { get; set; }
+        public List<Subitem>? Directors { get; set; }
 
         [JsonPropertyName("Writer")]
-        public IList<Subitem>? Writers { get; set; }
+        public List<Subitem>? Writers { get; set; }
 
         [JsonPropertyName("Producer")]
-        public IList<Subitem>? Producers { get; set; }
+        public List<Subitem>? Producers { get; set; }
 
         [JsonPropertyName("Country")]
-        public IList<Subitem>? Countries { get; set; }
+        public List<Subitem>? Countries { get; set; }
 
         [JsonPropertyName("Role")]
-        public IList<RoleSubitem>? Roles { get; set; }
+        public List<RoleSubitem>? Roles { get; set; }
 
         [JsonPropertyName("Collection")]
-        public IList<Subitem>? Collections { get; set; }
+        public List<Subitem>? Collections { get; set; }
 
         [JsonPropertyName("Similar")]
-        public IList<Subitem>? Similar { get; set; }
+        public List<Subitem>? Similar { get; set; }
 
         [JsonPropertyName("Location")]
-        public IList<Location>? Locations { get; set; }
+        public List<Location>? Locations { get; set; }
 
 
-        public bool HasMedia => !(Media is null);
-        public bool HasGenres => !(Genres is null);
-        public bool HasDirectors => !(Directors is null);
-        public bool HasWriters => !(Writers is null);
-        public bool HasProducers => !(Producers is null);
-        public bool HasCountries => !(Countries is null);
-        public bool HasRoles => !(Roles is null);
-        public bool HasCollections => !(Collections is null);
-        public bool HasSimilar => !(Similar is null);
-        public bool HasLocations => !(Locations is null);
+        public bool HasMedia => (Media is not null);
+        public bool HasGenres => (Genres is not null);
+        public bool HasDirectors => (Directors is not null);
+        public bool HasWriters => (Writers is not null);
+        public bool HasProducers => (Producers is not null);
+        public bool HasCountries => (Countries is not null);
+        public bool HasRoles => (Roles is not null);
+        public bool HasCollections => (Collections is not null);
+        public bool HasSimilar => (Similar is not null);
+        public bool HasLocations => (Locations is not null);
 
 
 	}

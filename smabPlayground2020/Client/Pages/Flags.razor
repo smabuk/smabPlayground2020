@@ -9,11 +9,5 @@
 }
 
 @code {
-    private List<string> FlagList = new List<string>();
-
-    protected override void OnInitialized()
-    {
-        FlagList = new List<string>() { "gb", "gb-eng", "gb-scot", "gb-wales", "gb-ni", "eu" };
-    }
-
+    private List<string> FlagList = new() { "gb", "gb-eng", "gb-scot", "gb-wales", "gb-ni", "eu" };
 }

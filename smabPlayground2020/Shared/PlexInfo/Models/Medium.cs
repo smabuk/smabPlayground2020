@@ -46,7 +46,7 @@ namespace smabPlayground2020.Shared.PlexInfo.Models
 		public string VideoProfile { get; set; }
 
 		[JsonPropertyName("Part")]
-		public IList<Part>? Parts { get; set; }
+		public List<Part>? Parts { get; set; }
 
 		[JsonPropertyName("optimizedForStreaming")]
 		public int? OptimizedForStreaming { get; set; }

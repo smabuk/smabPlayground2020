@@ -38,7 +38,7 @@ namespace smabPlayground2020.Server
 
 			services.AddHttpClient<IPlexClient, PlexClient>()
 				// The local Plex Server will not have a proper certificate so we have to ignore this
-				.ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+				.ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler()
 				{
 					ClientCertificateOptions = ClientCertificateOption.Manual,
 					ServerCertificateCustomValidationCallback =

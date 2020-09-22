@@ -11,8 +11,8 @@ namespace smabPlayground2020.Server
     {
         Task<LibraryItem> GetLibraryRoot() => throw new NotImplementedException();
         Task<LibraryItem> GetLibrarySections() => throw new NotImplementedException();
-        Task<IList<LibraryItem>> GetAllMovies() => throw new NotImplementedException();
-        Task<IList<LibraryItem>> GetAllMovies(int start, int size) => throw new NotImplementedException();
+        Task<List<LibraryItem>> GetAllMovies() => throw new NotImplementedException();
+        Task<List<LibraryItem>> GetAllMovies(int start, int size) => throw new NotImplementedException();
         Task<LibraryItem> GetRelated(int id) => throw new NotImplementedException();
         Task<LibraryItem> GetMovieCollections() => throw new NotImplementedException();
         Task<LibraryItem?> GetItem(int id) => throw new NotImplementedException();

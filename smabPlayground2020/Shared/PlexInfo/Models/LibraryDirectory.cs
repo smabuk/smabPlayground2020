@@ -74,7 +74,7 @@ namespace smabPlayground2020.Shared.PlexInfo.Models
 		public int? Hidden { get; set; }
 
 		[JsonPropertyName("Location")]
-		public IList<Location>? Locations { get; set; }
+		public List<Location>? Locations { get; set; }
 
 		[JsonPropertyName("enableAutoPhotoTags")]
 		public bool? EnableAutoPhotoTags { get; set; }
