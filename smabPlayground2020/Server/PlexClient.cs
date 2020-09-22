@@ -182,37 +182,14 @@ namespace smabPlayground2020.Server
 			}
 
 			var response = await _httpClient.GetAsync($"{query}?X-Plex-Token={token}{optionsString}");
-			if (response.IsSuccessStatusCode)
+
+			return response.IsSuccessStatusCode switch
 			{
-
-				switch (response.Content.Headers.ContentType?.ToString())
-				{
-					//case "image/jpeg":
-					//	var result = await response.Content.ReadAsStreamAsync();
-					//	return result;
-					case "application/json":
-						try
-						{
-							return await response.Content.ReadFromJsonAsync<T>();
-						}
-						catch (NotSupportedException)
-						{
-							throw;
-						}
-						catch (JsonException)
-						{
-							throw;
-						}
-						catch (Exception)
-						{
-							throw;
-						}
-					default:
-						break;
-				}
-			}
-
-			return null;
+				false => null,
+				true when response.Content.Headers.ContentType?.ToString() == "application/json" 
+					=> await response.Content.ReadFromJsonAsync<T>(),
+				_ => null
+			};
 		}
 
 		private async Task<byte[]?> CallPlexApiAndReturnImage(string query, IEnumerable<PlexOption>? options = null)
@@ -224,22 +201,14 @@ namespace smabPlayground2020.Server
 			}
 
 			var response = await _httpClient.GetAsync($"{query}?X-Plex-Token={token}{optionsString}");
-			if (response.IsSuccessStatusCode)
+
+			return response.IsSuccessStatusCode switch
 			{
-
-				switch (response.Content.Headers.ContentType?.ToString())
-				{
-					case "image/jpeg":
-						byte[]? result = await response.Content.ReadAsByteArrayAsync();
-						return result;
-					case "application/json":
-						break;
-					default:
-						break;
-				}
-			}
-
-			return null;
+				false => null,
+				true when response.Content.Headers.ContentType?.ToString() == "image/jpeg"
+					=> await response.Content.ReadAsByteArrayAsync(),
+				_ => null
+			};
 		}
 	}
 }
