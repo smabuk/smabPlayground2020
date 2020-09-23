@@ -10,7 +10,8 @@ namespace smabPlayground2020.Client
 {
     public class PlexInfoState
     {
-        public List<ItemSummary>? MoviesList { get; set; }
+        public List<MovieSummary>? MoviesList { get; set; }
+        public List<TvSeriesSummary>? TvSeriesList { get; set; }
 
     }
 }

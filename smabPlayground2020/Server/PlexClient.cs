@@ -16,6 +16,7 @@ namespace smabPlayground2020.Server
 	{
 		private readonly HttpClient _httpClient;
 		private readonly string token = "";
+		private readonly int TV_LIBRARY_ID = 1;
 		private readonly int MOVIE_LIBRARY_ID = 3;
 		private readonly int OTHER_MOVIE_LIBRARY_ID = 7;
 		private readonly int SHORT_MOVIE_LIBRARY_ID = 8;
@@ -125,6 +126,35 @@ namespace smabPlayground2020.Server
 				throw new NullReferenceException("No collections found");
 			}
 			return result;
+		}
+
+		public async Task<List<LibraryItem>> GetTvSeries(int? start = null, int? size = null)
+		{
+			List<PlexOption> options = new()
+			{
+				//new("X-Plex-Container-Start", start),
+				//new("X-Plex-Container-Size", size),
+				new("X-Plex-Features", "external-media,indirect-media"),
+				new("X-Plex-Model", "bundled"),
+				new("includeCollections", true),
+				new("includeExternalMedia", true),
+				new("includeAdvanced", true),
+				new("includeMeta", true),
+				new("sort", "originallyAvailableAt:desc")
+			};
+			if ((start is not null) && (size is not null))
+			{
+				options.Add(new PlexOption("X-Plex-Container-Start", (int)start));
+				options.Add(new PlexOption("X-Plex-Container-Size", (int)size));
+			}
+			LibraryItem? result = await CallPlexApi<LibraryItem>($"library/sections/{TV_LIBRARY_ID}/all", options);
+			List<LibraryItem> results = new();
+			if (result is null)
+			{
+				throw new NullReferenceException("No TV series found");
+			}
+			results.Add(result);
+			return results;
 		}
 
 		public async Task<LibraryItem?> GetItem(int id)

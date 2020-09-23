@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
@@ -45,9 +46,9 @@ namespace smabPlayground2020.Server.Controllers
 		public async Task<IActionResult> MoviesList()
 		{
 			var items = await _plexClient.GetAllMovies();
-			// SelectMany flattens the returned structure to IEnumerable<ItemSummary>
+			// SelectMany flattens the returned structure to IEnumerable<MovieSummary>
 			var itemsList = items.SelectMany(i => i.MediaContainer.Metadata.Select(m =>
-				new ItemSummary() { 
+				new MovieSummary() { 
 						LibraryId = i.MediaContainer.LibrarySectionId ?? 0,
 						LibraryTitle = i.MediaContainer.LibrarySectionTitle ?? "",
 						Id = int.Parse(m.Key.Replace(@"/library/metadata/", "")),
@@ -58,6 +59,30 @@ namespace smabPlayground2020.Server.Controllers
 						AddedAt = m.AddedAt,
 						Rating = m.Rating,
 						OriginallyAvailableAt = m.OriginallyAvailableAt
+					}));
+			return Ok(itemsList);
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> TvSeriesList()
+		{
+			var items = await _plexClient.GetTvSeries();
+			// SelectMany flattens the returned structure to IEnumerable<TvSeriesSummary>
+			var itemsList = items.SelectMany(i => i.MediaContainer.Metadata.Select(m =>
+				new TvSeriesSummary() { 
+						LibraryId = i.MediaContainer.LibrarySectionId ?? 0,
+						LibraryTitle = i.MediaContainer.LibrarySectionTitle ?? "",
+						Id = int.Parse(m.Key.Replace(@"/library/metadata/", "").Replace(@"/children", "")),
+						Title = m.Title,
+						Year = m.Year,
+						Duration = m.Duration ?? 0,
+						Thumb = m.Thumb,
+						Seasons = m.ChildCount ?? 0,
+						Episodes = m.LeafCount ?? 0,
+						ViewedEpisodes = m.ViewedLeafCount ?? 0,
+						AddedAt = m.AddedAt,
+						Rating = m.Rating,
+						OriginallyAvailableAt = DateTime.Parse(m.OriginallyAvailableAt ?? "1900-01-01")
 					}));
 			return Ok(itemsList);
 		}

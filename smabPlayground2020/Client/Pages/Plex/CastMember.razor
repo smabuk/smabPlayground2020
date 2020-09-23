@@ -4,7 +4,7 @@
 {
     <div class="card h-100 m-1 cast-card">
         <div class="card-header text-center">
-            @if (String.IsNullOrWhiteSpace(Role.Thumb))
+            @if (String.IsNullOrWhiteSpace(Role.Thumb) || (Role.Thumb == "https://artworks.thetvdb.com/banners/"))
             {
                 <img src="/images/head-and-shoulders.png" class="cast-no-photo" />
             }

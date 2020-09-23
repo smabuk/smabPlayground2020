@@ -26,9 +26,21 @@ namespace smabPlayground2020.Client
 			return item;
 		}
 
-		public async Task<IList<ItemSummary>?> GetMoviesList()
+		public async Task<LibraryItem?> GetItemChildren(int id)
 		{
-			IList<ItemSummary>? items = await Client.GetFromJsonAsync<IList<ItemSummary>>($"PlexInfo/movieslist");
+			LibraryItem? item = await Client.GetFromJsonAsync<LibraryItem>($"PlexInfo/itemchildren/{id}");
+			return item;
+		}
+
+		public async Task<List<MovieSummary>?> GetMoviesList()
+		{
+			List<MovieSummary>? items = await Client.GetFromJsonAsync<List<MovieSummary>>($"PlexInfo/movieslist");
+			return items;
+		}
+
+		public async Task<List<TvSeriesSummary>?> GetTvSeriesList()
+		{
+			List<TvSeriesSummary>? items = await Client.GetFromJsonAsync<List<TvSeriesSummary>>($"PlexInfo/tvserieslist");
 			return items;
 		}
 

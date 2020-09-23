@@ -1,0 +1,49 @@
+﻿@page "/plex/tv"
+@using smabPlayground2020.Shared.PlexInfo.Models
+@inject PlexInfoClient plexClient
+@inject PlexInfoState piState
+
+<p><em>@Message</em></p>
+@if (items == null)
+{
+    @*<p><em>Loading Movies ...</em></p>*@
+}
+else
+{
+<div class="card-group">
+    @foreach (var item in items)
+    {
+        <div class="card tv-card m-1 h-100">
+            <img src="/PlexInfo/Photo?url=@(item.Thumb)&width=@(THUMB_WIDTH)&height=@(THUMB_HEIGHT)" class="card-img-top" loading="lazy" alt="..." />
+            <div class="card-body p-1">
+                <a class="card-link" href="/Plex/Details/@item.Id" title="@item.Title"><h6 class="card-title text-truncate">@item.Title</h6></a>
+                <h6 class="card-subtitle text-muted">@item.Seasons @((item.Seasons == 1) ? "season" : "seasons")</h6>
+                @if (item.OriginallyAvailableAt is not null) {
+                    DateTime originallyAvailableAt = (DateTime)item.OriginallyAvailableAt;
+                    <h6 class="card-subtitle text-muted">@originallyAvailableAt.ToString("MMMM dd, yyyy")</h6>
+                }
+            </div>
+        </div>
+    }
+</div>
+}
+
+@code {
+
+    private const int THUMB_WIDTH = 200;
+    private const int THUMB_HEIGHT = 300;
+
+    public string Message { get; set; } = "Loading TV series ...";
+
+    private List<TvSeriesSummary>? items { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (piState.TvSeriesList is null)
+        {
+            piState.TvSeriesList = (await plexClient.GetTvSeriesList() ?? new()).ToList();
+        }
+        items = piState.TvSeriesList;
+        Message = $"Showing {items.Count} TV series";
+    }
+}

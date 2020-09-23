@@ -1,6 +1,5 @@
 ﻿@page "/plex/details/{Id:int}"
 @using smabPlayground2020.Shared.PlexInfo.Models
-@using Syncfusion.Blazor.Cards
 @inject PlexInfoClient plexClient
 
 @if (info == null)
@@ -9,22 +8,42 @@
 }
 else
 {
+    @*<div><h1>@info.Type</h1></div>*@
     <div class="card">
-        <div class="card-header movie-header">
-            <div class="movie-header-thumbnail">
+        <div class="card-header plex-header">
+            <div class="plex-header-thumbnail">
                 <img src="/PlexInfo/Photo?url=@(info.Thumb)&width=235&height=353" alt="Thumbnail">
             </div>
-            <div class="movie-header-info">
-                <div class="movie-header-title"><h1 class="card-title">@info.Title</h1></div>
-                <div class="movie-header-info-lh">
-                    <div class="card-title">@info.Year</div>
-                    <div>@(info.Duration / 60000) min @info.ContentRating</div>
+            <div class="plex-header-info">
+                @if (info.Type == "season") {
+                    <div class="plex-header-title"><h1 class="card-title">@info.ParentTitle</h1></div>
+                    <div class="plex-header-title"><h2 class="card-title">@info.Title</h2></div>
+                } else if (info.Type == "episode") {
+                    <div class="plex-header-title"><h1 class="card-title">@info.GrandparentTitle</h1></div>
+                    <div class="plex-header-title"><h2 class="card-title">@info.Title</h2></div>
+                    <div class="plex-header-title"><h3 class="card-title">@info.ParentTitle - Episode @info.Index</h3></div>
+                } else {
+                    <div class="plex-header-title"><h1 class="card-title">@info.Title</h1></div>
+                }
+                <div class="plex-header-info-lh">
+                    @if (info.Type == "episode") {
+                        @if (info.OriginallyAvailableAt is not null) {
+                            DateTime originallyAvailableAt = DateTime.Parse(info.OriginallyAvailableAt);
+                            <div class="card-title">@originallyAvailableAt.ToString("MMMM dd, yyyy")</div>
+                        }
+                        <div>@(info.Duration / 60000) min @info.ContentRating</div>
+                    } else if (info.Type == "season") {
+                        <div class="card-title">@info.LeafCount @((info.LeafCount == 1) ? "episode" : "episodes")</div>
+                    } else {
+                        <div class="card-title">@info.Year</div>
+                        <div>@(info.Duration / 60000) min @info.ContentRating</div>
+                    }
                 </div>
-                <div class="movie-header-info-rh">
+                <div class="plex-header-info-rh">
                     <div class="card-title">@info.Rating</div>
                 </div>
                 <hr />
-                <div class="card-title movie-header-credits">
+                <div class="card-title plex-header-credits">
                     @if (info.HasDirectors)
                     {<div>Directed by: @(StringList(info.Directors))</div>}
                     @if (info.HasWriters)
@@ -36,16 +55,23 @@ else
                 </div>
             </div>
         </div>
-        <div class="card-body movie-header-summary">@info.Summary</div>
+        <div class="card-body plex-header-summary">@info.Summary</div>
     </div>
     <br />
+    @if (info.Type == "show")
+    {
+        <TVSeasons Seasons="@infoChildren" />
+    } else if (info.Type == "season")
+    {
+        <TVEpisodes Episodes="@infoChildren" />
+    }
     <CastMembers Roles="@info.Roles" />
 }
 
 @code {
-
-    private LibraryItem? item { get; set; }
-    private Metadata? info { get; set; }
+    private LibraryItem? item;
+    private Metadata? info;
+    private List<Metadata> infoChildren = new();
 
     [Parameter]
     public int Id { get; set; }
@@ -54,6 +80,10 @@ else
     {
         item = await plexClient.GetItem(Id);
         info = item?.MediaContainer.Metadata?.FirstOrDefault();
+        if (info.Type == "show" || info.Type == "season")
+        {
+            infoChildren = (await plexClient.GetItemChildren(Id))?.MediaContainer.Metadata ?? new();
+        }
     }
 
     private string StringList(IList<Subitem>? group)

@@ -1,0 +1,27 @@
+﻿@using smabPlayground2020.Shared.PlexInfo.Models
+
+@if (Episodes is not null)
+{
+    <h2>Episodes</h2>
+    <div class="card-group">
+        @foreach (var item in Episodes)
+        {
+            int thumbWidth = (int)(THUMB_HEIGHT * item.Media?.FirstOrDefault().AspectRatio);
+            <div class="card tvepisode-card m-2 h-100">
+                <img src="/PlexInfo/Photo?url=@(item.Thumb)&width=@(thumbWidth)&height=@(THUMB_HEIGHT)" class="card-img-top" loading="lazy" alt="..." />
+                <div class="card-body p-1">
+                    <a class="card-link" href="/Plex/Details/@item.RatingKey" title="@item.Title"><h6 class="card-title text-truncate">@item.Title</h6></a>
+                    <h6 class="card-subtitle text-muted">Episode @item.Index</h6>
+                </div>
+            </div>
+        }
+    </div>
+    <br />
+}
+
+@code {
+    private const int THUMB_HEIGHT = 300;
+
+    [Parameter]
+    public List<Metadata> Episodes { get; set; }
+}
