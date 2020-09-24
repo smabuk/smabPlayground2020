@@ -5,7 +5,11 @@
     @foreach (var item in Seasons)
     {
         <div class="card tvseason-card m-2 h-100">
-            <img src="/PlexInfo/Photo?url=@(item.Thumb)&width=@(THUMB_WIDTH)&height=@(THUMB_HEIGHT)" class="card-img-top" loading="lazy" alt="..." />
+            @if (String.IsNullOrEmpty(item.Thumb)) {
+                <img src="/images/tv.png" class="card-img-top" alt="..." />
+            } else {
+                <img src="/PlexInfo/Photo?url=@(item.Thumb)&width=@(THUMB_WIDTH)&height=@(THUMB_HEIGHT)" class="card-img-top" loading="lazy" alt="..." />
+            }
             <div class="card-body p-1">
                 <a class="card-link" href="/Plex/Details/@item.RatingKey" title="@item.Title"><h6 class="card-title text-truncate">@item.Title</h6></a>
                 <h6 class="card-subtitle text-muted">@item.LeafCount @((item.LeafCount == 1) ? "episode" : "episodes")</h6>

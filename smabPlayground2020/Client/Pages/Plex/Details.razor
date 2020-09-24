@@ -12,7 +12,11 @@ else
     <div class="card">
         <div class="card-header plex-header">
             <div class="plex-header-thumbnail">
-                <img src="/PlexInfo/Photo?url=@(info.Thumb)&width=235&height=353" alt="Thumbnail">
+                @if (String.IsNullOrEmpty(info.Thumb)) {
+                    <img src="/images/tv.png" width="235px" height="153px" alt="..." />
+                } else {
+                    <img src="/PlexInfo/Photo?url=@(info.Thumb)&width=235&height=353" alt="Thumbnail">
+                }
             </div>
             <div class="plex-header-info">
                 @if (info.Type == "season") {
