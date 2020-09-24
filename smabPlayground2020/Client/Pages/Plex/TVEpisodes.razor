@@ -6,7 +6,7 @@
     <div class="card-group">
         @foreach (var item in Episodes)
         {
-            int thumbWidth = (int)(THUMB_HEIGHT * item.Media?.FirstOrDefault().AspectRatio);
+            int thumbWidth = (int)((THUMB_HEIGHT * item.Media?.FirstOrDefault()?.AspectRatio) ?? THUMB_WIDTH);
             <div class="card tvepisode-card m-2 h-100">
                 <img src="/PlexInfo/Photo?url=@(item.Thumb)&width=@(thumbWidth)&height=@(THUMB_HEIGHT)" class="card-img-top" loading="lazy" alt="..." />
                 <div class="card-body p-1">
@@ -21,7 +21,8 @@
 
 @code {
     private const int THUMB_HEIGHT = 300;
+    private const int THUMB_WIDTH = 400;
 
     [Parameter]
-    public List<Metadata> Episodes { get; set; }
+    public List<Metadata> Episodes { get; set; } = new();
 }

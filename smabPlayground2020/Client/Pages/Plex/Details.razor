@@ -79,7 +79,7 @@ else
     protected override async Task OnParametersSetAsync()
     {
         item = await plexClient.GetItem(Id);
-        info = item?.MediaContainer.Metadata?.FirstOrDefault();
+        info = item?.MediaContainer.Metadata?.FirstOrDefault() ?? new();
         if (info.Type == "show" || info.Type == "season")
         {
             infoChildren = (await plexClient.GetItemChildren(Id))?.MediaContainer.Metadata ?? new();
