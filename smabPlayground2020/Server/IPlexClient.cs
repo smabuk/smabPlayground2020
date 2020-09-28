@@ -18,6 +18,7 @@ namespace smabPlayground2020.Server
         Task<LibraryItem> GetMovieCollections() => throw new NotImplementedException();
         Task<LibraryItem?> GetItem(int id) => throw new NotImplementedException();
         Task<LibraryItem?> GetItemChildren(int id) => throw new NotImplementedException();
+        Task<byte[]?> GetResource(string resource) => throw new NotImplementedException();
         Task<byte[]?> GetPhotoFromUrl(string url, int width, int height) => throw new NotImplementedException();
     }
 }

@@ -132,14 +132,14 @@ namespace smabPlayground2020.Server
 		{
 			List<PlexOption> options = new()
 			{
-				//new("X-Plex-Container-Start", start),
-				//new("X-Plex-Container-Size", size),
 				new("X-Plex-Features", "external-media,indirect-media"),
 				new("X-Plex-Model", "bundled"),
 				new("includeCollections", true),
 				new("includeExternalMedia", true),
 				new("includeAdvanced", true),
 				new("includeMeta", true),
+				//new("unmatched", true),
+				//new("unwatchedLeaves", true),
 				new("sort", "originallyAvailableAt:desc")
 			};
 			if ((start is not null) && (size is not null))
@@ -180,6 +180,13 @@ namespace smabPlayground2020.Server
 				new("url", url)
 			};
 			byte[]? result = await CallPlexApiAndReturnImage($"photo/:/transcode", options);
+			return result;
+		}
+
+		public async Task<byte[]?> GetResource(string resource)
+		{
+			List<PlexOption> options = new();
+			byte[]? result = await CallPlexApiAndReturnImage($@"/:/resources/{resource}", options);
 			return result;
 		}
 
@@ -236,6 +243,8 @@ namespace smabPlayground2020.Server
 			{
 				false => null,
 				true when response.Content.Headers.ContentType?.ToString() == "image/jpeg"
+					=> await response.Content.ReadAsByteArrayAsync(),
+				true when response.Content.Headers.ContentType?.ToString() == "image/png"
 					=> await response.Content.ReadAsByteArrayAsync(),
 				_ => null
 			};

@@ -127,7 +127,6 @@ namespace smabPlayground2020.Server.Controllers
 		}
 
 		[HttpGet]
-		//[Route("{id}")]
 		public async Task<IActionResult> Photo([FromQuery] string url, [FromQuery] int width = 180, [FromQuery] int height = 270)
 		{
 			byte[]? item = await _plexClient.GetPhotoFromUrl(url, width, height);
@@ -136,6 +135,18 @@ namespace smabPlayground2020.Server.Controllers
 				return NotFound(null);
 			}
 			return new FileContentResult(item, "image/jpeg");
+		}
+
+		[HttpGet]
+		[Route("{resource}")]
+		public async Task<IActionResult> Resource(string resource)
+		{
+			byte[]? item = await _plexClient.GetResource(resource);
+			if (item is null)
+			{
+				return NotFound(null);
+			}
+			return new FileContentResult(item, "image/png");
 		}
 
 	}

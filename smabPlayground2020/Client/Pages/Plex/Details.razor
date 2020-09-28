@@ -33,7 +33,7 @@ else
                     @if (info.Type == "episode") {
                         @if (info.OriginallyAvailableAt is not null) {
                             DateTime originallyAvailableAt = DateTime.Parse(info.OriginallyAvailableAt);
-                            <div class="card-title">@originallyAvailableAt.ToString("MMMM dd, yyyy")</div>
+                            <div class="card-title">@originallyAvailableAt.ToLongDateString()</div>
                         }
                         <div>@(info.Duration / 60000) min @info.ContentRating</div>
                     } else if (info.Type == "season") {
