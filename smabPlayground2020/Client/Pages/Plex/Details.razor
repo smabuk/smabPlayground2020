@@ -33,7 +33,10 @@ else
                 <div class="plex-header-info-lh">
                     @if (info.OriginallyAvailableAt is not null) {
                         DateTime originallyAvailableAt = DateTime.Parse(info.OriginallyAvailableAt);
-                        <div class="card-title">@originallyAvailableAt.ToDateLongMonthYearString()</div>
+                        if (originallyAvailableAt.Year > 1)
+                        {
+                            <div class="card-title">@originallyAvailableAt.ToDateLongMonthYearString()</div>
+                        }
                     }
                     @if (info.Type == "episode") {
                         <div>@(info.Duration / 60000) min @info.ContentRating</div>
@@ -41,6 +44,8 @@ else
                         <div class="card-title">@info.LeafCount @((info.LeafCount == 1) ? "episode" : "episodes")</div>
                     } else {
                         <div class="card-title">@info.Year</div>
+                        @if (info.HasCountries)
+                        {<div>Countries: @(StringList(info.Countries))</div>}
                         <div>@(info.Duration / 60000) min @info.ContentRating</div>
                     }
                 </div>
