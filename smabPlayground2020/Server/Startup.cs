@@ -13,7 +13,7 @@ using Microsoft.Extensions.Hosting;
 using System.Linq;
 using smabPlayground2020.Server.Data;
 using smabPlayground2020.Server.Models;
-using smabPlayground2020.Shared.PlexInfo;
+using smab.PlexInfo;
 using System;
 using System.Net.Http;
 using Microsoft.Extensions.Options;

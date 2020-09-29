@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Syncfusion.Blazor;
-using smabPlayground2020.Shared.PlexInfo;
+using smab.PlexInfo;
 
 namespace smabPlayground2020.Client
 {

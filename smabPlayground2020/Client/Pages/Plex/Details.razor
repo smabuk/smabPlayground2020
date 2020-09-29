@@ -1,5 +1,6 @@
 ﻿@page "/plex/details/{Id:int}"
-@using smabPlayground2020.Shared.PlexInfo.Models
+@using smab.PlexInfo.Models
+@using smabPlayground2020.Shared.Helpers
 @inject PlexInfoClient plexClient
 
 @if (info == null)
@@ -30,11 +31,11 @@ else
                     <div class="plex-header-title"><h1 class="card-title">@info.Title</h1></div>
                 }
                 <div class="plex-header-info-lh">
+                    @if (info.OriginallyAvailableAt is not null) {
+                        DateTime originallyAvailableAt = DateTime.Parse(info.OriginallyAvailableAt);
+                        <div class="card-title">@originallyAvailableAt.ToDateLongMonthYearString()</div>
+                    }
                     @if (info.Type == "episode") {
-                        @if (info.OriginallyAvailableAt is not null) {
-                            DateTime originallyAvailableAt = DateTime.Parse(info.OriginallyAvailableAt);
-                            <div class="card-title">@originallyAvailableAt.ToLongDateString()</div>
-                        }
                         <div>@(info.Duration / 60000) min @info.ContentRating</div>
                     } else if (info.Type == "season") {
                         <div class="card-title">@info.LeafCount @((info.LeafCount == 1) ? "episode" : "episodes")</div>

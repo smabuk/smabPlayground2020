@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 using smabPlayground2020.Shared.Helpers;
 
-namespace smabPlayground2020.Shared.PlexInfo.Models
+namespace smab.PlexInfo.Models
 {
 	public class MovieSummary
 	{

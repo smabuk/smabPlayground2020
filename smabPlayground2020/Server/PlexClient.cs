@@ -7,8 +7,8 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
-using smabPlayground2020.Shared.PlexInfo;
-using smabPlayground2020.Shared.PlexInfo.Models;
+using smab.PlexInfo;
+using smab.PlexInfo.Models;
 
 namespace smabPlayground2020.Server
 {

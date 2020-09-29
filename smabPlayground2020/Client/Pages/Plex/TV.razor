@@ -1,5 +1,6 @@
 ﻿@page "/plex/tv"
-@using smabPlayground2020.Shared.PlexInfo.Models
+@using smab.PlexInfo.Models
+@using smabPlayground2020.Shared.Helpers
 @inject PlexInfoClient plexClient
 @inject PlexInfoState piState
 
@@ -24,7 +25,7 @@ else
                 <h6 class="card-subtitle text-muted">@item.Seasons @((item.Seasons == 1) ? "season" : "seasons")</h6>
                 @if (item.OriginallyAvailableAt is not null) {
                     DateTime originallyAvailableAt = (DateTime)item.OriginallyAvailableAt;
-                    <h6 class="card-subtitle text-muted">@originallyAvailableAt.ToString("dd MMMM, yyyy")</h6>
+                    <h6 class="card-subtitle text-muted">@originallyAvailableAt.ToDateLongMonthYearString()</h6>
                 }
             </div>
         </div>

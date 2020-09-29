@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace smabPlayground2020.Shared.PlexInfo.Models
+namespace smab.PlexInfo.Models
 {
 #pragma warning disable CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
     public class MyPlex

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace smabPlayground2020.Shared.PlexInfo.Models
+namespace smab.PlexInfo.Models
 {
 	public static class MediaTypes
 	{

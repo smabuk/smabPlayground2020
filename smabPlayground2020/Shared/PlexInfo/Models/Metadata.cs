@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 using smabPlayground2020.Shared.Helpers;
 
-namespace smabPlayground2020.Shared.PlexInfo.Models
+namespace smab.PlexInfo.Models
 {
 #pragma warning disable CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
     public class Metadata
