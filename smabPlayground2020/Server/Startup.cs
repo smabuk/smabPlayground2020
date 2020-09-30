@@ -13,6 +13,11 @@ using Microsoft.Extensions.Hosting;
 using System.Linq;
 using smabPlayground2020.Server.Data;
 using smabPlayground2020.Server.Models;
+using smab.PlexInfo;
+using System;
+using System.Net.Http;
+using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
 
 namespace smabPlayground2020.Server
 {
@@ -29,11 +34,37 @@ namespace smabPlayground2020.Server
 		// For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddDbContext<ApplicationDbContext>(options =>
-				options.UseSqlServer(
-					Configuration.GetConnectionString("DefaultConnection")));
+			services.Configure<PlexSettings>(Configuration.GetSection(nameof(PlexSettings)));
 
-			services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+			services.AddHttpClient<IPlexClient, PlexClient>()
+				// The local Plex Server will not have a proper certificate so we have to ignore this
+				.ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler()
+				{
+					ClientCertificateOptions = ClientCertificateOption.Manual,
+					ServerCertificateCustomValidationCallback =
+					(httpRequestMessage, cert, certChain, policyErrors) =>
+					{
+						return true;
+					}
+				});
+
+
+			services.AddDbContext<ApplicationDbContext>(options =>
+				options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+
+			services.AddDatabaseDeveloperPageExceptionFilter();
+
+			services.AddDefaultIdentity<ApplicationUser>(options => 
+				{
+					options.SignIn.RequireConfirmedAccount = false;
+					options.Password.RequiredLength = 6;
+					options.Password.RequireDigit = false;
+					options.Password.RequireUppercase = false;
+					options.Password.RequireLowercase = false;
+					options.Password.RequireNonAlphanumeric = false;
+					options.User.RequireUniqueEmail = true;
+				} )
+				.AddRoles<IdentityRole>()
 				.AddEntityFrameworkStores<ApplicationDbContext>();
 
 			services.AddIdentityServer()
@@ -42,7 +73,15 @@ namespace smabPlayground2020.Server
 			services.AddAuthentication()
 				.AddIdentityServerJwt();
 
-			services.AddControllersWithViews();
+			services.AddControllersWithViews()
+				.AddJsonOptions(options =>
+				{
+					options.JsonSerializerOptions.IgnoreNullValues = true;
+				});
+			services.AddSwaggerGen(c =>
+			{
+				c.SwaggerDoc("v1", new OpenApiInfo { Title = "webapi", Version = "v1" });
+			});
 			services.AddRazorPages();
 		}
 
@@ -52,8 +91,9 @@ namespace smabPlayground2020.Server
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
-				app.UseDatabaseErrorPage();
 				app.UseWebAssemblyDebugging();
+				app.UseSwagger();
+				app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "webapi v1"));
 			}
 			else
 			{

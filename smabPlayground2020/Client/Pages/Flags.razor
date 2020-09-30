@@ -1,0 +1,13 @@
+﻿@page "/flags"
+
+<h1>Flags</h1>
+
+<p>No of flags: @FlagList.Count</p>
+
+@foreach (var flag in FlagList) {
+    <img class="border-primary" src="/images/flags/@(flag).gif" />
+}
+
+@code {
+    private List<string> FlagList = new() { "gb", "gb-eng", "gb-scot", "gb-wales", "gb-ni", "eu" };
+}

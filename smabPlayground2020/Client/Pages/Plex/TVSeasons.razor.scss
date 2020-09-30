@@ -1,0 +1,17 @@
+﻿$THUMB_WIDTH: 200px;
+$THUMB_HEIGHT: 300px;
+
+
+.tvseason-card {
+    min-width: $THUMB_WIDTH;
+    max-width: $THUMB_WIDTH;
+
+    > img {
+        width: $THUMB_WIDTH;
+        height: $THUMB_HEIGHT;
+    }
+
+    > .card-body {
+        // height: calc( $THUMB_HEIGHT / 3);
+    }
+}

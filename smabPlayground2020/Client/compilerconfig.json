@@ -1,0 +1,30 @@
+﻿[
+  {
+    "outputFile": "Pages/Plex/Details.razor.css",
+    "inputFile": "Pages/Plex/Details.razor.scss"
+  },
+  {
+    "outputFile": "Pages/Plex/Movies.razor.css",
+    "inputFile": "Pages/Plex/Movies.razor.scss"
+  },
+  {
+    "outputFile": "Pages/Plex/CastMember.razor.css",
+    "inputFile": "Pages/Plex/CastMember.razor.scss"
+  },
+  {
+    "outputFile": "Pages/Sf/Index.razor.css",
+    "inputFile": "Pages/Sf/Index.razor.scss"
+  },
+  {
+    "outputFile": "Pages/Plex/TV.razor.css",
+    "inputFile": "Pages/Plex/TV.razor.scss"
+  },
+  {
+    "outputFile": "Pages/Plex/TVSeasons.razor.css",
+    "inputFile": "Pages/Plex/TVSeasons.razor.scss"
+  },
+  {
+    "outputFile": "Pages/Plex/TVEpisodes.razor.css",
+    "inputFile": "Pages/Plex/TVEpisodes.razor.scss"
+  }
+]
