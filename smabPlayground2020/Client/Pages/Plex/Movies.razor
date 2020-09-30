@@ -5,11 +5,7 @@
 @inject PlexInfoState piState
 
 <p><em>@Message</em></p>
-@if (items == null)
-{
-    @*<p><em>Loading Movies ...</em></p>*@
-}
-else
+@if (items is not null)
 {
     @*<SfGrid DataSource="@items" AllowPaging="true" AllowExcelExport="true" AllowSelection="true" AllowSorting="true" AllowFiltering="true">
             <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Menu"></GridFilterSettings>
@@ -26,11 +22,11 @@ else
 <div class="card-group">
     @foreach (var item in items)
     {
-        <div class="card movie-card m-1 h-100">
-            <a class="card-link" href="/Plex/Details/@item.Id" title="@item.Title"><img src="/PlexInfo/Photo?url=@(item.Thumb)&width=@(THUMB_WIDTH)&height=@(THUMB_HEIGHT)" class="card-img-top" loading="lazy" alt="..." /></a>
-            <div class="card-body p-1">
-                <a class="card-link" href="/Plex/Details/@item.Id" title="@item.Title"><h6 class="card-title text-truncate">@item.Title</h6></a>
-                <h6 class="card-subtitle text-muted">@item.Year</h6>
+        <div class="card">
+            <a href="/Plex/Details/@item.Id" title="@item.Title"><img src="/PlexInfo/Photo?url=@(item.Thumb)&width=@(THUMB_WIDTH)&height=@(THUMB_HEIGHT)" class="card-img" loading="lazy" alt="..." /></a>
+            <div class="card-body">
+                <a href="/Plex/Details/@item.Id" title="@item.Title"><div class="card-title text-truncate">@item.Title</div></a>
+                <div class="card-subtitle">@item.Year</div>
             </div>
         </div>
     }

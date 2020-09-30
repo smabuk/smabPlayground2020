@@ -5,36 +5,35 @@
 @inject PlexInfoState piState
 
 <p><em>@Message</em></p>
-@if (items == null)
-{
-    @*<p><em>Loading Movies ...</em></p>*@
-}
-else
+@if (items is not null)
 {
 <div class="card-group">
+    @*<Virtualize Items="@items" Context="item" >*@
     @foreach (var item in items)
     {
-        <div class="card tv-card m-1 h-100">
-            <a class="card-link" href="/Plex/Details/@item.Id" title="@item.Title">
-            @if (String.IsNullOrEmpty(item.Thumb)) {
-                <img src="/images/tv.png" class="card-img-top" loading="lazy" alt="..." />
-            } else {
-                <img src="/PlexInfo/Photo?url=@(item.Thumb)&width=@(THUMB_WIDTH)&height=@(THUMB_HEIGHT)" class="card-img-top" loading="lazy" alt="..." />
-            }
+        <div class="card">
+            <a href="/Plex/Details/@item.Id" title="@item.Title">
+                @if (String.IsNullOrEmpty(item.Thumb)) {
+                    <img src="/images/tv.png" class="card-img" loading="lazy" alt="..." />
+                } else {
+                    <img src="/PlexInfo/Photo?url=@(item.Thumb)&width=@(THUMB_WIDTH)&height=@(THUMB_HEIGHT)" class="card-img" loading="lazy" alt="..." />
+                }
             </a>
-            <div class="card-body p-1">
-                <a class="card-link" href="/Plex/Details/@item.Id" title="@item.Title"><h6 class="card-title text-truncate">@item.Title</h6></a>
-                <h6 class="card-subtitle text-muted">@item.Seasons @((item.Seasons == 1) ? "season" : "seasons")</h6>
+            <div class="card-body">
+                <a href="/Plex/Details/@item.Id" title="@item.Title">
+                    <div class="text-truncate">@item.Title</div>
+                </a>
+                <div class="card-subtitle">@item.Seasons @((item.Seasons == 1) ? "season" : "seasons")</div>
                 @if (item.OriginallyAvailableAt is not null) {
-                    DateTime originallyAvailableAt = (DateTime)item.OriginallyAvailableAt;
-                    if (originallyAvailableAt.Year > 1)
+                    if (item.OriginallyAvailableAt?.Year > 1)
                     {
-                        <h6 class="card-subtitle text-muted mt-1">@originallyAvailableAt.ToDateLongMonthYearString()</h6>
+                        <div class="card-subtitle">@item.OriginallyAvailableAt?.ToDateLongMonthYearString()</div>
                     }
                 }
             </div>
         </div>
     }
+    @*</Virtualize>*@
 </div>
 }
 
@@ -43,17 +42,17 @@ else
     private const int THUMB_WIDTH = 200;
     private const int THUMB_HEIGHT = 300;
 
-    public string Message { get; set; } = "Loading TV series ...";
+    public string Message { get; set; } = "Loading TV shows ...";
 
-    private List<TvSeriesSummary>? items { get; set; }
+    private List<TvShowSummary>? items { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        if (piState.TvSeriesList is null)
+        if (piState.TvShowsList is null)
         {
-            piState.TvSeriesList = (await plexClient.GetTvSeriesList() ?? new()).ToList();
+            piState.TvShowsList = (await plexClient.GetTvShowsList() ?? new()).ToList();
         }
-        items = piState.TvSeriesList;
-        Message = $"Showing {items.Count} TV series";
+        items = piState.TvShowsList;
+        Message = $"Showing {items.Count} TV shows";
     }
 }

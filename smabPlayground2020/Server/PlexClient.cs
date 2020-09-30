@@ -128,7 +128,7 @@ namespace smabPlayground2020.Server
 			return result;
 		}
 
-		public async Task<List<LibraryItem>> GetTvSeries(int? start = null, int? size = null)
+		public async Task<List<LibraryItem>> GetTvShows(int? start = null, int? size = null)
 		{
 			List<PlexOption> options = new()
 			{
@@ -196,7 +196,7 @@ namespace smabPlayground2020.Server
 			{
 				new("X-Plex-Features", "external-media,indirect-media"),
 				new("X-Plex-Model", "bundled"),
-				new("exclude-fields", "summary"),
+				new("excludeFields", "summary"),
 				new("includeExternalMedia", true),
 				new("includeExternalMetadata", true),
 				new("asyncAugmentMetadata", true)
@@ -204,7 +204,26 @@ namespace smabPlayground2020.Server
 			LibraryItem? result = await CallPlexApi<LibraryItem>($"hubs/metadata/{id}/related", options);
 			if (result is null)
 			{
-				throw new NullReferenceException("No related movies found");
+				throw new NullReferenceException("No related found");
+			}
+			return result;
+		}
+
+		public async Task<LibraryItem> GetSimilar(int id)
+		{
+			List<PlexOption> options = new()
+			{
+				new("X-Plex-Features", "external-media,indirect-media"),
+				new("X-Plex-Model", "bundled"),
+				new("excludeFields", "summary"),
+				new("includeExternalMedia", true),
+				new("includeExternalMetadata", true),
+				new("asyncAugmentMetadata", true)
+			};
+			LibraryItem? result = await CallPlexApi<LibraryItem>($"library/metadata/{id}/similar", options);
+			if (result is null)
+			{
+				throw new NullReferenceException("No similar found");
 			}
 			return result;
 		}

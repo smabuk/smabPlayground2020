@@ -2,7 +2,7 @@
 
 @if (Role is not null)
 {
-    <div class="card h-100 m-1 cast-card">
+    <div class="card">
         <div class="card-header text-center">
             @if (String.IsNullOrWhiteSpace(Role.Thumb) || (Role.Thumb == "https://artworks.thetvdb.com/banners/"))
             {
@@ -13,12 +13,9 @@
                 <img src="@(Role.Thumb)" loading="lazy" class="cast-photo" alt="@Role.Tag as @Role.Role"/>
             }
         </div>
-        <div class="card-body text-center">
-            <div class="card-text font-weight-bold">@Role.Tag</div>
-            @if (!String.IsNullOrWhiteSpace(Role.Role))
-            {
-                <div class="card-text font-italic">@Role.Role</div>
-            }
+        <div class="card-body">
+            <a href="#"><div class="card-title">@Role.Tag</div></a>
+            <div class="card-text">@Role.Role</div>
         </div>
     </div>
 }

@@ -1,6 +1,21 @@
-﻿.tvseason-card {
-  min-width: 200px;
-  max-width: 200px; }
-  .tvseason-card > img {
+﻿.card {
+  min-width: 202px;
+  max-width: 202px;
+  height: 350px;
+  margin-right: .25rem;
+  margin-bottom: .25rem; }
+  .card img {
     width: 200px;
-    height: 300px; }
+    height: 300px;
+    /*border-radius: $THUMB_WIDTH / 5;*/ }
+  .card .card-body {
+    line-height: 1.5;
+    padding: 0.2rem; }
+  .card a {
+    text-decoration: none;
+    font-weight: bold;
+    color: black; }
+    .card a:hover {
+      text-decoration: underline; }
+  .card .card-title {
+    margin: 0; }

@@ -3,11 +3,8 @@
 @using smabPlayground2020.Shared.Helpers
 @inject PlexInfoClient plexClient
 
-@if (info == null)
-{
-    <p><em>Loading... item @Id</em></p>
-}
-else
+<p><em>@Message</em></p>
+@if (info is not null)
 {
     @*<div><h1>@info.Type</h1></div>*@
     <div class="card">
@@ -83,17 +80,21 @@ else
     private Metadata? info;
     private List<Metadata> infoChildren = new();
 
+    public string Message { get; set; } = "Loading ...";
+
     [Parameter]
     public int Id { get; set; }
 
     protected override async Task OnParametersSetAsync()
     {
+        Message = $"Loading... item {Id}";
         item = await plexClient.GetItem(Id);
         info = item?.MediaContainer.Metadata?.FirstOrDefault() ?? new();
         if (info.Type == "show" || info.Type == "season")
         {
             infoChildren = (await plexClient.GetItemChildren(Id))?.MediaContainer.Metadata ?? new();
         }
+        Message = $"";
     }
 
     private string StringList(IList<Subitem>? group)

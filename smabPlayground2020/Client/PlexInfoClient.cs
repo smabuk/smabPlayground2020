@@ -32,6 +32,18 @@ namespace smabPlayground2020.Client
 			return item;
 		}
 
+		public async Task<LibraryItem?> GetRelatedItems(int id)
+		{
+			LibraryItem? item = await Client.GetFromJsonAsync<LibraryItem>($"PlexInfo/related/{id}");
+			return item;
+		}
+
+		public async Task<LibraryItem?> GetSimilarItems(int id)
+		{
+			LibraryItem? item = await Client.GetFromJsonAsync<LibraryItem>($"PlexInfo/similar/{id}");
+			return item;
+		}
+
 		public async Task<LibraryItem> GetLibraries()
 		{
 			return (await Client.GetFromJsonAsync<LibraryItem>($"PlexInfo/librarysections")) ?? new();
@@ -43,9 +55,9 @@ namespace smabPlayground2020.Client
 			return items;
 		}
 
-		public async Task<List<TvSeriesSummary>?> GetTvSeriesList()
+		public async Task<List<TvShowSummary>?> GetTvShowsList()
 		{
-			List<TvSeriesSummary>? items = await Client.GetFromJsonAsync<List<TvSeriesSummary>>($"PlexInfo/tvserieslist");
+			List<TvShowSummary>? items = await Client.GetFromJsonAsync<List<TvShowSummary>>($"PlexInfo/tvshowslist");
 			return items;
 		}
 

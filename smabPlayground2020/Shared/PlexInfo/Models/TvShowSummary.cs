@@ -5,7 +5,7 @@ using smabPlayground2020.Shared.Helpers;
 
 namespace smab.PlexInfo.Models
 {
-	public class TvSeriesSummary
+	public class TvShowSummary
 	{
 		public int LibraryId { get; set; }
 		public string LibraryTitle { get; set; } = "";

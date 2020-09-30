@@ -65,12 +65,12 @@ namespace smabPlayground2020.Server.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> TvSeriesList()
+		public async Task<IActionResult> TvShowsList()
 		{
-			var items = await _plexClient.GetTvSeries();
+			var items = await _plexClient.GetTvShows();
 			// SelectMany flattens the returned structure to IEnumerable<TvSeriesSummary>
 			var itemsList = items.SelectMany(i => i.MediaContainer.Metadata?.Select(m =>
-				new TvSeriesSummary() { 
+				new TvShowSummary() { 
 						LibraryId = i.MediaContainer.LibrarySectionId ?? 0,
 						LibraryTitle = i.MediaContainer.LibrarySectionTitle ?? "",
 						Id = int.Parse(m.Key.Replace(@"/library/metadata/", "").Replace(@"/children", "")),
@@ -84,7 +84,7 @@ namespace smabPlayground2020.Server.Controllers
 						AddedAt = m.AddedAt,
 						Rating = m.Rating,
 						OriginallyAvailableAt = (m.OriginallyAvailableAt is not null) ? DateTime.Parse(m.OriginallyAvailableAt) : DateTime.MinValue
-				}) ?? new List<TvSeriesSummary>());
+				}) ?? new List<TvShowSummary>());
 			return Ok(itemsList);
 		}
 
@@ -93,6 +93,14 @@ namespace smabPlayground2020.Server.Controllers
 		public async Task<IActionResult> Related(int id)
 		{
 			var items = await _plexClient.GetRelated(id);
+			return Ok(items);
+		}
+
+		[HttpGet]
+		[Route("{id}")]
+		public async Task<IActionResult> Similar(int id)
+		{
+			var items = await _plexClient.GetSimilar(id);
 			return Ok(items);
 		}
 

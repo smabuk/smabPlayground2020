@@ -1,13 +1,39 @@
-﻿.cast-card {
-    min-width: 209px;
-    max-width: 211px;
+﻿@import "common.scss";
 
-    > .card-header {
+.card {
+    min-width: 210px;
+    max-width: 210px;
+    margin-right: .25rem;
+    margin-bottom: .25rem;
+    /*border: none;*/
+    .card-header {
         height: 230px;
+        text-align: center;
     }
 
-    > .card-body {
-        height: 8rem;
+    .card-body {
+        padding: .5rem;
+        height: 6rem;
+        text-align: center;
+        line-height: 1.25;
+    }
+
+    .card-title {
+        margin: 0;
+    }
+
+    .card-text {
+        font-style: italic;
+    }
+
+    a {
+        font-weight: bold;
+        text-decoration: none;
+        color: black;
+
+        &:hover {
+            text-decoration: underline;
+        }
     }
 
     img:before {

@@ -26,5 +26,13 @@
   {
     "outputFile": "Pages/Plex/TVEpisodes.razor.css",
     "inputFile": "Pages/Plex/TVEpisodes.razor.scss"
+  },
+  {
+    "outputFile": "Pages/Plex/Related.razor.css",
+    "inputFile": "Pages/Plex/Related.razor.scss"
+  },
+  {
+    "outputFile": "Pages/Plex/CastMembers.razor.css",
+    "inputFile": "Pages/Plex/CastMembers.razor.scss"
   }
 ]

@@ -7,17 +7,17 @@
         @foreach (var item in Episodes)
         {
             int thumbWidth = (int)((THUMB_HEIGHT * item.Media?.FirstOrDefault()?.AspectRatio) ?? THUMB_WIDTH);
-            <div class="card tvepisode-card m-2 h-100">
-                <a class="card-link" href="/Plex/Details/@item.RatingKey" title="@item.Title">
+            <div class="card">
+                <a href="/Plex/Details/@item.RatingKey" title="@item.Title">
                     @if (String.IsNullOrEmpty(item.Thumb)) {
-                        <img src="/images/tv.png" class="card-img-top" width="@(THUMB_WIDTH)px" height="@(THUMB_HEIGHT)px" alt="..." />
+                        <img src="/images/tv.png" class="card-img" width="@(THUMB_WIDTH)px" height="@(THUMB_HEIGHT)px" alt="..." />
                     } else {
-                        <img src="/PlexInfo/Photo?url=@(item.Thumb)&width=@(THUMB_WIDTH)&height=@(THUMB_HEIGHT)" class="card-img-top" loading="lazy" alt="..." />
+                        <img src="/PlexInfo/Photo?url=@(item.Thumb)&width=@(THUMB_WIDTH)&height=@(THUMB_HEIGHT)" class="card-img" loading="lazy" alt="..." />
                     }
                 </a>
-                <div class="card-body p-1">
-                    <a class="card-link" href="/Plex/Details/@item.RatingKey" title="@item.Title"><h6 class="card-title text-truncate">@item.Title</h6></a>
-                    <h6 class="card-subtitle text-muted">Episode @item.Index</h6>
+                <div class="card-body">
+                    <a href="/Plex/Details/@item.RatingKey" title="@item.Title"><div class="card-title text-truncate">@item.Title</div></a>
+                    <div class="card-subtitle">Episode @item.Index</div>
                 </div>
             </div>
         }
