@@ -9,7 +9,7 @@ namespace smab.PlexInfo.Models
     public class LibraryItem
     {
         [JsonPropertyName("MediaContainer")]
-        public MediaContainer MediaContainer { get; set; }
+        public MediaContainer MediaContainer { get; init; }
     }
 #pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 

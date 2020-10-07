@@ -7,79 +7,79 @@ namespace smab.PlexInfo.Models
 	public class MediaContainer
 	{
 		[JsonPropertyName("size")]
-		public int Size { get; set; }
+		public int Size { get; init; }
 
 		[JsonPropertyName("claimed")]
-		public bool? Claimed { get; set; }
+		public bool? Claimed { get; init; }
 
 		[JsonPropertyName("machineIdentifier")]
-		public string? MachineIdentifier { get; set; }
+		public string? MachineIdentifier { get; init; }
 
 		[JsonPropertyName("version")]
-		public string? Version { get; set; }
+		public string? Version { get; init; }
 
 		[JsonPropertyName("allowSync")]
-		public bool AllowSync { get; set; }
+		public bool AllowSync { get; init; }
 
 		[JsonPropertyName("augmentationKey")]
-		public string? AugmentationKey { get; set; }
+		public string? AugmentationKey { get; init; }
 
 		[JsonPropertyName("art")]
-		public string? Art { get; set; }
+		public string? Art { get; init; }
 
 		[JsonPropertyName("content")]
-		public string? Content { get; set; }
+		public string? Content { get; init; }
 
 		[JsonPropertyName("identifier")]
-		public string Identifier { get; set; }
+		public string Identifier { get; init; }
 
 		[JsonPropertyName("librarySectionID")]
-		public int? LibrarySectionId { get; set; }
+		public int? LibrarySectionId { get; init; }
 
 		[JsonPropertyName("librarySectionTitle")]
-		public string? LibrarySectionTitle { get; set; }
+		public string? LibrarySectionTitle { get; init; }
 
 		[JsonPropertyName("librarySectionUUID")]
-		public string? LibrarySectionUuid { get; set; }
+		public string? LibrarySectionUuid { get; init; }
 
 		[JsonPropertyName("mediaTagPrefix")]
-		public string? MediaTagPrefix { get; set; }
+		public string? MediaTagPrefix { get; init; }
 
 		[JsonPropertyName("mediaTagVersion")]
-		public int? MediaTagVersion { get; set; }
+		public int? MediaTagVersion { get; init; }
 
 		[JsonPropertyName("thumb")]
-		public string? Thumb { get; set; }
+		public string? Thumb { get; init; }
 
 		[JsonPropertyName("title1")]
-		public string? Title1 { get; set; }
+		public string? Title1 { get; init; }
 
 		[JsonPropertyName("title2")]
-		public string? Title2 { get; set; }
+		public string? Title2 { get; init; }
 
 		[JsonPropertyName("viewGroup")]
-		public string? ViewGroup { get; set; }
+		public string? ViewGroup { get; init; }
 
 		[JsonPropertyName("viewMode")]
-		public int? ViewMode { get; set; }
+		public int? ViewMode { get; init; }
 
 
 
 
 		[JsonPropertyName("Directory")]
-		public List<LibraryDirectory>? Directories { get; set; }
+		public List<LibraryDirectory>? Directories { get; init; }
 
 		[JsonPropertyName("Metadata")]
-		public List<Metadata>? Metadata { get; set; }
+		public List<Metadata>? Metadata { get; init; }
 
 		[JsonPropertyName("Hub")]
-		public List<Hub>? Hubs { get; set; }
+		public List<Hub>? Hubs { get; init; }
 
 		[JsonPropertyName("Setting")]
-		public List<Setting>? Settings { get; set; }
+		public List<Setting>? Settings { get; init; }
 
 		[JsonPropertyName("Server")]
-		public List<Server>? Servers { get; set; }
+		public List<Server>? Servers { get; init; }
 	}
 #pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 

@@ -12,40 +12,40 @@ namespace smab.PlexInfo.Models
     {
 
         [JsonPropertyName("authToken")]
-        public string AuthToken { get; set; }
+        public string AuthToken { get; init; }
 
         [JsonPropertyName("username")]
-        public string Username { get; set; }
+        public string Username { get; init; }
 
         [JsonPropertyName("mappingState")]
-        public string MappingState { get; set; }
+        public string MappingState { get; init; }
 
         [JsonPropertyName("mappingError")]
-        public string MappingError { get; set; }
+        public string MappingError { get; init; }
 
         [JsonPropertyName("signInState")]
-        public string SignInState { get; set; }
+        public string SignInState { get; init; }
 
         [JsonPropertyName("publicAddress")]
-        public string PublicAddress { get; set; }
+        public string PublicAddress { get; init; }
 
         [JsonPropertyName("publicPort")]
-        public int PublicPort { get; set; }
+        public int PublicPort { get; init; }
 
         [JsonPropertyName("privateAddress")]
-        public string PrivateAddress { get; set; }
+        public string PrivateAddress { get; init; }
 
         [JsonPropertyName("privatePort")]
-        public int PrivatePort { get; set; }
+        public int PrivatePort { get; init; }
 
         [JsonPropertyName("subscriptionFeatures")]
-        public string SubscriptionFeatures { get; set; }
+        public string SubscriptionFeatures { get; init; }
 
         [JsonPropertyName("subscriptionActive")]
-        public bool SubscriptionActive { get; set; }
+        public bool SubscriptionActive { get; init; }
 
         [JsonPropertyName("subscriptionState")]
-        public string SubscriptionState { get; set; }
+        public string SubscriptionState { get; init; }
     }
 #pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 }

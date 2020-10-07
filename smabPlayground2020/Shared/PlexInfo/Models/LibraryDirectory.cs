@@ -10,74 +10,74 @@ namespace smab.PlexInfo.Models
 	public class LibraryDirectory
 	{
 		[JsonPropertyName("allowSync")]
-		public bool? AllowSync { get; set; }
+		public bool? AllowSync { get; init; }
 
 		[JsonPropertyName("art")]
-		public string? Art { get; set; }
+		public string? Art { get; init; }
 
 		[JsonPropertyName("composite")]
-		public string? Composite { get; set; }
+		public string? Composite { get; init; }
 
 		[JsonPropertyName("filters")]
-		public bool? Filters { get; set; }
+		public bool? Filters { get; init; }
 
 		[JsonPropertyName("refreshing")]
-		public bool? Refreshing { get; set; }
+		public bool? Refreshing { get; init; }
 
 		[JsonPropertyName("thumb")]
-		public string? Thumb { get; set; }
+		public string? Thumb { get; init; }
 
 		[JsonPropertyName("key")]
-		public string Key { get; set; }
+		public string Key { get; init; }
 
 		[JsonPropertyName("type")]
-		public string? Type { get; set; }
+		public string? Type { get; init; }
 
 		[JsonPropertyName("title")]
-		public string Title { get; set; }
+		public string Title { get; init; }
 
 		[JsonPropertyName("agent")]
-		public string? Agent { get; set; }
+		public string? Agent { get; init; }
 
 		[JsonPropertyName("scanner")]
-		public string? Scanner { get; set; }
+		public string? Scanner { get; init; }
 
 		[JsonPropertyName("language")]
-		public string? Language { get; set; }
+		public string? Language { get; init; }
 
 		[JsonPropertyName("uuid")]
-		public string? Uuid { get; set; }
+		public string? Uuid { get; init; }
 
 		[JsonPropertyName("updatedAt")]
 		[JsonConverter(typeof(JsonUnixDateConverterWithNulls))]
-		public DateTime? UpdatedAt { get; set; }
+		public DateTime? UpdatedAt { get; init; }
 
 		[JsonPropertyName("createdAt")]
 		[JsonConverter(typeof(JsonUnixDateConverterWithNulls))]
-		public DateTime? CreatedAt { get; set; }
+		public DateTime? CreatedAt { get; init; }
 
 		[JsonPropertyName("scannedAt")]
 		[JsonConverter(typeof(JsonUnixDateConverterWithNulls))]
-		public DateTime? ScannedAt { get; set; }
+		public DateTime? ScannedAt { get; init; }
 
 		[JsonPropertyName("content")]
-		public bool? Content { get; set; }
+		public bool? Content { get; init; }
 
 		[JsonPropertyName("directory")]
-		public bool? Directory { get; set; }
+		public bool? Directory { get; init; }
 
 		[JsonPropertyName("contentChangedAt")]
 		[JsonConverter(typeof(JsonUnixDateConverterWithNulls))]
-		public DateTime? ContentChangedAt { get; set; }
+		public DateTime? ContentChangedAt { get; init; }
 
 		[JsonPropertyName("hidden")]
-		public int? Hidden { get; set; }
+		public int? Hidden { get; init; }
 
 		[JsonPropertyName("Location")]
-		public List<Location>? Locations { get; set; }
+		public List<Location>? Locations { get; init; }
 
 		[JsonPropertyName("enableAutoPhotoTags")]
-		public bool? EnableAutoPhotoTags { get; set; }
+		public bool? EnableAutoPhotoTags { get; init; }
 	}
 #pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 

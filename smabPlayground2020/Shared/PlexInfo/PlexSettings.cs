@@ -8,7 +8,7 @@ namespace smab.PlexInfo
 {
     public class PlexSettings
     {
-		public string Server { get; set; } = "";
-		public string Token { get; set; } = "";
+		public string Server { get; init; } = "";
+		public string Token { get; init; } = "";
 	}
 }

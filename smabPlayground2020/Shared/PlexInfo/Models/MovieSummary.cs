@@ -7,15 +7,15 @@ namespace smab.PlexInfo.Models
 {
 	public class MovieSummary
 	{
-		public int LibraryId { get; set; }
-		public string LibraryTitle { get; set; } = "";
-		public int Id { get; set; }
-		public string Title { get; set; } = "";
-		public int? Year { get; set; }
-		public int Duration { get; set; }
-		public string? Thumb { get; set; }
-		public DateTime? AddedAt { get; set; }
-		public double? Rating { get; set; }
-		public string? OriginallyAvailableAt { get; set; }
+		public int LibraryId { get; init; }
+		public string LibraryTitle { get; init; } = "";
+		public int Id { get; init; }
+		public string Title { get; init; } = "";
+		public int? Year { get; init; }
+		public int Duration { get; init; }
+		public string? Thumb { get; init; }
+		public DateTime? AddedAt { get; init; }
+		public double? Rating { get; init; }
+		public string? OriginallyAvailableAt { get; init; }
 	}
 }

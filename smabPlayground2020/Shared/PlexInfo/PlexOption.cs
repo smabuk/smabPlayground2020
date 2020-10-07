@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace smab.PlexInfo
 {
-    public class PlexOption
+    public record PlexOption
     {
-		public string Key { get; set; }
-		public string Value { get; set; }
+		public string Key { get; init; }
+		public string Value { get; init; }
 
 		public PlexOption(string key, string value)
 		{

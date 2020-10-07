@@ -7,10 +7,10 @@ namespace smab.PlexInfo.Models
     {
 
         [JsonPropertyName("id")]
-        public int? Id { get; set; }
+        public int? Id { get; init; }
 
         [JsonPropertyName("path")]
-        public string Path { get; set; }
+        public string Path { get; init; }
     }
 #pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 

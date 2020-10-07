@@ -11,34 +11,34 @@ namespace smab.PlexInfo.Models
     public class Hub
     {
         [JsonPropertyName("hubkey")]
-        public string HubKey { get; set; }
+        public string HubKey { get; init; }
 
         [JsonPropertyName("key")]
-        public string Key { get; set; }
+        public string Key { get; init; }
 
         [JsonPropertyName("title")]
-        public string Title { get; set; }
+        public string Title { get; init; }
 
         [JsonPropertyName("type")]
-        public string Type { get; set; }
+        public string Type { get; init; }
 
         [JsonPropertyName("hubIdentifier")]
-        public string HubIdentifier { get; set; }
+        public string HubIdentifier { get; init; }
 
         [JsonPropertyName("context")]
-        public string Context { get; set; }
+        public string Context { get; init; }
 
         [JsonPropertyName("size")]
-        public int Size { get; set; }
+        public int Size { get; init; }
 
         [JsonPropertyName("more")]
-        public bool More { get; set; }
+        public bool More { get; init; }
 
         [JsonPropertyName("style")]
-        public string Style { get; set; }
+        public string Style { get; init; }
 
         [JsonPropertyName("Metadata")]
-        public List<Metadata>? MetaData { get; set; }
+        public List<Metadata>? MetaData { get; init; }
     }
 #pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 }

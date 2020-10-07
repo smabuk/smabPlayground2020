@@ -11,13 +11,13 @@ namespace smab.PlexInfo.Models
     public class Subitem
     {
         [JsonPropertyName("id")]
-        public int? Id { get; set; }
+        public int? Id { get; init; }
 
         [JsonPropertyName("filter")]
-        public string? Filter { get; set; }
+        public string? Filter { get; init; }
 
         [JsonPropertyName("tag")]
-        public string Tag { get; set; }
+        public string Tag { get; init; }
 
 		public override string ToString() => Tag;
 
