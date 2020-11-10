@@ -1,0 +1,41 @@
+﻿.die {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  font-weight: bold; }
+
+.die:hover {
+  background-color: green; }
+
+.slot {
+  border: thin solid;
+  display: inline-block;
+  margin: 3px; }
+
+.show-orientation {
+  text-decoration: underline;
+  text-decoration: underline dashed #808080; }
+
+.rot-0 {
+  transform: rotate(0deg); }
+
+.rot-90 {
+  transform: rotate(90deg); }
+
+.rot-180 {
+  transform: rotate(180deg); }
+
+.rot-270 {
+  transform: rotate(270deg); }
+
+.rot-reverse-0 {
+  transform: rotate(180deg); }
+
+.rot-reverse-90 {
+  transform: rotate(270deg); }
+
+.rot-reverse-180 {
+  transform: rotate(0deg); }
+
+.rot-reverse-270 {
+  transform: rotate(90deg); }

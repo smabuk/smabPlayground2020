@@ -1,0 +1,14 @@
+﻿@{
+    string showorientation = ("MNWZ".Contains(Die.FaceValue.Display)) ? "show-orientation" : "";
+    string dieClass = $"rot-{(Reverse == true ? "reverse-" : "")}{Die.Orientation}";
+}
+<td class="d-table-cell">
+    <div class="card rounded @dieClass slot"><div class="rounded-circle @showorientation die text-primary">@Die.FaceValue.Display</div></div>
+</td>
+
+@code {
+    [Parameter]
+    public LetterDie Die { get; set; } = new();
+    [Parameter]
+    public bool Reverse{ get; set; } = false;
+}

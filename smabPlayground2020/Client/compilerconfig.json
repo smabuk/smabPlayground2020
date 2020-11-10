@@ -34,5 +34,13 @@
   {
     "outputFile": "Pages/Plex/CastMembers.razor.css",
     "inputFile": "Pages/Plex/CastMembers.razor.scss"
+  },
+  {
+    "outputFile": "Pages/Boggle/BoggleDie.razor.css",
+    "inputFile": "Pages/Boggle/BoggleDie.razor.scss"
+  },
+  {
+    "outputFile": "Pages/Boggle/BoggleBoard.razor.css",
+    "inputFile": "Pages/Boggle/BoggleBoard.razor.scss"
   }
 ]

@@ -1,0 +1,59 @@
+﻿@page "/boggle"
+@page "/boggle/{boggleType}"
+@page "/boggle/{noOfPlayers:int}"
+@page "/boggle/{boggleType}/{noOfPlayers:int}"
+@using Smab.DiceAndTiles
+
+@{
+    int BoardSize = BoggleSet.BoardSize;
+}
+
+<br/>
+<br/>
+<div class="row my-auto">
+    <div class="mt-xl-2 @(NoOfPlayers == 1 ? "col-xl" : "col-xl-auto mr-xl-auto")">
+        <BoggleBoard BoggleSet="BoggleSet" />
+    </div>
+    @if (NoOfPlayers == 2)
+    {
+        <div class="col-xl-auto mt-xl-2 mt-5">
+            <BoggleBoard BoggleSet="BoggleSet" Reverse="true" />
+        </div>
+    }
+</div>
+
+<style>
+    html, body {
+        height: 100%;
+    }
+    body {
+        display: flex;
+        align-items: center;
+    }
+</style>
+
+@code {
+    public BoggleDice BoggleSet { get; set; } = new BoggleDice(BoggleDice.BoggleType.Classic4x4);
+    public BoggleDice.BoggleType BoggleSetType { get; set; } = BoggleDice.BoggleType.Classic4x4;
+    public int NoOfPlayers { get; set; } = 1;
+
+    [Parameter]
+    public int noOfPlayers { get; set; } = 1;
+    [Parameter]
+    public string boggleType { get; set; } = "classic";
+
+    protected override void OnParametersSet()
+    {
+		NoOfPlayers = noOfPlayers;
+        BoggleSetType = boggleType?.ToLowerInvariant() switch
+        {
+            "classic"   => BoggleDice.BoggleType.Classic4x4,
+            "deluxe"    => BoggleDice.BoggleType.BigBoggleDeluxe,
+            "new"       => BoggleDice.BoggleType.New4x4,
+            "superbig"  => BoggleDice.BoggleType.SuperBigBoggle2012,
+            _           => BoggleDice.BoggleType.Classic4x4
+        };
+        BoggleSet = new BoggleDice(BoggleSetType);
+        BoggleSet.ShakeAndFillBoard();
+    }
+}

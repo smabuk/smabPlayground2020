@@ -1,0 +1,86 @@
+﻿/*html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    align-items: center;
+}
+
+.board {
+    background-color: orange;
+    width: @(BoardSize + (BoardSize * (DieSize / 2)))rem;
+    height: @(BoardSize + (BoardSize * (DieSize / 2)))rem;
+}
+
+.slot {
+    width: @(DieSize / 2)rem;
+    height: @(DieSize / 2)rem;
+    border: thin solid;
+    display: inline-block;
+    margin: 3px;
+}
+
+.die {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    font-size: @(DieFontSize / 2)rem;
+    font-weight: bold;
+}
+
+@media (min-width: 768px) {
+    .board {
+        width: @(BoardSize + (BoardSize * DieSize))rem;
+        height: @(BoardSize + (BoardSize * DieSize))rem;
+    }
+
+    .slot {
+        width: @(DieSize)rem;
+        height: @(DieSize)rem;
+    }
+
+    .die {
+        font-size: @(DieFontSize)rem;
+    }
+}
+
+
+
+.ShowOrientation {
+    text-decoration: underline;
+    text-decoration: underline dashed #808080;
+}
+
+.rot0 {
+    transform: rotate(0deg);
+}
+
+.rot90 {
+    transform: rotate(90deg);
+}
+
+.rot180 {
+    transform: rotate(180deg);
+}
+
+.rot270 {
+    transform: rotate(270deg);
+}
+
+.rot-reverse-0 {
+    transform: rotate(180deg);
+}
+
+.rot-reverse-90 {
+    transform: rotate(270deg);
+}
+
+.rot-reverse-180 {
+    transform: rotate(0deg);
+}
+
+.rot-reverse-270 {
+    transform: rotate(90deg);
+}
+*/
