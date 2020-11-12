@@ -22,28 +22,28 @@ namespace smabPlayground2020.Server.Controllers
 			_plexClient = plexClient;
 		}
 
-		[HttpGet]
+		[HttpGet(Name = nameof(LibraryRoot))]
 		public async Task<IActionResult> LibraryRoot()
 		{
 			var item = await _plexClient.GetLibraryRoot();
 			return Ok(item);
 		}
 
-		[HttpGet]
+		[HttpGet(Name = nameof(LibrarySections))]
 		public async Task<IActionResult> LibrarySections()
 		{
 			var items = await _plexClient.GetLibrarySections();
 			return Ok(items);
 		}
 
-		[HttpGet]
+		[HttpGet(Name = nameof(AllMovies))]
 		public async Task<IActionResult> AllMovies()
 		{
 			var items = await _plexClient.GetAllMovies();
 			return Ok(items);
 		}
 
-		[HttpGet]
+		[HttpGet(Name = nameof(MoviesList))]
 		public async Task<IActionResult> MoviesList()
 		{
 			var items = await _plexClient.GetAllMovies();
@@ -64,7 +64,7 @@ namespace smabPlayground2020.Server.Controllers
 			return Ok(itemsList);
 		}
 
-		[HttpGet]
+		[HttpGet(Name = nameof(TvShowsList))]
 		public async Task<IActionResult> TvShowsList()
 		{
 			var items = await _plexClient.GetTvShows();
@@ -88,7 +88,7 @@ namespace smabPlayground2020.Server.Controllers
 			return Ok(itemsList);
 		}
 
-		[HttpGet]
+		[HttpGet(Name = nameof(Related))]
 		[Route("{id}")]
 		public async Task<IActionResult> Related(int id)
 		{
@@ -96,7 +96,7 @@ namespace smabPlayground2020.Server.Controllers
 			return Ok(items);
 		}
 
-		[HttpGet]
+		[HttpGet(Name = nameof(Similar))]
 		[Route("{id}")]
 		public async Task<IActionResult> Similar(int id)
 		{
@@ -104,14 +104,14 @@ namespace smabPlayground2020.Server.Controllers
 			return Ok(items);
 		}
 
+		[HttpGet(Name = nameof(MovieCollections))]
 		public async Task<IActionResult> MovieCollections()
 		{
 			var items = await _plexClient.GetMovieCollections();
 			return Ok(items);
 		}
 
-		[HttpGet]
-		[Route("{id}")]
+		[HttpGet("{id}", Name = nameof(Item))]
 		public async Task<IActionResult> Item(int id)
 		{
 			var item = await _plexClient.GetItem(id);
@@ -122,7 +122,7 @@ namespace smabPlayground2020.Server.Controllers
 			return Ok(item);
 		}
 
-		[HttpGet]
+		[HttpGet(Name = nameof(ItemChildren))]
 		[Route("{id}")]
 		public async Task<IActionResult> ItemChildren(int id)
 		{
@@ -134,7 +134,7 @@ namespace smabPlayground2020.Server.Controllers
 			return Ok(item);
 		}
 
-		[HttpGet]
+		[HttpGet(Name = nameof(Photo))]
 		public async Task<IActionResult> Photo([FromQuery] string url, [FromQuery] int width = 180, [FromQuery] int height = 270)
 		{
 			byte[]? item = await _plexClient.GetPhotoFromUrl(url, width, height);
@@ -145,7 +145,7 @@ namespace smabPlayground2020.Server.Controllers
 			return new FileContentResult(item, "image/jpeg");
 		}
 
-		[HttpGet]
+		[HttpGet(Name = nameof(Resource))]
 		[Route("{resource}")]
 		public async Task<IActionResult> Resource(string resource)
 		{
