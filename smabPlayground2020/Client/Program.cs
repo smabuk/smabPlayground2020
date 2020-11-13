@@ -22,7 +22,7 @@ namespace smabPlayground2020.Client
 
 			var builder = WebAssemblyHostBuilder.CreateDefault(args);
 			builder.Services.AddSyncfusionBlazor();
-			builder.RootComponents.Add<App>("app");
+			builder.RootComponents.Add<App>("#app");
 
 			builder.Services.AddHttpClient("smabPlayground2020.ServerAPI", client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
 				.AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();

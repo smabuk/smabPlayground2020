@@ -80,7 +80,7 @@ namespace smabPlayground2020.Server
 				});
 			services.AddSwaggerGen(c =>
 			{
-				c.SwaggerDoc("v1", new OpenApiInfo { Title = "webapi", Version = "v1" });
+				c.SwaggerDoc("v1", new OpenApiInfo { Title = "smabPlayground2020", Version = "v1" });
 			});
 			services.AddRazorPages();
 		}
@@ -91,9 +91,10 @@ namespace smabPlayground2020.Server
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
+				app.UseMigrationsEndPoint();
 				app.UseWebAssemblyDebugging();
 				app.UseSwagger();
-				app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "webapi v1"));
+				app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "smabPlayground2020 v1"));
 			}
 			else
 			{
