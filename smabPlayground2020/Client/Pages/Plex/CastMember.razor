@@ -10,7 +10,7 @@
             }
             else
             {
-                <img src="@(Role.Thumb)" loading="lazy" class="cast-photo" alt="@Role.Tag as @Role.Role"/>
+                <img src="@(Role.Thumb.Replace("http:", "https:"))" loading="lazy" class="cast-photo" alt="@Role.Tag as @Role.Role"/>
             }
         </div>
         <div class="card-body">
