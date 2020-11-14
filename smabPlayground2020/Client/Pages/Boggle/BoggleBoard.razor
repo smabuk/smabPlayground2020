@@ -21,7 +21,11 @@
                 <tr class="cell">
                     @for (int col = 0; col < BoardSize; col++)
                     {
-                        <BoggleDie Die="BoggleSet.Board[row + (col * BoardSize)]" />
+                        int x = col;
+                        int y = row;
+                        string letter = BoggleSet.Board[row + (col * BoardSize)].FaceValue.Display;
+                
+                        <BoggleDie Die="BoggleSet.Board[row + (col * BoardSize)]" OnClickCallback="(() => SelectLetter(x, y, letter))" />
                     }
                 </tr>
             }
@@ -68,5 +72,10 @@
 
     protected override void OnParametersSet()
     {
+    }
+
+    private void SelectLetter(int x, int y, string letter)
+    {
+        Console.WriteLine($"Selected: {letter} at ({x}, {y})");
     }
 }

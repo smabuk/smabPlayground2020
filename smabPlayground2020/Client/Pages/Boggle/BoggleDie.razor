@@ -3,7 +3,7 @@
     string dieClass = $"rot-{(Reverse == true ? "reverse-" : "")}{Die.Orientation}";
 }
 <td class="d-table-cell">
-    <div class="card rounded @dieClass slot"><div class="rounded-circle @showorientation die text-primary">@Die.FaceValue.Display</div></div>
+    <div class="card rounded @dieClass slot"><div class="rounded-circle @showorientation die text-primary" @onclick="OnClickCallback">@Die.FaceValue.Display</div></div>
 </td>
 
 @code {
@@ -11,4 +11,7 @@
     public LetterDie Die { get; set; } = new();
     [Parameter]
     public bool Reverse{ get; set; } = false;
+
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClickCallback { get; set; }
 }
