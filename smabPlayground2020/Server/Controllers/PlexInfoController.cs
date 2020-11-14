@@ -88,16 +88,14 @@ namespace smabPlayground2020.Server.Controllers
 			return Ok(itemsList);
 		}
 
-		[HttpGet(Name = nameof(Related))]
-		[Route("{id}")]
+		[HttpGet("{id}", Name = nameof(Related))]
 		public async Task<IActionResult> Related(int id)
 		{
 			var items = await _plexClient.GetRelated(id);
 			return Ok(items);
 		}
 
-		[HttpGet(Name = nameof(Similar))]
-		[Route("{id}")]
+		[HttpGet("{id}", Name = nameof(Similar))]
 		public async Task<IActionResult> Similar(int id)
 		{
 			var items = await _plexClient.GetSimilar(id);
@@ -122,8 +120,7 @@ namespace smabPlayground2020.Server.Controllers
 			return Ok(item);
 		}
 
-		[HttpGet(Name = nameof(ItemChildren))]
-		[Route("{id}")]
+		[HttpGet("{id}", Name = nameof(ItemChildren))]
 		public async Task<IActionResult> ItemChildren(int id)
 		{
 			var item = await _plexClient.GetItemChildren(id);
@@ -145,8 +142,7 @@ namespace smabPlayground2020.Server.Controllers
 			return new FileContentResult(item, "image/jpeg");
 		}
 
-		[HttpGet(Name = nameof(Resource))]
-		[Route("{resource}")]
+		[HttpGet("{resource}", Name = nameof(Resource))]
 		public async Task<IActionResult> Resource(string resource)
 		{
 			byte[]? item = await _plexClient.GetResource(resource);
