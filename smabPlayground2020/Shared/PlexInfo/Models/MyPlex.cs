@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace smab.PlexInfo.Models
 {
-#pragma warning disable CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
-    public class MyPlex
+	public record MyPlex
     {
-
         [JsonPropertyName("authToken")]
         public string AuthToken { get; init; }
 
@@ -47,5 +45,4 @@ namespace smab.PlexInfo.Models
         [JsonPropertyName("subscriptionState")]
         public string SubscriptionState { get; init; }
     }
-#pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 }

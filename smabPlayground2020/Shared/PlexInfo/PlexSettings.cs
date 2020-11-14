@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace smab.PlexInfo
 {
-    public class PlexSettings
+    public record PlexSettings
     {
-		public string Server { get; init; } = "";
-		public string Token { get; init; } = "";
+		public string Server { get; init; }
+		public string Token { get; init; }
 	}
 }

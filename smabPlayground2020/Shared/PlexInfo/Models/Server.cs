@@ -2,8 +2,7 @@
 
 namespace smab.PlexInfo.Models
 {
-#pragma warning disable CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
-	public class Server
+	public record Server
 	{
 		[JsonPropertyName("name")]
 		public string Name { get; init; }
@@ -23,6 +22,4 @@ namespace smab.PlexInfo.Models
 		[JsonPropertyName("version")]
 		public string Version { get; init; }
 	}
-#pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
-
 }

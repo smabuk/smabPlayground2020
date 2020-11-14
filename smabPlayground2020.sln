@@ -11,6 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "smabPlayground2020.Shared",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{035B90ED-D184-4A95-9107-D049133C9BC3}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		.github\workflows\smabPlayground2020-dev.yml = .github\workflows\smabPlayground2020-dev.yml
 		.github\workflows\smabPlayground2020.yml = .github\workflows\smabPlayground2020.yml
 	EndProjectSection

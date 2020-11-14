@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace smab.PlexInfo.Models
 {
-#pragma warning disable CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
-    public class Hub
+	public record Hub
     {
         [JsonPropertyName("hubkey")]
         public string HubKey { get; init; }
@@ -40,5 +39,4 @@ namespace smab.PlexInfo.Models
         [JsonPropertyName("Metadata")]
         public List<Metadata>? MetaData { get; init; }
     }
-#pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 }

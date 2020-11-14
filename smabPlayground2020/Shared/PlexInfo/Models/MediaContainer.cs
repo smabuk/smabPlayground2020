@@ -3,8 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace smab.PlexInfo.Models
 {
-#pragma warning disable CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
-	public class MediaContainer
+	public record MediaContainer
 	{
 		[JsonPropertyName("size")]
 		public int Size { get; init; }
@@ -81,6 +80,4 @@ namespace smab.PlexInfo.Models
 		[JsonPropertyName("Server")]
 		public List<Server>? Servers { get; init; }
 	}
-#pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
-
 }

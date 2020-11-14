@@ -3,8 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace smab.PlexInfo.Models
 {
-#pragma warning disable CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
-	public class Medium
+	public record Medium
 	{
 		[JsonPropertyName("id")]
 		public int Id { get; init; }
@@ -57,6 +56,4 @@ namespace smab.PlexInfo.Models
 		[JsonPropertyName("has64bitOffsets")]
 		public bool? Has64bitOffsets { get; init; }
 	}
-#pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
-
 }

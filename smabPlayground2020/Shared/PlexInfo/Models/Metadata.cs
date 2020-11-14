@@ -6,8 +6,7 @@ using smabPlayground2020.Shared.Helpers;
 
 namespace smab.PlexInfo.Models
 {
-#pragma warning disable CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
-    public class Metadata
+	public record Metadata
     {
 
         [JsonPropertyName("historyKey")]
@@ -220,6 +219,4 @@ namespace smab.PlexInfo.Models
 
 
 	}
-#pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
-
 }

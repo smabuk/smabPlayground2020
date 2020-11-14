@@ -4,8 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace smab.PlexInfo.Models
 {
-#pragma warning disable CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
-	public class Part
+	public record Part
 	{
 		[JsonPropertyName("id")]
 		public int Id { get; init; }
@@ -44,6 +43,4 @@ namespace smab.PlexInfo.Models
 		public List<Stream>? Streams { get; init; }
 
 	}
-#pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
-
 }

@@ -27,8 +27,7 @@ namespace smab.PlexInfo.Models
 		};
 	}
 
-#pragma warning disable CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
-	public class MediaType
+	public record MediaType
 	{
 		public int Id { get; init; }
 		public string TypeString { get; init; }
@@ -36,5 +35,4 @@ namespace smab.PlexInfo.Models
 		public string Element { get; init; }
 		public List<int>? Related { get; init; }
 	}
-#pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 }
