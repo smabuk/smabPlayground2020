@@ -2,15 +2,21 @@
   display: flex;
   justify-content: center;
   align-content: center;
-  font-weight: bold; }
+  font-weight: bold;
+  background-color: cornsilk; }
+  .die.selected {
+    background-color: yellow; }
 
 .die:hover {
-  background-color: green; }
+  background-color: yellow; }
 
 .slot {
   border: thin solid;
   display: inline-block;
-  margin: 3px; }
+  margin: 3px;
+  background-color: #fffae7; }
+  .slot.selected {
+    background-color: yellow; }
 
 .show-orientation {
   text-decoration: underline;
