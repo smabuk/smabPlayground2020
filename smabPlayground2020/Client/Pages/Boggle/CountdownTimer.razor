@@ -1,11 +1,12 @@
 ﻿@page "/countdown"
-<button class="btn btn-primary" @onclick="DecrementTime">Click me</button>
 <div style="position: relative; top: 200px;">
     <div class="wrap">
-        <h1>Draft <strong>Countdown</strong></h1>
+        <h1><strong>@Heading</strong></h1>
 
-        <div class="countdown">
-            <div class="bloc-time hours" data-init-value="@currentTimer.Hours">
+        <div class="countdown" @onclick="DecrementTime" @oncontextmenu="DecrementTime"  @oncontextmenu:preventDefault>
+           @if (ShowHours)
+            {
+                <div class="bloc-time hours" data-init-value="@currentTimer.Hours">
                 <span class="count-title">Hours</span>
 
                 <div class="figure hours hours-1">
@@ -22,8 +23,10 @@
                     <span class="bottom-back"><span>@(currentTimer.Hours % 10)</span></span>
                 </div>
             </div>
-
-            <div class="bloc-time min" data-init-value="@currentTimer.Minutes">
+            }
+            @if (ShowMinutes)
+            {
+                <div class="bloc-time min" data-init-value="@currentTimer.Minutes">
                 <span class="count-title">Minutes</span>
 
                 <div class="figure min min-1">
@@ -40,8 +43,10 @@
                     <span class="bottom-back"><span>@(currentTimer.Minutes % 10)</span></span>
                 </div>
             </div>
-
-            <div class="bloc-time sec" data-init-value="@currentTimer.Seconds">
+            }
+            @if (ShowSeconds)
+            {
+                <div class="bloc-time sec" data-init-value="@currentTimer.Seconds">
                 <span class="count-title">Seconds</span>
 
                 <div class="figure sec sec-1">
@@ -58,6 +63,7 @@
                     <span class="bottom-back"><span>@(currentTimer.Seconds % 10)</span></span>
                 </div>
             </div>
+            }
         </div>
     </div>
 </div>
@@ -68,7 +74,16 @@
     public TimeSpan currentTimer;
 
     [Parameter]
-    public TimeSpan Start { get; set; } = new(0, 1, 0);
+    public string Heading { get; set; } = "Countdown Timer";
+    [Parameter]
+    public TimeSpan Start { get; set; } = new(0, 3, 0);
+
+    [Parameter]
+    public bool ShowHours { get; set; } = true;
+    [Parameter]
+    public bool ShowMinutes { get; set; } = true;
+    [Parameter]
+    public bool ShowSeconds { get; set; } = true;
 
     protected override void OnInitialized()
     {

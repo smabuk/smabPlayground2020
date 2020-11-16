@@ -4,12 +4,11 @@
 @page "/boggle/{boggleType}/{noOfPlayers:int}"
 @using Smab.DiceAndTiles
 
-@{
-    int BoardSize = BoggleSet.BoardSize;
-}
-
 <br/>
 <br/>
+<div class="row my-auto">
+    <button class="btn btn-primary" @onclick="() => StartNewGame()" >New Game</button>
+</div>
 <div class="row my-auto">
     <div class="mt-xl-2 @(NoOfPlayers == 1 ? "col-xl" : "col-xl-auto mr-xl-auto")">
         <BoggleBoard BoggleSet="BoggleSet" />
@@ -22,7 +21,10 @@
         </div>
     }
 </div>
-
+@*<div class="row my-auto">
+    <CountdownTimer Heading="Timer" ShowHours="false" Start="new(0,3,0)" />
+</div>
+*@
 <style>
     html, body {
         height: 100%;
@@ -37,6 +39,7 @@
     public BoggleDice BoggleSet { get; set; } = new BoggleDice(BoggleDice.BoggleType.Classic4x4);
     public BoggleDice.BoggleType BoggleSetType { get; set; } = BoggleDice.BoggleType.Classic4x4;
     public int NoOfPlayers { get; set; } = 1;
+    int BoardSize => BoggleSet.BoardSize;
 
     [Parameter]
     public int noOfPlayers { get; set; } = 1;
@@ -54,7 +57,15 @@
             "superbig"  => BoggleDice.BoggleType.SuperBigBoggle2012,
             _           => BoggleDice.BoggleType.Classic4x4
         };
-        BoggleSet = new BoggleDice(BoggleSetType);
+        StartNewGame();
+    }
+
+    protected void StartNewGame()
+    {
+        BoggleSet = new BoggleDice(BoggleSetType); 
         BoggleSet.ShakeAndFillBoard();
+        // ToDo: Reset timer
+        // ToDo: Reset Words on board
+
     }
 }

@@ -11,9 +11,9 @@
                     {
                         int x = col;
                         int y = row;
-                        string letter = BoggleSet.Board[row + (col * BoardSize)].FaceValue.Display;
+                        LetterDie die = BoggleSet.Board[row + (col * BoardSize)];
                 
-                        <BoggleDie Die="BoggleSet.Board[row + (col * BoardSize)]" Reverse="Reverse" OnClickCallback="(e => SelectLetter(e, x, y, letter))" />
+                        <BoggleDie Die="BoggleSet.Board[row + (col * BoardSize)]" Reverse="Reverse" OnClickCallback="e => SelectLetter(e, x, y, die)" />
                     }
                 </tr>
             }
@@ -27,9 +27,9 @@
                     {
                         int x = col;
                         int y = row;
-                        string letter = BoggleSet.Board[row + (col * BoardSize)].FaceValue.Display;
+                        LetterDie die = BoggleSet.Board[row + (col * BoardSize)];
                 
-                        <BoggleDie Die="BoggleSet.Board[row + (col * BoardSize)]" OnClickCallback="(e => SelectLetter(e, x, y, letter))" />
+                        <BoggleDie Die="BoggleSet.Board[row + (col * BoardSize)]" OnClickCallback="e => SelectLetter(e, x, y, die)" />
                     }
                 </tr>
             }
@@ -68,6 +68,8 @@
     private double DieSize = 8;
     private double DieFontSize = 4.8;
     private int BoardSize => BoggleSet.BoardSize;
+    string currentWord = "";
+
 
     [Parameter]
     public BoggleDice BoggleSet { get; set; } = new();
@@ -78,9 +80,42 @@
     {
     }
 
-    private void SelectLetter(MouseEventArgs e, int x, int y, string letter)
+    private void SelectLetter(MouseEventArgs e, int x, int y, LetterDie die)
     {
-        Console.WriteLine($"Selected: {letter} at ({x}, {y}) with Button={ButtonName(e.Button)} and OtherButtons={OtherButtonName(e.Buttons)}");
+        string letter = die.FaceValue.Display;
+        Console.WriteLine($"Selected: {letter} at ({x}, {y}) with Button={((ButtonType)e.Button).ToString()} and OtherButtons={((OtherButtonTypes)e.Buttons).ToString()}");
+        // ToDo: Check letter can be added
+        currentWord += letter;
+        if ((ButtonType)e.Button == ButtonType.Right) 
+        {
+            Console.WriteLine($"Word: {currentWord}");
+            // ToDo: Check Word
+            // ToDo: Add score
+            currentWord = "";
+        }
+    }
+
+    private bool CheckWord(string word)
+    {
+        return true;
+    }
+    
+    private enum ButtonType
+    {
+        Left = 0,
+        Middle = 1,
+        Right = 2
+    }
+
+    [Flags]
+    private enum OtherButtonTypes
+    {
+        None = 0,
+        Left = 1,
+        Right = 2,
+        Middle = 4,
+        Back = 8,
+        Forward = 16,
     }
 
     private string ButtonName(long button) => button switch
@@ -90,6 +125,7 @@
         2 => "Right",
         _ => "Unknown"
     };
+
     private string OtherButtonName(long button) => button switch
     {
         1 => "Left",
