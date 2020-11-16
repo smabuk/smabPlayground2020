@@ -1,6 +1,6 @@
 ﻿@using Smab.DiceAndTiles
 
-<div class="card bg-gradient-warning board m-auto rounded">
+<div class="card bg-gradient-warning board m-auto rounded" @oncontextmenu:preventDefault>
     <table class="table table-sm">
         @if (Reverse)
         {
@@ -9,7 +9,11 @@
                 <tr class="cell">
                     @for (int col = BoardSize - 1; col >= 0; col--)
                     {
-                        <BoggleDie Die="BoggleSet.Board[row + (col * BoardSize)]" Reverse="Reverse" />
+                        int x = col;
+                        int y = row;
+                        string letter = BoggleSet.Board[row + (col * BoardSize)].FaceValue.Display;
+                
+                        <BoggleDie Die="BoggleSet.Board[row + (col * BoardSize)]" Reverse="Reverse" OnClickCallback="(e => SelectLetter(e, x, y, letter))" />
                     }
                 </tr>
             }
@@ -25,7 +29,7 @@
                         int y = row;
                         string letter = BoggleSet.Board[row + (col * BoardSize)].FaceValue.Display;
                 
-                        <BoggleDie Die="BoggleSet.Board[row + (col * BoardSize)]" OnClickCallback="(() => SelectLetter(x, y, letter))" />
+                        <BoggleDie Die="BoggleSet.Board[row + (col * BoardSize)]" OnClickCallback="(e => SelectLetter(e, x, y, letter))" />
                     }
                 </tr>
             }
@@ -74,8 +78,27 @@
     {
     }
 
-    private void SelectLetter(int x, int y, string letter)
+    private void SelectLetter(MouseEventArgs e, int x, int y, string letter)
     {
-        Console.WriteLine($"Selected: {letter} at ({x}, {y})");
+        Console.WriteLine($"Selected: {letter} at ({x}, {y}) with Button={ButtonName(e.Button)} and OtherButtons={OtherButtonName(e.Buttons)}");
     }
+
+    private string ButtonName(long button) => button switch
+    {
+        0 => "Left",
+        1 => "Middle",
+        2 => "Right",
+        _ => "Unknown"
+    };
+    private string OtherButtonName(long button) => button switch
+    {
+        1 => "Left",
+        2 => "Right",
+        4 => "Middle",
+        8 => "Back",
+        16 => "Forward",
+        0 => "None",
+        _ => "Unknown"
+    };
+
 }
