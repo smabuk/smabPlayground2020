@@ -1,27 +1,46 @@
 ﻿.die {
-    display: flex;
-    justify-content: center;
-    align-content: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     font-weight: bold;
+
+    &.selected {
+        background-color: yellow;
+        color: green;
+    }
+
+    &:hover {
+        background-color: yellow;
+        color: green;
+    }
+}
+
+.inner-circle {
+    width:  96%;
+    height: 96%;
+    margin: 2%;
     background-color: cornsilk;
 
     &.selected {
         background-color: yellow;
+        color: green;
     }
-}
 
-.die:hover {
-    background-color: yellow;
+    &:hover {
+        background-color: yellow;
+        color: green;
+    }
 }
 
 .slot {
     border: thin solid;
     display: inline-block;
-    margin: 3px;
     background-color: #fffae7;
 
     &.selected {
         background-color: yellow;
+        color: green;
     }
 }
 

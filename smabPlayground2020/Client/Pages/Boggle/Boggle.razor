@@ -2,6 +2,7 @@
 @page "/boggle/{boggleType}"
 @page "/boggle/{noOfPlayers:int}"
 @page "/boggle/{boggleType}/{noOfPlayers:int}"
+@using Smab.Boggle.Models 
 @using Smab.DiceAndTiles
 
 <br/>
@@ -11,13 +12,13 @@
 </div>
 <div class="row my-auto">
     <div class="mt-xl-2 @(NoOfPlayers == 1 ? "col-xl" : "col-xl-auto mr-xl-auto")">
-        <BoggleBoard BoggleSet="BoggleSet" />
+        <BoggleBoard BoggleTray="BoggleTray" />
     </div>
     @if (NoOfPlayers == 2)
     {
         <br />
         <div class="col-xl-auto mt-xl-2 mt-5">
-            <BoggleBoard BoggleSet="BoggleSet" Reverse="true" />
+            <BoggleBoard BoggleTray="BoggleTray" Reverse="true" />
         </div>
     }
 </div>
@@ -36,10 +37,10 @@
 </style>
 
 @code {
-    public BoggleDice BoggleSet { get; set; } = new BoggleDice(BoggleDice.BoggleType.Classic4x4);
+    public Smab.Boggle.Models.BoggleTray BoggleTray { get; set; } = new();
     public BoggleDice.BoggleType BoggleSetType { get; set; } = BoggleDice.BoggleType.Classic4x4;
     public int NoOfPlayers { get; set; } = 1;
-    int BoardSize => BoggleSet.BoardSize;
+    //int BoardSize => BoggleSet.BoardSize;
 
     [Parameter]
     public int noOfPlayers { get; set; } = 1;
@@ -48,7 +49,7 @@
 
     protected override void OnParametersSet()
     {
-		NoOfPlayers = noOfPlayers;
+        NoOfPlayers = noOfPlayers;
         BoggleSetType = boggleType?.ToLowerInvariant() switch
         {
             "classic"   => BoggleDice.BoggleType.Classic4x4,
@@ -62,8 +63,7 @@
 
     protected void StartNewGame()
     {
-        BoggleSet = new BoggleDice(BoggleSetType); 
-        BoggleSet.ShakeAndFillBoard();
+        BoggleTray = new(BoggleSetType);
         // ToDo: Reset timer
         // ToDo: Reset Words on board
 

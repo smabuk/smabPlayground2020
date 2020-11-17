@@ -1,47 +1,14 @@
 ﻿@using Smab.DiceAndTiles
+@using Smab.Boggle.Models
 
-<div class="card bg-gradient-warning board m-auto rounded noselect" @oncontextmenu:preventDefault>
-    <table class="table table-sm">
-        @if (Reverse)
-        {
-            @for (int row = BoardSize - 1; row >= 0; row--)
-            {
-                <tr class="cell">
-                    @for (int col = BoardSize - 1; col >= 0; col--)
-                    {
-                        int x = col;
-                        int y = row;
-                        LetterDie die = BoggleSet.Board[row + (col * BoardSize)];
-                
-                        <BoggleDie Die="BoggleSet.Board[row + (col * BoardSize)]" Reverse="Reverse" OnClickCallback="e => SelectLetter(e, x, y, die)" />
-                    }
-                </tr>
-            }
-        }
-        else
-        {
-            @for (int row = 0; row < BoardSize; row++)
-            {
-                <tr class="cell">
-                    @for (int col = 0; col < BoardSize; col++)
-                    {
-                        int x = col;
-                        int y = row;
-                        LetterDie die = BoggleSet.Board[row + (col * BoardSize)];
-                
-                        <BoggleDie Die="BoggleSet.Board[row + (col * BoardSize)]" OnClickCallback="e => SelectLetter(e, x, y, die)" />
-                    }
-                </tr>
-            }
-        }
-    </table>
+<div class="grid-@(BoggleTray.Height) bg-gradient-warning m-auto rounded user-select-none" @oncontextmenu:preventDefault>
+    @foreach (var slot in Reverse ? BoggleTray.Slots.Reverse<BoggleSlot>() : BoggleTray.Slots)
+    {
+        <div><BoggleSlotUI Slot="slot" OnClickCallback="e => SelectSlot(e, slot)" /></div>
+    }
 </div>
 
 <style>
-.board {
-    width:  @((BoardSize * (DieSize / 2)) + ((BoardSize) * .5))rem;
-    height: @((BoardSize * (DieSize / 2)) + ((BoardSize) * .5))rem;
-}
 .slot {
     width:  @(DieSize / 2)rem;
     height: @(DieSize / 2)rem;
@@ -50,10 +17,6 @@
     font-size: @(DieFontSize / 2)rem;
 }
 @@media (min-width: 768px) {
-    .board {
-        width:  @((BoardSize * DieSize) + ((BoardSize) * .5))rem;
-        height: @((BoardSize * DieSize) + ((BoardSize) * .5))rem;
-    }
     .slot {
         width:  @(DieSize)rem;
         height: @(DieSize)rem;
@@ -67,12 +30,12 @@
 @code {
     private double DieSize = 8;
     private double DieFontSize = 4.8;
-    private int BoardSize => BoggleSet.BoardSize;
+    private int BoardSize => BoggleTray.BoggleSet.BoardSize;
     string currentWord = "";
 
 
     [Parameter]
-    public BoggleDice BoggleSet { get; set; } = new();
+    public BoggleTray BoggleTray { get; set; } = new();
     [Parameter]
     public bool Reverse { get; set; } = false;
 
@@ -86,7 +49,22 @@
         Console.WriteLine($"Selected: {letter} at ({x}, {y}) with Button={((ButtonType)e.Button).ToString()} and OtherButtons={((OtherButtonTypes)e.Buttons).ToString()}");
         // ToDo: Check letter can be added
         currentWord += letter;
-        if ((ButtonType)e.Button == ButtonType.Right) 
+        if ((ButtonType)e.Button == ButtonType.Right)
+        {
+            Console.WriteLine($"Word: {currentWord}");
+            // ToDo: Check Word
+            // ToDo: Add score
+            currentWord = "";
+        }
+    }
+
+    private void SelectSlot(MouseEventArgs e, BoggleSlot slot)
+    {
+        string letter = slot.Die.FaceValue.Display;
+        Console.WriteLine($"Selected: {letter} at ({slot.X}, {slot.Y}) with Button={((ButtonType)e.Button).ToString()} and OtherButtons={((OtherButtonTypes)e.Buttons).ToString()}");
+        // ToDo: Check letter can be added
+        currentWord += letter;
+        if ((ButtonType)e.Button == ButtonType.Right)
         {
             Console.WriteLine($"Word: {currentWord}");
             // ToDo: Check Word
@@ -99,7 +77,7 @@
     {
         return true;
     }
-    
+
     private enum ButtonType
     {
         Left = 0,
@@ -117,24 +95,5 @@
         Back = 8,
         Forward = 16,
     }
-
-    private string ButtonName(long button) => button switch
-    {
-        0 => "Left",
-        1 => "Middle",
-        2 => "Right",
-        _ => "Unknown"
-    };
-
-    private string OtherButtonName(long button) => button switch
-    {
-        1 => "Left",
-        2 => "Right",
-        4 => "Middle",
-        8 => "Back",
-        16 => "Forward",
-        0 => "None",
-        _ => "Unknown"
-    };
 
 }

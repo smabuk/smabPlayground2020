@@ -46,5 +46,9 @@
   {
     "outputFile": "Pages/Boggle/CountdownTimer.razor.css",
     "inputFile": "Pages/Boggle/CountdownTimer.razor.scss"
+  },
+  {
+    "outputFile": "Pages/Boggle/BoggleSlotUI.razor.css",
+    "inputFile": "Pages/Boggle/BoggleSlotUI.razor.scss"
   }
 ]
