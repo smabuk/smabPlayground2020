@@ -28,15 +28,28 @@
             </NavLink>
         </li>
         <li class="nav-item px-3">
+            <NavLink class="nav-link" href="/countdown">
+                <span class="nav-fa"><i class="fa-fw fas fa-clock" aria-hidden="true"></i></span> Countdown
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
             <NavLink class="nav-link" href="plex/libraries">
                 <span class="nav-fa"><i class="fa-fw fas fa-photo-video" aria-hidden="true"></i></span> Libraries
             </NavLink>
         </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="plex/movies">
-                <span class="nav-fa"><i class="fa-fw fas fa-film" aria-hidden="true"></i></span> Movies List
-            </NavLink>
-        </li>
+        @if (false)
+        {
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="plex/movies">
+                    <span class="nav-fa"><i class="fa-fw fas fa-film" aria-hidden="true"></i></span> Movies List
+                </NavLink>
+            </li>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="plex/tv">
+                    <span class="nav-fa"><i class="fa-fw fas fa-tv" aria-hidden="true"></i></span> TV List
+                </NavLink>
+            </li>
+        }
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="plex/details/94588">
                 <span class="nav-fa"><i class="fa-fw fas fa-ticket-alt" aria-hidden="true"></i></span> Marnie
@@ -53,29 +66,21 @@
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="plex/tv">
-                <span class="nav-fa"><i class="fa-fw fas fa-tv" aria-hidden="true"></i></span> TV List
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
             <NavLink class="nav-link" href="plex/details/90081">
                 <span class="nav-fa"><i class="fa-fw fab fa-reddit-alien" aria-hidden="true"></i></span> My Favorite Martian
             </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="plex/details/90084">
-                <span class="nav-fa"><i class="fa-fw fab fa-reddit-alien" aria-hidden="true"></i></span> Season 1
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="plex/details/90088">
-                <span class="nav-fa"><i class="fa-fw fab fa-reddit-alien" aria-hidden="true"></i></span> Episode 1-4
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="/countdown">
-                <span class="nav-fa"><i class="fa-fw fas fa-clock" aria-hidden="true"></i></span> Countdown
-            </NavLink>
+            <ul>
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="plex/details/90084">
+                        <span class="nav-fa"><i class="fa-fw fab fa-reddit-alien" aria-hidden="true"></i></span> Season 1
+                    </NavLink>
+                </li>
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="plex/details/90088">
+                        <span class="nav-fa"><i class="fa-fw fab fa-reddit-alien" aria-hidden="true"></i></span> s01-e04
+                    </NavLink>
+                </li>
+            </ul>
         </li>
     </ul>
 </div>
