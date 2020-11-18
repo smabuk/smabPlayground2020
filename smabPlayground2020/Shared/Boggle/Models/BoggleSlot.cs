@@ -16,10 +16,8 @@ namespace Smab.Boggle.Models
         public int Y { get; init; }
         public LetterDie Die { get; set; }
 
-        public bool IsMine { get; set; }
-        public int AdjacentMines { get; set; }
-        public bool IsRevealed { get; set; }
-        public bool IsFlagged { get; set; }
+        public bool IsSelected { get; set; } = false;
+        public List<BoggleSlot> AdjacentSlots { get; set; }
 
         public BoggleSlot(int id, int x, int y)
         {
@@ -35,18 +33,11 @@ namespace Smab.Boggle.Models
             Die = die;
         }
 
-        public void Flag()
+        public void ToggleSelect()
         {
-            if (!IsRevealed)
-            {
-                IsFlagged = !IsFlagged;
-            }
+            IsSelected = !IsSelected;
         }
 
-        public void Reveal()
-        {
-            IsRevealed = true;
-            IsFlagged = false; //Revealed panels cannot be flagged
-        }
+
     }
 }

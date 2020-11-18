@@ -4,20 +4,22 @@
     left: 50%;
     transform: translate(-50%, -50%);
     font-weight: bold;
+    background-color: rgba(0,0,0,0);
 
-    &.selected {
-        background-color: yellow;
+/*    &.selected {
         color: green;
+        &:hover {
+            color: green;
+        }
     }
-
+*//*
     &:hover {
-        background-color: yellow;
-        color: green;
+        color: red;
     }
-}
+*/}
 
 .inner-circle {
-    width:  96%;
+    width: 96%;
     height: 96%;
     margin: 2%;
     background-color: cornsilk;
@@ -25,11 +27,14 @@
     &.selected {
         background-color: yellow;
         color: green;
+        &:hover {
+            color: green;
+        }
     }
 
     &:hover {
         background-color: yellow;
-        color: green;
+        color: red;
     }
 }
 
@@ -39,8 +44,8 @@
     background-color: #fffae7;
 
     &.selected {
-        background-color: yellow;
-        color: green;
+        background-color: green;
+        color: yellow;
     }
 }
 

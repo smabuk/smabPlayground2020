@@ -1,10 +1,9 @@
-﻿@using Smab.DiceAndTiles
-@using Smab.Boggle.Models
+﻿@using Smab.Boggle.Models
 
 <div class="grid-@(BoggleTray.Height) bg-gradient-warning m-auto rounded user-select-none" @oncontextmenu:preventDefault>
     @foreach (var slot in Reverse ? BoggleTray.Slots.Reverse<BoggleSlot>() : BoggleTray.Slots)
     {
-        <div><BoggleSlotUI Slot="slot" OnClickCallback="e => SelectSlot(e, slot)" /></div>
+        <BoggleSlotUI Selected="@slot.IsSelected" Slot="slot" OnClickCallback="e => SelectSlot(e, slot)" />
     }
 </div>
 
@@ -30,8 +29,8 @@
 @code {
     private double DieSize = 8;
     private double DieFontSize = 4.8;
-    private int BoardSize => BoggleTray.BoggleSet.BoardSize;
-    string currentWord = "";
+    string currentWord = String.Empty;
+    BoggleSlot? lastSlot;
 
 
     [Parameter]
@@ -41,35 +40,32 @@
 
     protected override void OnParametersSet()
     {
-    }
-
-    private void SelectLetter(MouseEventArgs e, int x, int y, LetterDie die)
-    {
-        string letter = die.FaceValue.Display;
-        Console.WriteLine($"Selected: {letter} at ({x}, {y}) with Button={((ButtonType)e.Button).ToString()} and OtherButtons={((OtherButtonTypes)e.Buttons).ToString()}");
-        // ToDo: Check letter can be added
-        currentWord += letter;
-        if ((ButtonType)e.Button == ButtonType.Right)
-        {
-            Console.WriteLine($"Word: {currentWord}");
-            // ToDo: Check Word
-            // ToDo: Add score
-            currentWord = "";
-        }
+        Console.WriteLine($"New Game: {BoggleTray.BoggleSetType.ToString()}");
+        lastSlot = null;
+        currentWord = String.Empty;
     }
 
     private void SelectSlot(MouseEventArgs e, BoggleSlot slot)
     {
         string letter = slot.Die.FaceValue.Display;
-        Console.WriteLine($"Selected: {letter} at ({slot.X}, {slot.Y}) with Button={((ButtonType)e.Button).ToString()} and OtherButtons={((OtherButtonTypes)e.Buttons).ToString()}");
-        // ToDo: Check letter can be added
-        currentWord += letter;
-        if ((ButtonType)e.Button == ButtonType.Right)
+        if (lastSlot is not null && lastSlot == slot)
         {
             Console.WriteLine($"Word: {currentWord}");
             // ToDo: Check Word
             // ToDo: Add score
-            currentWord = "";
+            currentWord = String.Empty;
+            lastSlot = null;
+            BoggleTray.Slots.ForEach(s => s.IsSelected = false);
+        }
+        else if (lastSlot is null || slot.AdjacentSlots.Contains(lastSlot))
+        {
+            Console.WriteLine($"Selected: {letter} at ({slot.X}, {slot.Y}) with Button={((ButtonType)e.Button).ToString()} and OtherButtons={((OtherButtonTypes)e.Buttons).ToString()}");
+            slot.IsSelected = true;
+            currentWord += letter;
+            lastSlot = slot;
+        }
+        else
+        {
         }
     }
 

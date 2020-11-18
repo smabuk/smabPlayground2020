@@ -3,13 +3,20 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-weight: bold; }
-  .die.selected {
-    background-color: yellow;
-    color: green; }
-  .die:hover {
-    background-color: yellow;
-    color: green; }
+  font-weight: bold;
+  background-color: transparent;
+  /*    &.selected {
+        color: green;
+        &:hover {
+            color: green;
+        }
+    }
+*/
+  /*
+    &:hover {
+        color: red;
+    }
+*/ }
 
 .inner-circle {
   width: 96%;
@@ -19,17 +26,19 @@
   .inner-circle.selected {
     background-color: yellow;
     color: green; }
+    .inner-circle.selected:hover {
+      color: green; }
   .inner-circle:hover {
     background-color: yellow;
-    color: green; }
+    color: red; }
 
 .slot {
   border: thin solid;
   display: inline-block;
   background-color: #fffae7; }
   .slot.selected {
-    background-color: yellow;
-    color: green; }
+    background-color: green;
+    color: yellow; }
 
 .show-orientation {
   text-decoration: underline;

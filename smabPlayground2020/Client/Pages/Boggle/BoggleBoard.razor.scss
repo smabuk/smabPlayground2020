@@ -4,9 +4,9 @@
 
 .grid-4 {
     display: grid;
-    grid-gap: 1rem;
+    grid-gap: 0.5rem;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows:    repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
     padding: 0.5rem;
     background-color: orange;
 }
@@ -14,17 +14,17 @@
 .grid-5 {
     background-color: orange;
     display: grid;
-    grid-gap: 1rem;
+    grid-gap: 0.5rem;
     grid-template-columns: repeat(5, 1fr);
-    grid-template-rows:    repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
     padding: 0.5rem;
 }
 
 .grid-6 {
     background-color: orange;
     display: grid;
-    grid-gap: 1rem;
+    grid-gap: 0.5rem;
     grid-template-columns: repeat(6, 1fr);
-    grid-template-rows:    repeat(6, 1fr);
+    grid-template-rows: repeat(6, 1fr);
     padding: 0.5rem;
 }

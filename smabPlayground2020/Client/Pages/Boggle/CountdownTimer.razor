@@ -3,7 +3,7 @@
     <div class="wrap">
         <h1><strong>@Heading</strong></h1>
 
-        <div class="countdown" @onclick="DecrementTime" @oncontextmenu="DecrementTime"  @oncontextmenu:preventDefault>
+        <div class="countdown user-select-none" @onclick="DecrementTime" @oncontextmenu="DecrementTime"  @oncontextmenu:preventDefault>
            @if (ShowHours)
             {
                 <div class="bloc-time hours" data-init-value="@currentTimer.Hours">

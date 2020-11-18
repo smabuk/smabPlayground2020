@@ -1,11 +1,12 @@
 ﻿@using Smab.Boggle.Models
 @{
-    string showorientation = ("MNWZ".Contains(Slot.Die.FaceValue.Display)) ? "show-orientation" : "";
+    string showOrientation = ("MNWZ".Contains(Slot.Die.FaceValue.Display)) ? "show-orientation" : "";
     string dieClass = $"rot-{(Reverse == true ? "reverse-" : "")}{Slot.Die.Orientation}";
+    string selectedClass = Selected ? "selected" : String.Empty;
 }
-<div class="card rounded @dieClass slot">
-    <div class="inner-circle rounded-circle" @onclick="OnClickCallback" @oncontextmenu="OnClickCallback" @oncontextmenu:preventDefault>
-        <div class="@showorientation die text-primary">@Slot.Die.FaceValue.Display</div>
+<div class="card rounded @dieClass slot @selectedClass text-primary">
+    <div class="inner-circle rounded-circle @selectedClass" @onclick="OnClickCallback" @oncontextmenu="OnClickCallback" @oncontextmenu:preventDefault>
+        <div class="@showOrientation die">@Slot.Die.FaceValue.Display</div>
     </div>
 </div>
 
@@ -16,7 +17,10 @@
     public BoggleSlot Slot { get; set; }
     [Parameter]
     public bool Reverse { get; set; } = false;
+    [Parameter]
+    public bool Selected { get; set; } = false;
 
     [Parameter]
     public EventCallback<MouseEventArgs> OnClickCallback { get; set; }
+
 }

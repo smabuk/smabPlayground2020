@@ -52,6 +52,7 @@ namespace Smab.Boggle.Models
 					Slots.Add(new BoggleSlot(id++, j, i, BoggleSet.Board[setIndex++]));
 				}
 			}
+			Slots.ForEach(s => s.AdjacentSlots = GetAdjacentSlots(s.X, s.Y));
         }
 
 		public List<BoggleSlot> GetAdjacentSlots(int x, int y)
