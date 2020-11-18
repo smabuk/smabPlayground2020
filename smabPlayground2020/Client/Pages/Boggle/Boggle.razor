@@ -2,15 +2,10 @@
 @page "/boggle/{boggleType}"
 @page "/boggle/{noOfPlayers:int}"
 @page "/boggle/{boggleType}/{noOfPlayers:int}"
-@using Smab.Boggle.Models 
-@using Smab.DiceAndTiles
-
-<br/>
-<br/>
-<div class="row my-auto">
+<div class="row my-auto mt-5">
     <button class="btn btn-primary" @onclick="() => StartNewGame()" >New Game</button>
 </div>
-<div class="row my-auto">
+<div class="row my-auto mt-3">
     <div class="mt-xl-2 @(NoOfPlayers == 1 ? "col-xl" : "col-xl-auto mr-xl-auto")">
         <BoggleBoard BoggleTray="BoggleTray" />
     </div>

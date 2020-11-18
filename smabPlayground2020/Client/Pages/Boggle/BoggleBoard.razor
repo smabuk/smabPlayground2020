@@ -1,9 +1,7 @@
-﻿@using Smab.Boggle.Models
-
-<div class="grid-@(BoggleTray.Height) bg-gradient-warning m-auto rounded user-select-none" @oncontextmenu:preventDefault>
+﻿<div class="grid-@(BoggleTray.Height) bg-gradient-warning m-auto rounded user-select-none" @oncontextmenu:preventDefault>
     @foreach (var slot in Reverse ? BoggleTray.Slots.Reverse<BoggleSlot>() : BoggleTray.Slots)
     {
-        <BoggleSlotUI Selected="@slot.IsSelected" Slot="slot" OnClickCallback="e => SelectSlot(e, slot)" />
+        <BoggleSlotUI Selected="@slot.IsSelected" Slot="slot" ArrowDirection="@slot.ArrowDirection" OnClickCallback="e => SelectSlot(e, slot)" />
     }
 </div>
 
@@ -55,11 +53,20 @@
             // ToDo: Add score
             currentWord = String.Empty;
             lastSlot = null;
-            BoggleTray.Slots.ForEach(s => s.IsSelected = false);
+            BoggleTray.Slots.ForEach(s => { s.IsSelected = false; s.ArrowDirection = "NONE"; });
         }
-        else if (lastSlot is null || slot.AdjacentSlots.Contains(lastSlot))
+        else if (lastSlot is null || slot.AdjacentSlots.Contains(lastSlot) && slot.IsSelected == false)
         {
-            Console.WriteLine($"Selected: {letter} at ({slot.X}, {slot.Y}) with Button={((ButtonType)e.Button).ToString()} and OtherButtons={((OtherButtonTypes)e.Buttons).ToString()}");
+            //Console.WriteLine($"Selected: {letter} at ({slot.X}, {slot.Y}) with Button={((ButtonType)e.Button).ToString()} and OtherButtons={((OtherButtonTypes)e.Buttons).ToString()}");
+            Console.WriteLine($"Direction: {letter} arrow-{GetDirection(lastSlot?.X, lastSlot?.Y, slot.X, slot.Y)}");
+            if (lastSlot is null)
+            {
+                slot.ArrowDirection = GetDirection(lastSlot?.X, lastSlot?.Y, slot.X, slot.Y);
+            }
+            else
+            {
+                lastSlot.ArrowDirection = GetDirection(lastSlot?.X, lastSlot?.Y, slot.X, slot.Y);
+            }
             slot.IsSelected = true;
             currentWord += letter;
             lastSlot = slot;
@@ -73,6 +80,29 @@
     {
         return true;
     }
+
+    private string GetDirection(int? lastX, int? lastY, int newX, int newY)
+    {
+        if (lastX is null || lastY is null)
+        {
+            return "START";
+        }
+
+        return (newX - lastX, newY - lastY) switch
+        {
+            (0, 0) => "END",
+            (0, -1) => "N",
+            (1, -1) => "NE",
+            (1, 0) => "E",
+            (1, 1) => "SE",
+            (0, 1) => "S",
+            (-1, 1) => "SW",
+            (-1, 0) => "W",
+            (-1, -1) => "NW",
+            _ => String.Empty
+        };
+    }
+
 
     private enum ButtonType
     {

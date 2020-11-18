@@ -17,6 +17,7 @@ namespace Smab.Boggle.Models
         public LetterDie Die { get; set; }
 
         public bool IsSelected { get; set; } = false;
+        public string ArrowDirection { get; set; } = "NONE";
         public List<BoggleSlot> AdjacentSlots { get; set; }
 
         public BoggleSlot(int id, int x, int y)

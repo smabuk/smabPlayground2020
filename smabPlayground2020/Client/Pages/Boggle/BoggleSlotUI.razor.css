@@ -40,6 +40,57 @@
     background-color: green;
     color: yellow; }
 
+.arrow {
+  color: hotpink;
+  font-weight: bold;
+  font-size: 2rem;
+  position: absolute;
+  margin: 0rem;
+  padding: 0rem;
+  z-index: 10; }
+  .arrow-NONE {
+    display: none; }
+  .arrow-START {
+    display: none;
+    top: 0;
+    left: 0; }
+  .arrow-END {
+    display: none;
+    top: 0;
+    right: 0; }
+  .arrow-N {
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0) rotate(0deg); }
+  .arrow-NE {
+    top: 0;
+    right: 0;
+    transform: rotate(45deg); }
+  .arrow-E {
+    top: 50%;
+    right: 0;
+    transform: translate(0, -50%) rotate(90deg); }
+  .arrow-SE {
+    bottom: 0;
+    right: 0;
+    transform: rotate(135deg); }
+  .arrow-S {
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 0) rotate(180deg); }
+  .arrow-SW {
+    bottom: 0;
+    left: 0;
+    transform: rotate(225deg); }
+  .arrow-W {
+    top: 50%;
+    left: 0;
+    transform: translate(0, -50%) rotate(270deg); }
+  .arrow-NW {
+    top: 0;
+    left: 0;
+    transform: rotate(315deg); }
+
 .show-orientation {
   text-decoration: underline;
   text-decoration: underline dashed #808080; }
