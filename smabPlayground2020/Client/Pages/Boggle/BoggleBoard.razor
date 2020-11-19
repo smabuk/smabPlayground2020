@@ -1,10 +1,10 @@
 ﻿<div class="grid-@(BoggleTray.Height) bg-gradient-warning m-auto rounded user-select-none" @oncontextmenu:preventDefault>
     @foreach (var slot in Reverse ? BoggleTray.Slots.Reverse<BoggleSlot>() : BoggleTray.Slots)
     {
-        <BoggleSlotUI   Selected="@slot.IsSelected"
-                        Slot="slot" 
-                        ArrowDirection="@slot.ArrowDirection" 
-                        OnClickCallback="e => SelectSlot(e, slot)" />
+        <BoggleSlotUI Selected="@slot.IsSelected"
+                      Slot="slot"
+                      ArrowDirection="@slot.ArrowDirection"
+                      OnClickCallback="e => SelectSlot(e, slot)" />
     }
 </div>
 
@@ -57,7 +57,7 @@
             lastSlot = null;
             BoggleTray.Slots.ForEach(s => { s.IsSelected = false; s.ArrowDirection = "NONE"; });
         }
-        else if (slot.IsSelectable && (lastSlot is null || slot.AdjacentSlots.Contains(lastSlot)) )
+        else if (slot.IsSelectable && (lastSlot is null || slot.AdjacentSlots.Contains(lastSlot)))
         {
             //Console.WriteLine($"Selected: {letter} at ({slot.X}, {slot.Y}) with Button={((ButtonType)e.Button).ToString()} and OtherButtons={((OtherButtonTypes)e.Buttons).ToString()}");
             //Console.WriteLine($"Direction: {GetDirection(lastSlot?.X, lastSlot?.Y, slot.X, slot.Y)}");
@@ -77,33 +77,26 @@
         {
         }
     }
-
+@using static Smab.DiceAndTiles.BoggleDice.BoggleType;
     private int ScoreWord(string word, BoggleDice.BoggleType boggleSetType)
     {
         return (boggleSetType, word.Length) switch
         {
-            (BoggleDice.BoggleType.SuperBigBoggle2012, 8) => 11,
-            (BoggleDice.BoggleType.SuperBigBoggle2012, 7) => 5,
-            (BoggleDice.BoggleType.SuperBigBoggle2012, 6) => 3,
-            (BoggleDice.BoggleType.SuperBigBoggle2012, 5) => 2,
-            (BoggleDice.BoggleType.SuperBigBoggle2012, 4) => 1,
-            (BoggleDice.BoggleType.SuperBigBoggle2012, 3) => 0,
-            (BoggleDice.BoggleType.SuperBigBoggle2012, 2) => 0,
-            (BoggleDice.BoggleType.SuperBigBoggle2012, 1) => 0,
-            (BoggleDice.BoggleType.SuperBigBoggle2012, 0) => 0,
-            (BoggleDice.BoggleType.SuperBigBoggle2012, _) => word.Length * 2,
-            (BoggleDice.BoggleType.BigBoggleChallenge, 3) => 0,
-            (BoggleDice.BoggleType.BigBoggleDeluxe, 3) => 0,
-            (BoggleDice.BoggleType.BigBoggleOriginal, 3) => 0,
-            (_, 7) => 5,
-            (_, 6) => 3,
-            (_, 5) => 2,
+            (SuperBigBoggle2012, 4) => 1,
+            (SuperBigBoggle2012, 5) => 2,
+            (SuperBigBoggle2012, 6) => 3,
+            (SuperBigBoggle2012, 7) => 5,
+            (SuperBigBoggle2012, 8) => 11,
+            (SuperBigBoggle2012, >= 9) => word.Length * 2,
+            (BigBoggleDeluxe, 3) => 0,
+            (BigBoggleOriginal, 3) => 0,
+            (not BigBoggleDeluxe and not BigBoggleOriginal, 3) => 1,
             (_, 4) => 1,
-            (_, 3) => 1,
-            (_, 2) => 0,
-            (_, 1) => 0,
-            (_, 0) => 0,
-            (_, _) => 11
+            (_, 5) => 2,
+            (_, 6) => 3,
+            (_, 7) => 5,
+            (_, >= 8) => 11,
+            (_, _) => 0
         };
 
         /*
