@@ -105,6 +105,20 @@
             (_, 0) => 0,
             (_, _) => 11
         };
+
+        /*
+        *     4x4 version            5x5 version           6x6 version
+        *
+        *    Word                   Word                  Word
+        *   length	Points         length	Points       length	Points
+        *     3       1              3       0             3       0
+        *     4       1              4       1             4       1
+        *     5       2              5       2             5       2
+        *     6       3              6       3             6       3
+        *     7       5              7       5             7       5
+        *     8+     11              8+     11             8      11
+        *                                                  9+   2 pts per letter
+        */
     }
 
     private bool CheckWord(string word)
