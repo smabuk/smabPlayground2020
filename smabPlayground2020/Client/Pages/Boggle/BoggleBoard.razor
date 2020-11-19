@@ -1,7 +1,10 @@
 ﻿<div class="grid-@(BoggleTray.Height) bg-gradient-warning m-auto rounded user-select-none" @oncontextmenu:preventDefault>
     @foreach (var slot in Reverse ? BoggleTray.Slots.Reverse<BoggleSlot>() : BoggleTray.Slots)
     {
-        <BoggleSlotUI Selected="@slot.IsSelected" Slot="slot" ArrowDirection="@slot.ArrowDirection" OnClickCallback="e => SelectSlot(e, slot)" />
+        <BoggleSlotUI   Selected="@slot.IsSelected"
+                        Slot="slot" 
+                        ArrowDirection="@slot.ArrowDirection" 
+                        OnClickCallback="e => SelectSlot(e, slot)" />
     }
 </div>
 
@@ -30,7 +33,6 @@
     string currentWord = String.Empty;
     BoggleSlot? lastSlot;
 
-
     [Parameter]
     public BoggleTray BoggleTray { get; set; } = new();
     [Parameter]
@@ -45,20 +47,20 @@
 
     private void SelectSlot(MouseEventArgs e, BoggleSlot slot)
     {
-        string letter = slot.Die.FaceValue.Display;
+        string letter = slot.Die.FaceValue.Value ?? String.Empty;
         if (lastSlot is not null && lastSlot == slot)
         {
-            Console.WriteLine($"Word: {currentWord}");
+            Console.WriteLine($"Word:  {currentWord}  Score: {ScoreWord(currentWord, BoggleTray.BoggleSetType)}");
             // ToDo: Check Word
             // ToDo: Add score
             currentWord = String.Empty;
             lastSlot = null;
             BoggleTray.Slots.ForEach(s => { s.IsSelected = false; s.ArrowDirection = "NONE"; });
         }
-        else if (lastSlot is null || slot.AdjacentSlots.Contains(lastSlot) && slot.IsSelected == false)
+        else if (slot.IsSelectable && (lastSlot is null || slot.AdjacentSlots.Contains(lastSlot)) )
         {
             //Console.WriteLine($"Selected: {letter} at ({slot.X}, {slot.Y}) with Button={((ButtonType)e.Button).ToString()} and OtherButtons={((OtherButtonTypes)e.Buttons).ToString()}");
-            Console.WriteLine($"Direction: {letter} arrow-{GetDirection(lastSlot?.X, lastSlot?.Y, slot.X, slot.Y)}");
+            //Console.WriteLine($"Direction: {GetDirection(lastSlot?.X, lastSlot?.Y, slot.X, slot.Y)}");
             if (lastSlot is null)
             {
                 slot.ArrowDirection = GetDirection(lastSlot?.X, lastSlot?.Y, slot.X, slot.Y);
@@ -74,6 +76,35 @@
         else
         {
         }
+    }
+
+    private int ScoreWord(string word, BoggleDice.BoggleType boggleSetType)
+    {
+        return (boggleSetType, word.Length) switch
+        {
+            (BoggleDice.BoggleType.SuperBigBoggle2012, 8) => 11,
+            (BoggleDice.BoggleType.SuperBigBoggle2012, 7) => 5,
+            (BoggleDice.BoggleType.SuperBigBoggle2012, 6) => 3,
+            (BoggleDice.BoggleType.SuperBigBoggle2012, 5) => 2,
+            (BoggleDice.BoggleType.SuperBigBoggle2012, 4) => 1,
+            (BoggleDice.BoggleType.SuperBigBoggle2012, 3) => 0,
+            (BoggleDice.BoggleType.SuperBigBoggle2012, 2) => 0,
+            (BoggleDice.BoggleType.SuperBigBoggle2012, 1) => 0,
+            (BoggleDice.BoggleType.SuperBigBoggle2012, 0) => 0,
+            (BoggleDice.BoggleType.SuperBigBoggle2012, _) => word.Length * 2,
+            (BoggleDice.BoggleType.BigBoggleChallenge, 3) => 0,
+            (BoggleDice.BoggleType.BigBoggleDeluxe, 3) => 0,
+            (BoggleDice.BoggleType.BigBoggleOriginal, 3) => 0,
+            (_, 7) => 5,
+            (_, 6) => 3,
+            (_, 5) => 2,
+            (_, 4) => 1,
+            (_, 3) => 1,
+            (_, 2) => 0,
+            (_, 1) => 0,
+            (_, 0) => 0,
+            (_, _) => 11
+        };
     }
 
     private bool CheckWord(string word)

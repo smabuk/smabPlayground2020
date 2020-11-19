@@ -1,18 +1,18 @@
 ﻿@page "/boggle"
 @page "/boggle/{boggleType}"
-@page "/boggle/{noOfPlayers:int}"
-@page "/boggle/{boggleType}/{noOfPlayers:int}"
-<div class="row my-auto mt-5">
-    <button class="btn btn-primary" @onclick="() => StartNewGame()" >New Game</button>
+@page "/boggle/{NoOfPlayers:int}"
+@page "/boggle/{boggleType}/{NoOfPlayers:int}"
+<div class="row my-auto">
+    <button class="btn btn-primary w-80" @onclick="() => StartNewGame()" >New Game</button>
 </div>
-<div class="row my-auto mt-3">
-    <div class="mt-xl-2 @(NoOfPlayers == 1 ? "col-xl" : "col-xl-auto mr-xl-auto")">
+<div class="row my-auto mt-2">
+    <div class="mt-xl-2 d-flex @(NoOfPlayers == 1 ? "col-xl" : "col-xl-auto mr-xl-auto")">
         <BoggleBoard BoggleTray="BoggleTray" />
     </div>
     @if (NoOfPlayers == 2)
     {
         <br />
-        <div class="col-xl-auto mt-xl-2 mt-5">
+        <div class="d-flex col-xl-auto mt-xl-2 mt-5">
             <BoggleBoard BoggleTray="BoggleTray" Reverse="true" />
         </div>
     }
@@ -21,37 +21,30 @@
     <CountdownTimer Heading="Timer" ShowHours="false" Start="new(0,3,0)" />
 </div>
 *@
-<style>
-    html, body {
-        height: 100%;
-    }
-    body {
-        display: flex;
-        align-items: center;
-    }
-</style>
 
 @code {
     public Smab.Boggle.Models.BoggleTray BoggleTray { get; set; } = new();
     public BoggleDice.BoggleType BoggleSetType { get; set; } = BoggleDice.BoggleType.Classic4x4;
-    public int NoOfPlayers { get; set; } = 1;
-    //int BoardSize => BoggleSet.BoardSize;
 
     [Parameter]
-    public int noOfPlayers { get; set; } = 1;
+    public int NoOfPlayers { get; set; } = 1;
     [Parameter]
     public string boggleType { get; set; } = "classic";
 
     protected override void OnParametersSet()
     {
-        NoOfPlayers = noOfPlayers;
+        if (NoOfPlayers == 0) {
+            NoOfPlayers = 1;
+        };
         BoggleSetType = boggleType?.ToLowerInvariant() switch
         {
-            "classic"   => BoggleDice.BoggleType.Classic4x4,
-            "deluxe"    => BoggleDice.BoggleType.BigBoggleDeluxe,
-            "new"       => BoggleDice.BoggleType.New4x4,
-            "superbig"  => BoggleDice.BoggleType.SuperBigBoggle2012,
-            _           => BoggleDice.BoggleType.Classic4x4
+            "classic"       => BoggleDice.BoggleType.Classic4x4,
+            "deluxe"        => BoggleDice.BoggleType.BigBoggleDeluxe,
+            "superbig"      => BoggleDice.BoggleType.SuperBigBoggle2012,
+            "new"           => BoggleDice.BoggleType.New4x4,
+            "bigoriginal"   => BoggleDice.BoggleType.BigBoggleOriginal,
+            "challenge"     => BoggleDice.BoggleType.BigBoggleChallenge,
+            _               => BoggleDice.BoggleType.Classic4x4
         };
         StartNewGame();
     }

@@ -17,6 +17,7 @@ namespace Smab.Boggle.Models
         public LetterDie Die { get; set; }
 
         public bool IsSelected { get; set; } = false;
+        public bool IsSelectable => (Die.FaceValue.Value != "#" && !IsSelected);
         public string ArrowDirection { get; set; } = "NONE";
         public List<BoggleSlot> AdjacentSlots { get; set; }
 
