@@ -1,13 +1,8 @@
-﻿using System.Text.Json.Serialization;
-
-namespace smab.PlexInfo.Models
+﻿namespace smab.PlexInfo.Models
 {
 	public record Location
-    {
-        [JsonPropertyName("id")]
-        public int? Id { get; init; }
-
-        [JsonPropertyName("path")]
-        public string Path { get; init; }
-    }
+    (
+        int? Id,
+        string Path
+    );
 }

@@ -7,20 +7,22 @@ using System.Threading.Tasks;
 
 using Smab.DiceAndTiles;
 
+using static Smab.DiceAndTiles.BoggleDice.BoggleType;
+
 namespace Smab.Boggle.Models
 {
     public partial class BoggleTray
     {
 		public BoggleDice BoggleSet { get; set; }
-        public BoggleDice.BoggleType BoggleSetType { get; set; } = BoggleDice.BoggleType.Classic4x4;
+        public BoggleDice.BoggleType BoggleSetType { get; set; } = Classic4x4;
 		public List<BoggleSlot> Slots { get; set; } = new();
 
         public int Width => BoggleSet.BoardSize;
         public int Height => BoggleSet.BoardSize;
         public int DiceCount => BoggleSet.NoOfDice;
-        // public GameStatus Status { get; set; }
+		// public GameStatus Status { get; set; }
 
-        public Stopwatch Stopwatch { get; set; }
+		public Stopwatch Stopwatch { get; set; } = new();
 
 		public BoggleTray()
 		{
@@ -36,7 +38,6 @@ namespace Smab.Boggle.Models
         public void Reset()
 		{
             StartNewGame(BoggleSetType);
-			// Stopwatch = new();
 		}
 
 		private void StartNewGame(BoggleDice.BoggleType boggleSetType)
@@ -53,7 +54,14 @@ namespace Smab.Boggle.Models
 				}
 			}
 			Slots.ForEach(s => s.AdjacentSlots = GetAdjacentSlots(s.X, s.Y));
+			Stopwatch.Reset();
+			Stopwatch.Start();
         }
+
+		public void EndGame()
+		{
+			Stopwatch.Stop();
+		}
 
 		public List<BoggleSlot> GetAdjacentSlots(int x, int y)
 		{

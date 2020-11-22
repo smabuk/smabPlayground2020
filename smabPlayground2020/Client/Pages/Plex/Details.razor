@@ -42,7 +42,7 @@
                     } else {
                         <div class="card-title">@info.Year</div>
                         @if (info.HasCountries)
-                        {<div>Countries: @(StringList(info.Countries))</div>}
+                        {<div>Countries: @(StringList(info.Country))</div>}
                         <div>@(info.Duration / 60000) min @info.ContentRating</div>
                     }
                 </div>
@@ -52,13 +52,13 @@
                 <hr />
                 <div class="card-title plex-header-credits">
                     @if (info.HasDirectors)
-                    {<div>Directed by: @(StringList(info.Directors))</div>}
+                    {<div>Directed by: @(StringList(info.Director))</div>}
                     @if (info.HasWriters)
-                    {<div>Written by: @(StringList(info.Writers))</div>}
+                    {<div>Written by: @(StringList(info.Writer))</div>}
                     @if (info.Studio is not null)
                     {<div>Studio: @info.Studio</div>}
                     @if (info.HasGenres)
-                    {<div>Genres: @(StringList(info.Genres))</div>}
+                    {<div>Genres: @(StringList(info.Genre))</div>}
                 </div>
             </div>
         </div>
@@ -72,7 +72,7 @@
     {
         <TVEpisodes Episodes="@infoChildren" />
     }
-    <CastMembers Roles="@info.Roles" />
+    <CastMembers Roles="@info.Role" />
 }
 
 @code {
@@ -89,7 +89,7 @@
     {
         Message = $"Loading... item {Id}";
         item = await plexClient.GetItem(Id);
-        info = item?.MediaContainer.Metadata?.FirstOrDefault() ?? new();
+        info = item?.MediaContainer.Metadata?.FirstOrDefault();
         if (info.Type == "show" || info.Type == "season")
         {
             infoChildren = (await plexClient.GetItemChildren(Id))?.MediaContainer.Metadata ?? new();

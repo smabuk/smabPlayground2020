@@ -29,7 +29,7 @@
     protected override async Task OnInitializedAsync()
     {
         items = (await plexClient.GetLibraries())
-            .MediaContainer.Directories?
+            .MediaContainer.Directory?
             .Where(l => l.Hidden == 0)
             .OrderBy(l => l.Type)
             .ToList() ?? new();

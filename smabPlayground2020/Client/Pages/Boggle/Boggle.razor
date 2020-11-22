@@ -3,7 +3,7 @@
 @page "/boggle/{NoOfPlayers:int}"
 @page "/boggle/{boggleType}/{NoOfPlayers:int}"
 <div class="row my-auto">
-    <button class="btn btn-primary w-80" @onclick="() => StartNewGame()" >New Game</button>
+    <button class="btn btn-primary w-80" @onclick="() => StartNewGame()">New Game</button>
 </div>
 <div class="row my-auto mt-2">
     <div class="mt-xl-2 d-flex @(NoOfPlayers == 1 ? "col-xl" : "col-xl-auto mr-xl-auto")">
@@ -12,44 +12,64 @@
     @if (NoOfPlayers == 2)
     {
         <br />
-        <div class="d-flex col-xl-auto mt-xl-2 mt-5">
+        <div class="d-flex col-xl-auto p-0 mt-xl-2 mt-5">
             <BoggleBoard BoggleTray="BoggleTray" Reverse="true" />
         </div>
     }
 </div>
 @*<div class="row my-auto">
-    <CountdownTimer Heading="Timer" ShowHours="false" Start="new(0,3,0)" />
-</div>
-*@
+        <CountdownTimer Heading="Timer" ShowHours="false" Start="@TimerLength" />
+    </div>*@
 
+@using static Smab.DiceAndTiles.BoggleDice.BoggleType;
 @code {
+
     public Smab.Boggle.Models.BoggleTray BoggleTray { get; set; } = new();
-    public BoggleDice.BoggleType BoggleSetType { get; set; } = BoggleDice.BoggleType.Classic4x4;
+    public BoggleDice.BoggleType BoggleSetType { get; set; } = Classic4x4;
+    public TimeSpan TimerLength { get; set; } = new(0, 0, 30);
+    public TimeSpan CurrentTimer { get; set; }
 
     [Parameter]
     public int NoOfPlayers { get; set; } = 1;
     [Parameter]
     public string boggleType { get; set; } = "classic";
 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        // ToDo: This continues to run after navigating away from the page
+        if (firstRender)
+        {
+            while ((TimerLength - BoggleTray.Stopwatch.Elapsed).TotalSeconds >= 0)
+            {
+                await Task.Delay(500);
+                CurrentTimer = TimerLength - BoggleTray.Stopwatch.Elapsed;
+                Console.WriteLine($"{CurrentTimer:dd\\.hh\\:mm\\:ss}");
+            }
+            Console.WriteLine($"End Game: {BoggleTray.BoggleSetType.ToString()}");
+            BoggleTray.EndGame();
+        }
+    }
+
     protected override void OnParametersSet()
     {
-        if (NoOfPlayers == 0) {
+        if (NoOfPlayers == 0)
+        {
             NoOfPlayers = 1;
         };
         BoggleSetType = boggleType?.ToLowerInvariant() switch
         {
-            "classic"       => BoggleDice.BoggleType.Classic4x4,
-            "deluxe"        => BoggleDice.BoggleType.BigBoggleDeluxe,
-            "superbig"      => BoggleDice.BoggleType.SuperBigBoggle2012,
-            "new"           => BoggleDice.BoggleType.New4x4,
-            "bigoriginal"   => BoggleDice.BoggleType.BigBoggleOriginal,
-            "challenge"     => BoggleDice.BoggleType.BigBoggleChallenge,
-            _               => BoggleDice.BoggleType.Classic4x4
+            "classic"     => Classic4x4,
+            "deluxe"      => BigBoggleDeluxe,
+            "superbig"    => SuperBigBoggle2012,
+            "new"         => New4x4,
+            "bigoriginal" => BigBoggleOriginal,
+            "challenge"   => BigBoggleChallenge,
+            _             => Classic4x4
         };
         StartNewGame();
     }
 
-    protected void StartNewGame()
+    void StartNewGame()
     {
         BoggleTray = new(BoggleSetType);
         // ToDo: Reset timer
