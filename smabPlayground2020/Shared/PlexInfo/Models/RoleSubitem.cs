@@ -1,14 +1,12 @@
-﻿using System.Text.Json.Serialization;
-
-namespace smab.PlexInfo.Models
+﻿namespace smab.PlexInfo.Models
 {
-	public record RoleSubitem : Subitem
-    {
-        [JsonPropertyName("role")]
-        public string? Role { get; init; }
+	public record RoleSubitem 
+    (
+        string? Role,
+        string? Thumb,
+        int? Id,
+        string? Filter,
+        string Tag
 
-        [JsonPropertyName("thumb")]
-        public string? Thumb { get; init; }
-
-    }
+    ) : Subitem(Id, Filter, Tag);
 }
