@@ -1,0 +1,49 @@
+﻿@page "/CssVariables"
+
+<div>
+    <label>No of columns: </label><input type="number" @bind="NoOfColumns" min="1" max="6" />
+    <label>Font size: </label><input type="number" @bind="FontSize" min="3" max="20" />
+    <label>Background colour: </label><input type="color" @bind="BackgroundColour" />
+    <label>Foreground colour: </label><input type="color" @bind="ForegroundColour" />
+</div>
+
+<br />
+<br />
+
+<div>
+    <p>This is a paragraph that can be replicated to show text.</p>
+    <p>This is a paragraph that can be replicated to show text.</p>
+    <p>This is a paragraph that can be replicated to show text.</p>
+    <p>This is a paragraph that can be replicated to show text.</p>
+    <p>This is a paragraph that can be replicated to show text.</p>
+    <p>This is a paragraph that can be replicated to show text.</p>
+    <p>This is a paragraph that can be replicated to show text.</p>
+    <p>This is a paragraph that can be replicated to show text.</p>
+    <p>This is a paragraph that can be replicated to show text.</p>
+    <p>This is a paragraph that can be replicated to show text.</p>
+    <p>This is a paragraph that can be replicated to show text.</p>
+    <p>This is a paragraph that can be replicated to show text.</p>
+</div>
+
+@code {
+    [Parameter]
+    public string BackgroundColour { get; set; } = "#dae811";
+
+    [Parameter]
+    public string ForegroundColour { get; set; } = "var(--bs-primary)";
+
+    [Parameter]
+    public int NoOfColumns { get; set; } = 3;
+
+    [Parameter]
+    public int FontSize { get; set; } = 5;
+}
+
+<style>
+:root {
+    --bg: @BackgroundColour;
+    --fg: @ForegroundColour;
+    --no-of-columns: @NoOfColumns;
+    --font-size: @(FontSize)px;
+}
+</style>

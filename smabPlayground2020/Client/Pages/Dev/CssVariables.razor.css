@@ -1,0 +1,8 @@
+﻿p {
+    background-color: var(--bg);
+    color: var(--fg);
+    font-size: calc(var(--font-size) * 4);
+    width: calc(100% / var(--no-of-columns));
+    float: left;
+    padding: 0.5rem;
+}
