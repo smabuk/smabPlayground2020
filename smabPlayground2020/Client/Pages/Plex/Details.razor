@@ -2,7 +2,7 @@
 @using smab.PlexInfo.Models
 @using smabPlayground2020.Shared.Helpers
 @inject PlexInfoClient plexClient
-
+<Title Value="@Title"></Title>
 <p><em>@Message</em></p>
 @if (info is not null)
 {
@@ -81,6 +81,13 @@
     private List<Metadata> infoChildren = new();
 
     public string Message { get; set; } = "Loading ...";
+    public string Title => info?.Type switch
+    {
+        "season"  => $"{info.ParentTitle} ({info.Title}) - smabPlayground2020",
+        "episode" => $"{info.GrandparentTitle} ({info.ParentTitle} Episode {info.Index:D2} - {info.Title}) - smabPlayground2020",
+        not null  => $"{info.Title} - smabPlayground2020",
+        null      => $"smabPlayground2020"
+    };
 
     [Parameter]
     public int Id { get; set; }
@@ -90,7 +97,7 @@
         Message = $"Loading... item {Id}";
         item = await plexClient.GetItem(Id);
         info = item?.MediaContainer.Metadata?.FirstOrDefault();
-        if (info.Type == "show" || info.Type == "season")
+        if (info?.Type == "show" || info?.Type == "season")
         {
             infoChildren = (await plexClient.GetItemChildren(Id))?.MediaContainer.Metadata ?? new();
         }
