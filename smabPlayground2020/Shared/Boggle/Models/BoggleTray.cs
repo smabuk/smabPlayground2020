@@ -42,7 +42,7 @@ namespace Smab.Boggle.Models
 
 		private void StartNewGame(BoggleDice.BoggleType boggleSetType)
 		{
-			BoggleSet = new BoggleDice(BoggleSetType);
+			BoggleSet = new BoggleDice(boggleSetType);
 			BoggleSet.ShakeAndFillBoard();
 			int id = 1;
 			int setIndex = 0;

@@ -55,9 +55,6 @@ namespace smabPlayground2020.Client.Pages.Boggle
 				currentWord += letter;
 				lastSlot = slot;
 			}
-			else
-			{
-			}
 		}
 
 	private static int ScoreWord(string word, BoggleDice.BoggleType boggleSetType)
@@ -65,11 +62,6 @@ namespace smabPlayground2020.Client.Pages.Boggle
 			return (boggleSetType, word.Length) switch
 			{
 				(BigBoggleDeluxe or BigBoggleOriginal or BigBoggleChallenge or SuperBigBoggle2012, <= 3) => 0,
-				(SuperBigBoggle2012, 4) => 1,
-				(SuperBigBoggle2012, 5) => 2,
-				(SuperBigBoggle2012, 6) => 3,
-				(SuperBigBoggle2012, 7) => 5,
-				(SuperBigBoggle2012, 8) => 11,
 				(SuperBigBoggle2012, >= 9) => word.Length * 2,
 				(_, 3) => 1,
 				(_, 4) => 1,
