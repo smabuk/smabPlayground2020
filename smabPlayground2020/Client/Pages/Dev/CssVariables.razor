@@ -1,36 +1,40 @@
 ﻿@page "/CssVariables"
 
-<div>
-    <label>No of columns: </label><input type="number" @bind="NoOfColumns" min="1" max="6" />
-    <label>Font size: </label><input type="number" @bind="FontSize" min="3" max="20" />
-    <label>Background colour: </label><input type="color" @bind="BackgroundColour" />
-    <label>Foreground colour: </label><input type="color" @bind="ForegroundColour" />
-</div>
+<div id="cssvariables_@Id">
+    <div>
+        <label>No of columns: </label><input type="number" @bind="NoOfColumns" min="1" max="6" />
+        <label>Font size: </label><input type="number" @bind="FontSize" min="3" max="20" />
+        <label>Background colour: </label><input type="color" @bind="BackgroundColour" />
+        <label>Foreground colour: </label><input type="color" @bind="ForegroundColour" />
+    </div>
 
-<br />
-<br />
-
-<div>
-    <p>This is a paragraph that can be replicated to show text.</p>
-    <p>This is a paragraph that can be replicated to show text.</p>
-    <p>This is a paragraph that can be replicated to show text.</p>
-    <p>This is a paragraph that can be replicated to show text.</p>
-    <p>This is a paragraph that can be replicated to show text.</p>
-    <p>This is a paragraph that can be replicated to show text.</p>
-    <p>This is a paragraph that can be replicated to show text.</p>
-    <p>This is a paragraph that can be replicated to show text.</p>
-    <p>This is a paragraph that can be replicated to show text.</p>
-    <p>This is a paragraph that can be replicated to show text.</p>
-    <p>This is a paragraph that can be replicated to show text.</p>
-    <p>This is a paragraph that can be replicated to show text.</p>
+    <br />
+ 
+    <div>
+        <p>This is a paragraph that can be replicated to show text.</p>
+        <p>This is a paragraph that can be replicated to show text.</p>
+        <p>This is a paragraph that can be replicated to show text.</p>
+        <p>This is a paragraph that can be replicated to show text.</p>
+        <p>This is a paragraph that can be replicated to show text.</p>
+        <p>This is a paragraph that can be replicated to show text.</p>
+        <p>This is a paragraph that can be replicated to show text.</p>
+        <p>This is a paragraph that can be replicated to show text.</p>
+        <p>This is a paragraph that can be replicated to show text.</p>
+        <p>This is a paragraph that can be replicated to show text.</p>
+        <p>This is a paragraph that can be replicated to show text.</p>
+        <p>This is a paragraph that can be replicated to show text.</p>
+    </div>
 </div>
 
 @code {
     [Parameter]
-    public string BackgroundColour { get; set; } = "#dae811";
+    public string Id { get; set; } = "";
 
     [Parameter]
-    public string ForegroundColour { get; set; } = "var(--bs-primary)";
+    public string BackgroundColour { get; set; } = "#ffff00";
+
+    [Parameter]
+    public string ForegroundColour { get; set; } = "var(--bs-primary, #0000ff)";
 
     [Parameter]
     public int NoOfColumns { get; set; } = 3;
@@ -40,7 +44,7 @@
 }
 
 <style>
-:root {
+#cssvariables_@Id {
     --bg: @BackgroundColour;
     --fg: @ForegroundColour;
     --no-of-columns: @NoOfColumns;
