@@ -11,40 +11,40 @@ using static Smab.DiceAndTiles.BoggleDice.BoggleType;
 
 namespace Smab.Boggle.Models
 {
-    public partial class BoggleTray
-    {
+	public partial class BoggleTray
+	{
 		public BoggleDice BoggleSet { get; set; }
-        public BoggleDice.BoggleType BoggleSetType { get; set; } = Classic4x4;
+		public BoggleDice.BoggleType BoggleSetType { get; set; } = Classic4x4;
 		public List<BoggleSlot> Slots { get; set; } = new();
 
-        public int Width => BoggleSet.BoardSize;
-        public int Height => BoggleSet.BoardSize;
-        public int DiceCount => BoggleSet.NoOfDice;
+		public int Width => BoggleSet.BoardSize;
+		public int Height => BoggleSet.BoardSize;
+		public int DiceCount => BoggleSet.NoOfDice;
 		// public GameStatus Status { get; set; }
 
 		public Stopwatch Stopwatch { get; set; } = new();
 
 		public BoggleTray()
 		{
-            Reset();
+			Reset();
 		}
 
 		public BoggleTray(BoggleDice.BoggleType boggleSetType)
 		{
 			BoggleSetType = boggleSetType;
-            Reset();
+			Reset();
 		}
 
-        public void Reset()
+		public void Reset()
 		{
-            StartNewGame(BoggleSetType);
+			StartNewGame(BoggleSetType);
 		}
 
 		private void StartNewGame(BoggleDice.BoggleType boggleSetType)
 		{
 			BoggleSet = new BoggleDice(BoggleSetType);
 			BoggleSet.ShakeAndFillBoard();
-            int id = 1;
+			int id = 1;
 			int setIndex = 0;
 			for (int i = 1; i <= Height; i++)
 			{
@@ -56,7 +56,7 @@ namespace Smab.Boggle.Models
 			Slots.ForEach(s => s.AdjacentSlots = GetAdjacentSlots(s.X, s.Y));
 			Stopwatch.Reset();
 			Stopwatch.Start();
-        }
+		}
 
 		public void EndGame()
 		{

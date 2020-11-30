@@ -1,29 +1,10 @@
 ﻿<div class="grid-@(BoggleTray.Height) bg-gradient-warning m-auto rounded user-select-none" @oncontextmenu:preventDefault>
-    @foreach (var slot in Reverse ? BoggleTray.Slots.Reverse<BoggleSlot>() : BoggleTray.Slots)
-    {
-        <BoggleSlotUI Selected="@slot.IsSelected"
-                      Slot="slot"
-                      ArrowDirection="@slot.ArrowDirection"
-                      OnClickCallback="e => SelectSlot(e, slot)" />
-    }
+	@foreach (var slot in Reverse ? BoggleTray.Slots.Reverse<BoggleSlot>() : BoggleTray.Slots)
+	{
+		<BoggleSlotUI Selected="@slot.IsSelected"
+					  Slot="slot"
+					  ArrowDirection="@slot.ArrowDirection"
+					  OnClickCallback="e => SelectSlot(e, slot)" />
+	}
 </div>
-
-<style>
-.slot {
-    width:  @(DieSize / 2)rem;
-    height: @(DieSize / 2)rem;
-}
-.die {
-    font-size: @(DieFontSize / 2)rem;
-}
-@@media (min-width: 768px) {
-    .slot {
-        width:  @(DieSize)rem;
-        height: @(DieSize)rem;
-    }
-    .die {
-        font-size: @(DieFontSize)rem;
-    }
-}
-</style>
 

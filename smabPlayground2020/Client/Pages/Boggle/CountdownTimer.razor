@@ -1,102 +1,102 @@
 ﻿@page "/countdown"
 <div style="position: relative; top: 200px;">
-    <div class="wrap">
-        <h1><strong>@Heading</strong></h1>
+	<div class="wrap">
+		<h1><strong>@Heading</strong></h1>
 
-        <div class="countdown user-select-none" @onclick="DecrementTime" @oncontextmenu="DecrementTime"  @oncontextmenu:preventDefault>
-           @if (ShowHours)
-            {
-                <div class="bloc-time hours" data-init-value="@currentTimer.Hours">
-                <span class="count-title">Hours</span>
+		<div class="countdown user-select-none" @onclick="DecrementTime" @oncontextmenu="DecrementTime"  @oncontextmenu:preventDefault>
+		   @if (ShowHours)
+			{
+				<div class="bloc-time hours" data-init-value="@currentTimer.Hours">
+				<span class="count-title">Hours</span>
 
-                <div class="figure hours hours-1">
-                    <span class="top">@(currentTimer.Hours / 10)</span>
-                    <span class="top-back"><span>@(currentTimer.Hours / 10)</span></span>
-                    <span class="bottom">@(currentTimer.Hours / 10)</span>
-                    <span class="bottom-back"><span>@(currentTimer.Hours / 10)</span></span>
-                </div>
+				<div class="figure hours hours-1">
+					<span class="top">@(currentTimer.Hours / 10)</span>
+					<span class="top-back"><span>@(currentTimer.Hours / 10)</span></span>
+					<span class="bottom">@(currentTimer.Hours / 10)</span>
+					<span class="bottom-back"><span>@(currentTimer.Hours / 10)</span></span>
+				</div>
 
-                <div class="figure hours hours-2">
-                    <span class="top">@(currentTimer.Hours % 10)</span>
-                    <span class="top-back"><span>@(currentTimer.Hours % 10)</span></span>
-                    <span class="bottom">@(currentTimer.Hours % 10)</span>
-                    <span class="bottom-back"><span>@(currentTimer.Hours % 10)</span></span>
-                </div>
-            </div>
-            }
-            @if (ShowMinutes)
-            {
-                <div class="bloc-time min" data-init-value="@currentTimer.Minutes">
-                <span class="count-title">Minutes</span>
+				<div class="figure hours hours-2">
+					<span class="top">@(currentTimer.Hours % 10)</span>
+					<span class="top-back"><span>@(currentTimer.Hours % 10)</span></span>
+					<span class="bottom">@(currentTimer.Hours % 10)</span>
+					<span class="bottom-back"><span>@(currentTimer.Hours % 10)</span></span>
+				</div>
+			</div>
+			}
+			@if (ShowMinutes)
+			{
+				<div class="bloc-time min" data-init-value="@currentTimer.Minutes">
+				<span class="count-title">Minutes</span>
 
-                <div class="figure min min-1">
-                    <span class="top">@(currentTimer.Minutes / 10)</span>
-                    <span class="top-back"><span>@(currentTimer.Minutes / 10)</span></span>
-                    <span class="bottom">@(currentTimer.Minutes / 10)</span>
-                    <span class="bottom-back"><span>@(currentTimer.Minutes / 10)</span></span>
-                </div>
+				<div class="figure min min-1">
+					<span class="top">@(currentTimer.Minutes / 10)</span>
+					<span class="top-back"><span>@(currentTimer.Minutes / 10)</span></span>
+					<span class="bottom">@(currentTimer.Minutes / 10)</span>
+					<span class="bottom-back"><span>@(currentTimer.Minutes / 10)</span></span>
+				</div>
 
-                <div class="figure min min-2">
-                    <span class="top">@(currentTimer.Minutes % 10)</span>
-                    <span class="top-back"><span>@(currentTimer.Minutes % 10)</span></span>
-                    <span class="bottom">@(currentTimer.Minutes % 10)</span>
-                    <span class="bottom-back"><span>@(currentTimer.Minutes % 10)</span></span>
-                </div>
-            </div>
-            }
-            @if (ShowSeconds)
-            {
-                <div class="bloc-time sec" data-init-value="@currentTimer.Seconds">
-                <span class="count-title">Seconds</span>
+				<div class="figure min min-2">
+					<span class="top">@(currentTimer.Minutes % 10)</span>
+					<span class="top-back"><span>@(currentTimer.Minutes % 10)</span></span>
+					<span class="bottom">@(currentTimer.Minutes % 10)</span>
+					<span class="bottom-back"><span>@(currentTimer.Minutes % 10)</span></span>
+				</div>
+			</div>
+			}
+			@if (ShowSeconds)
+			{
+				<div class="bloc-time sec" data-init-value="@currentTimer.Seconds">
+				<span class="count-title">Seconds</span>
 
-                <div class="figure sec sec-1">
-                    <span class="top">@(currentTimer.Seconds / 10)</span>
-                    <span class="top-back"><span>@(currentTimer.Seconds / 10)</span></span>
-                    <span class="bottom">@(currentTimer.Seconds / 10)</span>
-                    <span class="bottom-back"><span>@(currentTimer.Seconds / 10)</span></span>
-                </div>
+				<div class="figure sec sec-1">
+					<span class="top">@(currentTimer.Seconds / 10)</span>
+					<span class="top-back"><span>@(currentTimer.Seconds / 10)</span></span>
+					<span class="bottom">@(currentTimer.Seconds / 10)</span>
+					<span class="bottom-back"><span>@(currentTimer.Seconds / 10)</span></span>
+				</div>
 
-                <div class="figure sec sec-2">
-                    <span class="top">@(currentTimer.Seconds % 10)</span>
-                    <span class="top-back"><span>@(currentTimer.Seconds % 10)</span></span>
-                    <span class="bottom">@(currentTimer.Seconds % 10)</span>
-                    <span class="bottom-back"><span>@(currentTimer.Seconds % 10)</span></span>
-                </div>
-            </div>
-            }
-        </div>
-    </div>
+				<div class="figure sec sec-2">
+					<span class="top">@(currentTimer.Seconds % 10)</span>
+					<span class="top-back"><span>@(currentTimer.Seconds % 10)</span></span>
+					<span class="bottom">@(currentTimer.Seconds % 10)</span>
+					<span class="bottom-back"><span>@(currentTimer.Seconds % 10)</span></span>
+				</div>
+			</div>
+			}
+		</div>
+	</div>
 </div>
 
 @code {
-    // Inspired by https://codepen.io/doriancami/pen/jEJvaV
+	// Inspired by https://codepen.io/doriancami/pen/jEJvaV
 
-    public TimeSpan currentTimer;
+	public TimeSpan currentTimer;
 
-    [Parameter]
-    public string Heading { get; set; } = "Countdown Timer";
-    [Parameter]
-    public TimeSpan Start { get; set; } = new(0, 3, 0);
+	[Parameter]
+	public string Heading { get; set; } = "Countdown Timer";
+	[Parameter]
+	public TimeSpan Start { get; set; } = new(0, 3, 0);
 
-    [Parameter]
-    public bool ShowHours { get; set; } = true;
-    [Parameter]
-    public bool ShowMinutes { get; set; } = true;
-    [Parameter]
-    public bool ShowSeconds { get; set; } = true;
+	[Parameter]
+	public bool ShowHours { get; set; } = true;
+	[Parameter]
+	public bool ShowMinutes { get; set; } = true;
+	[Parameter]
+	public bool ShowSeconds { get; set; } = true;
 
-    protected override void OnInitialized()
-    {
-        currentTimer = Start;
-    }
+	protected override void OnInitialized()
+	{
+		currentTimer = Start;
+	}
 
-    private void DecrementTime()
-    {
-        if (currentTimer.TotalSeconds > 0)
-        {
-            currentTimer = currentTimer.Subtract(new(0, 0, 1));
-        }
-        // Console.WriteLine($"Current Timer: {currentTimer.ToString()}");
-    }
+	private void DecrementTime()
+	{
+		if (currentTimer.TotalSeconds > 0)
+		{
+			currentTimer = currentTimer.Subtract(new(0, 0, 1));
+		}
+		// Console.WriteLine($"Current Timer: {currentTimer.ToString()}");
+	}
 
 }

@@ -1,4 +1,18 @@
-﻿.die {
+﻿.slot {
+  width: 12vw;
+  height: 12vw; }
+
+.die {
+  font-size: 8vw; }
+
+@media (min-width: 768px) {
+  .slot {
+    width: 10vw;
+    height: 10vw; }
+  .die {
+    font-size: 7vw; } }
+
+.die {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -6,16 +20,16 @@
   font-weight: bold;
   background-color: transparent;
   /*    &.selected {
-        color: green;
-        &:hover {
-            color: green;
-        }
-    }
+		color: green;
+		&:hover {
+			color: green;
+		}
+	}
 */
   /*
-    &:hover {
-        color: red;
-    }
+	&:hover {
+		color: red;
+	}
 */ }
 
 .inner-circle {
