@@ -1,5 +1,4 @@
-﻿namespace smab.PlexInfo.Models
-{
+﻿namespace smab.PlexInfo.Models {
 	public record Server
 	(
 		string Name,

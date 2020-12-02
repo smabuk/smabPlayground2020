@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Smab.DiceAndTiles;
 
 using static Smab.DiceAndTiles.BoggleDice.BoggleType;
 
-namespace Smab.Boggle.Models
-{
-	public partial class BoggleTray
-	{
-		public BoggleDice BoggleSet { get; set; }
+namespace Smab.Boggle.Models {
+	public partial class BoggleTray {
+
+		public BoggleDice BoggleSet { get; set; } = new();
 		public BoggleDice.BoggleType BoggleSetType { get; set; } = Classic4x4;
 		public List<BoggleSlot> Slots { get; set; } = new();
 
@@ -24,32 +20,26 @@ namespace Smab.Boggle.Models
 
 		public Stopwatch Stopwatch { get; set; } = new();
 
-		public BoggleTray()
-		{
+		public BoggleTray() {
 			Reset();
 		}
 
-		public BoggleTray(BoggleDice.BoggleType boggleSetType)
-		{
+		public BoggleTray(BoggleDice.BoggleType boggleSetType) {
 			BoggleSetType = boggleSetType;
 			Reset();
 		}
 
-		public void Reset()
-		{
+		public void Reset() {
 			StartNewGame(BoggleSetType);
 		}
 
-		private void StartNewGame(BoggleDice.BoggleType boggleSetType)
-		{
+		private void StartNewGame(BoggleDice.BoggleType boggleSetType) {
 			BoggleSet = new BoggleDice(boggleSetType);
 			BoggleSet.ShakeAndFillBoard();
 			int id = 1;
 			int setIndex = 0;
-			for (int i = 1; i <= Height; i++)
-			{
-				for (int j = 1; j <= Width; j++)
-				{
+			for (int i = 1; i <= Height; i++) {
+				for (int j = 1; j <= Width; j++) {
 					Slots.Add(new BoggleSlot(id++, j, i, BoggleSet.Board[setIndex++]));
 				}
 			}
@@ -58,14 +48,12 @@ namespace Smab.Boggle.Models
 			Stopwatch.Start();
 		}
 
-		public void EndGame()
-		{
+		public void EndGame() {
 			Stopwatch.Stop();
 		}
 
-		public List<BoggleSlot> GetAdjacentSlots(int x, int y)
-		{
-			IEnumerable<BoggleSlot> adjacentSlots = 
+		public List<BoggleSlot> GetAdjacentSlots(int x, int y) {
+			IEnumerable<BoggleSlot> adjacentSlots =
 				Slots.Where(slot => slot.X >= (x - 1) && slot.X <= (x + 1) && slot.Y >= (y - 1) && slot.Y <= (y + 1));
 			IEnumerable<BoggleSlot> currentSlot = Slots.Where(slot => slot.X == x && slot.Y == y);
 			return adjacentSlots.Except(currentSlot).ToList();

@@ -1,7 +1,6 @@
 ﻿using System;
 
-namespace smab.PlexInfo.Models
-{
+namespace smab.PlexInfo.Models {
 	public record MovieSummary
 	(
 		int LibraryId,

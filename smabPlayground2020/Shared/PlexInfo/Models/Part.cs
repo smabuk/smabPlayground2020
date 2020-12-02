@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace smab.PlexInfo.Models
-{
+namespace smab.PlexInfo.Models {
 	public record Part
 	(
 		int Id,

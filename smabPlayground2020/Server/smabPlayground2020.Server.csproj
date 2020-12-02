@@ -33,4 +33,9 @@
     <PackageReference Include="Syncfusion.Blazor.WordProcessor" Version="18.3.0.50" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Watch Include="**\*.razor" />
+    <Watch Include="**\*.css" />
+  </ItemGroup>
+
 </Project>

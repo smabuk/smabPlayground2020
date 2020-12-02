@@ -4,8 +4,7 @@ using System.Text.Json.Serialization;
 
 using smabPlayground2020.Shared.Helpers;
 
-namespace smab.PlexInfo.Models
-{
+namespace smab.PlexInfo.Models {
 	public record LibraryDirectory
 	(
 		bool? AllowSync,
@@ -26,8 +25,7 @@ namespace smab.PlexInfo.Models
 		int? Hidden,
 		List<Location>? Location,
 		bool? EnableAutoPhotoTags
-	)
-	{
+	) {
 		[JsonConverter(typeof(JsonUnixDateConverterWithNulls))]
 		public DateTime? UpdatedAt { get; init; }
 

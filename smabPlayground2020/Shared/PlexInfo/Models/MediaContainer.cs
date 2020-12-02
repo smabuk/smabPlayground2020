@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 
-namespace smab.PlexInfo.Models
-{
+namespace smab.PlexInfo.Models {
 	public record MediaContainer
 	(
 		int Size,

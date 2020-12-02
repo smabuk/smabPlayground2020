@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace smab.PlexInfo.Models
-{
+namespace smab.PlexInfo.Models {
 	public static class MediaTypes
 	{
 		public static List<MediaType> Collection => new() {

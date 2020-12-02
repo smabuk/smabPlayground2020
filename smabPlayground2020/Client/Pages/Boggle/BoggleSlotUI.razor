@@ -1,28 +1,29 @@
 ﻿@{
-	string showOrientation = ("MNWZ".Contains(Slot.Die.FaceValue.Display)) ? "show-orientation" : "";
-	string orientationClass = $"rot-{(Reverse == true ? "reverse-" : "")}{Slot.Die.Orientation}";
-	string selectedClass = Selected ? "selected" : String.Empty;
+    string showOrientation = ("MNWZ".Contains(Slot?.Die?.FaceValue.Display ?? "")) ? "show-orientation" : "";
+    string orientationClass = $"rot-{(Reverse == true ? "reverse-" : "")}{Slot?.Die?.Orientation}";
+    string selectedClass = Selected ? "selected" : "";
 }
 <div class="card rounded slot @selectedClass text-primary">
-	<div class="arrow arrow-@ArrowDirection"><i class="far fa-arrow-alt-circle-up"></i></div>
-	<div class="inner-circle rounded-circle @orientationClass @selectedClass" @onclick="OnClickCallback" @oncontextmenu="OnClickCallback" @oncontextmenu:preventDefault>
-		<div class="@showOrientation die">@Slot.Die.FaceValue.Display</div>
-	</div>
+    <div class="arrow arrow-@ArrowDirection"><i class="far fa-arrow-alt-circle-up"></i></div>
+    <div class="inner-circle rounded-circle @orientationClass @selectedClass" @onclick="OnClickCallback" @oncontextmenu="OnClickCallback" @oncontextmenu:preventDefault>
+        <div class="@showOrientation die">@Slot?.Die?.FaceValue.Display</div>
+    </div>
 </div>
 
 @code {
-	// https://stackoverflow.com/questions/7720730/how-to-align-absolutely-positioned-element-to-center
+    // https://stackoverflow.com/questions/7720730/how-to-align-absolutely-positioned-element-to-center
 
-	[Parameter]
-	public BoggleSlot Slot { get; set; }
-	[Parameter]
-	public bool Reverse { get; set; } = false;
-	[Parameter]
-	public bool Selected { get; set; } = false;
-	[Parameter]
-	public string ArrowDirection { get; set; } = "NONE";
+    [Parameter]
 
-	[Parameter]
-	public EventCallback<MouseEventArgs> OnClickCallback { get; set; }
+    public BoggleSlot? Slot { get; set; }
+    [Parameter]
+    public bool Reverse { get; set; } = false;
+    [Parameter]
+    public bool Selected { get; set; } = false;
+    [Parameter]
+    public string ArrowDirection { get; set; } = "NONE";
+
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClickCallback { get; set; }
 
 }

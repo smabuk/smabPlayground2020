@@ -7,10 +7,10 @@
 
 @media (min-width: 768px) {
   .slot {
-    width: 10vw;
-    height: 10vw; }
+    width: 8vw;
+    height: 8vw; }
   .die {
-    font-size: 7vw; } }
+    font-size: 5vw; } }
 
 .die {
   position: absolute;

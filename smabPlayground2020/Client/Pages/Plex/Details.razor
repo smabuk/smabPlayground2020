@@ -4,14 +4,13 @@
 @inject PlexInfoClient plexClient
 <Title Value="@Title"></Title>
 <p><em>@Message</em></p>
-@if (info is not null)
-{
+@if (info is not null) {
     @*<div><h1>@info.Type</h1></div>*@
     <div class="card">
         <div class="card-header plex-header">
             <div class="plex-header-thumbnail">
                 @if (String.IsNullOrEmpty(info.Thumb)) {
-                    <img src="/images/tv.png" width="235px" height="153px" alt="..." />
+                    <img src="/images/tv.png" style="width: 235px; height: 153px" alt="..." />
                 } else {
                     <img src="/PlexInfo/Photo?url=@(info.Thumb)&width=235&height=353" alt="Thumbnail">
                 }
@@ -30,8 +29,7 @@
                 <div class="plex-header-info-lh">
                     @if (info.OriginallyAvailableAt is not null) {
                         DateTime originallyAvailableAt = DateTime.Parse(info.OriginallyAvailableAt);
-                        if (originallyAvailableAt.Year > 1)
-                        {
+                        if (originallyAvailableAt.Year > 1) {
                             <div class="card-title">@originallyAvailableAt.ToDateLongMonthYearString()</div>
                         }
                     }
@@ -41,8 +39,7 @@
                         <div class="card-title">@info.LeafCount @((info.LeafCount == 1) ? "episode" : "episodes")</div>
                     } else {
                         <div class="card-title">@info.Year</div>
-                        @if (info.HasCountries)
-                        {<div>Countries: @(StringList(info.Country))</div>}
+                        @if (info.HasCountries) {<div>Countries: @(StringList(info.Country))</div>}
                         <div>@(info.Duration / 60000) min @info.ContentRating</div>
                     }
                 </div>
@@ -51,25 +48,19 @@
                 </div>
                 <hr />
                 <div class="card-title plex-header-credits">
-                    @if (info.HasDirectors)
-                    {<div>Directed by: @(StringList(info.Director))</div>}
-                    @if (info.HasWriters)
-                    {<div>Written by: @(StringList(info.Writer))</div>}
-                    @if (info.Studio is not null)
-                    {<div>Studio: @info.Studio</div>}
-                    @if (info.HasGenres)
-                    {<div>Genres: @(StringList(info.Genre))</div>}
+                    @if (info.HasDirectors) {<div>Directed by: @(StringList(info.Director))</div>}
+                    @if (info.HasWriters) {<div>Written by: @(StringList(info.Writer))</div>}
+                    @if (info.Studio is not null) {<div>Studio: @info.Studio</div>}
+                    @if (info.HasGenres) {<div>Genres: @(StringList(info.Genre))</div>}
                 </div>
             </div>
         </div>
         <div class="card-body plex-header-summary">@info.Summary</div>
     </div>
     <br />
-    @if (info.Type == "show")
-    {
+    @if (info.Type == "show") {
         <TVSeasons Seasons="@infoChildren" />
-    } else if (info.Type == "season")
-    {
+    } else if (info.Type == "season") {
         <TVEpisodes Episodes="@infoChildren" />
     }
     <CastMembers Roles="@info.Role" />
@@ -81,45 +72,36 @@
     private List<Metadata> infoChildren = new();
 
     public string Message { get; set; } = "Loading ...";
-    public string Title => info?.Type switch
-    {
-        "season"  => $"{info.ParentTitle} ({info.Title}) - smabPlayground2020",
+    public string Title => info?.Type switch {
+        "season" => $"{info.ParentTitle} ({info.Title}) - smabPlayground2020",
         "episode" => $"{info.GrandparentTitle} ({info.ParentTitle} Episode {info.Index:D2} - {info.Title}) - smabPlayground2020",
-        not null  => $"{info.Title} - smabPlayground2020",
-        null      => $"smabPlayground2020"
+        not null => $"{info.Title} - smabPlayground2020",
+        null => $"smabPlayground2020"
     };
 
     [Parameter]
     public int Id { get; set; }
 
-    protected override async Task OnParametersSetAsync()
-    {
+    protected override async Task OnParametersSetAsync() {
         Message = $"Loading... item {Id}";
         item = await plexClient.GetItem(Id);
-        info = item?.MediaContainer.Metadata?.FirstOrDefault();
-        if (info?.Type == "show" || info?.Type == "season")
-        {
-            infoChildren = (await plexClient.GetItemChildren(Id))?.MediaContainer.Metadata ?? new();
+        info = item?.MediaContainer?.Metadata?.FirstOrDefault();
+        if (info?.Type == "show" || info?.Type == "season") {
+            infoChildren = (await plexClient.GetItemChildren(Id))?.MediaContainer?.Metadata ?? new();
         }
         Message = $"";
     }
 
-    private string StringList(IList<Subitem>? group)
-    {
+    private string StringList(IList<Subitem>? group) {
         bool FirstItem = true;
         string strT = "";
 
-        if (group is not null)
-        {
-            foreach (var item in group)
-            {
-                if (FirstItem)
-                {
+        if (group is not null) {
+            foreach (var item in group) {
+                if (FirstItem) {
                     strT = item.Tag;
                     FirstItem = false;
-                }
-                else
-                {
+                } else {
                     strT += $", {item.Tag}";
                 }
             }
