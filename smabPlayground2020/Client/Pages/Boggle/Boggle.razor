@@ -2,6 +2,7 @@
 @page "/boggle/{boggleType}"
 @page "/boggle/{NoOfPlayers:int}"
 @page "/boggle/{boggleType}/{NoOfPlayers:int}"
+@implements IDisposable
 <Title Value="@Title"></Title>
 <div class="row my-auto">
 	<button class="btn btn-primary w-80" @onclick="() => StartNewGame()">New Game</button>
@@ -27,8 +28,9 @@
 
     public Smab.Boggle.Models.BoggleTray BoggleTray { get; set; } = new();
     public BoggleDice.BoggleType BoggleSetType { get; set; } = Classic4x4;
-    public TimeSpan TimerLength { get; set; } = new(0, 0, 30);
+    public TimeSpan TimerLength { get; set; } = new(0, 3, 0);
     public TimeSpan CurrentTimer { get; set; }
+    public bool CancelTimer { get; set; } = false;
     public string Title => $"Boggle ({BoggleSetType}) - smabPlayground2020";
 
     [Parameter]
@@ -38,16 +40,15 @@
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        // ToDo: This continues to run after navigating away from the page
         if (firstRender)
         {
-            while ((TimerLength - BoggleTray.Stopwatch.Elapsed).TotalSeconds >= 0)
+            while ((TimerLength - BoggleTray.Stopwatch.Elapsed).TotalSeconds >= 0 && CancelTimer == false)
             {
                 await Task.Delay(500);
                 CurrentTimer = TimerLength - BoggleTray.Stopwatch.Elapsed;
                 Console.WriteLine($"{CurrentTimer:dd\\.hh\\:mm\\:ss}");
             }
-            Console.WriteLine($"End Game: {BoggleTray.BoggleSetType.ToString()}");
+            Console.WriteLine($"{(CancelTimer ? "Cancelled" : "End")} Game: {BoggleTray.BoggleSetType.ToString()}");
             BoggleTray.EndGame();
         }
     }
@@ -78,4 +79,9 @@
         // ToDo: Reset Words on board
 
     }
+
+    public void Dispose() {
+        CancelTimer = true;
+    }
+
 }
