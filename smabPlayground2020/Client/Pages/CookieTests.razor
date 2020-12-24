@@ -1,4 +1,4 @@
-﻿@*@inject SmabJsInterop smabJs
+﻿@inject SmabJsInterop smabJs
 @page "/cookie"
 
 <button class="btn btn-primary" @onclick="SetCookie">Set</button>
@@ -13,16 +13,16 @@
     public string CookieValue { get; set; } = "";
 
     protected void SetCookie() {
-        aocJs.CreateCookie("Simon", "53616c7465645f5f6ebf0bdde77863842097a8b1563d7b80aa46ed3b0b8ecb733a7a7a258099a8328a82da36d4790b7d");
+        smabJs.CreateCookie("CookieTest", "This is a test for reading and writing cookies");
     }
 
     protected void DeleteCookie() {
-        aocJs.DeleteCookie("Simon");
+        smabJs.DeleteCookie("CookieTest");
     }
-
+    
     protected async void ReadCookieAsync() {
-        CookieValue = await aocJs.ReadCookie("Simon");
+        CookieValue = await smabJs.ReadCookie("CookieTest");
         StateHasChanged();
     }
 
-}*@
+}
