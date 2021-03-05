@@ -5,7 +5,7 @@
   margin-bottom: .25rem;
   /*border: none;*/ }
   .card .card-header {
-    height: 230px;
+    height: 160px;
     text-align: center; }
   .card .card-body {
     padding: .5rem;
@@ -46,7 +46,7 @@
 
 .cast-photo {
   width: 140px;
-  height: 210px;
+  height: 140px;
   border-radius: 70px; }
 
 .cast-no-photo {
