@@ -26,6 +26,8 @@ namespace smabPlayground2020.Client
 
 			builder.Services.AddApiAuthorization();
 
+			builder.Services.AddScoped<SmabJsInterop>();
+
 			//Register Syncfusion license 
 			Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(@"MzU0MDYwQDMxMzgyZTMzMmUzMFJzUGpsYk1MMDdYSGR1d2EyUjlGbFhJYWt0RlIwZmV5UG1pMHR0S2JsVmc9;MzU0MDYxQDMxMzgyZTMzMmUzMERISmYrYmV1Z0k2ajZpNHJkN1JwbFI1ajFuU0ZoVHN1b0JydGFKM3Z3TU09");
 			builder.Services.AddSyncfusionBlazor();

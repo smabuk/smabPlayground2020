@@ -5,7 +5,8 @@
 		string? Thumb,
 		int? Id,
 		string? Filter,
-		string Tag
+		string Tag,
+		int? Count
 
-	) : Subitem(Id, Filter, Tag);
+	) : Subitem(Id, Filter, Tag, Count);
 }

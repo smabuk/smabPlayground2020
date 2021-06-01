@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace AdventOfCode.SharedUI {
+namespace smabPlayground2020.Client {
 	// The associated JavaScript module is loaded on demand when first needed.
 	//
 	// This class should be registered as scoped DI service and then injected into Blazor
@@ -15,7 +15,8 @@ namespace AdventOfCode.SharedUI {
 
 		public SmabJsInterop(IJSRuntime jsRuntime) {
 			moduleTask = new(() => jsRuntime.InvokeAsync<IJSObjectReference>(
-			   "import", "./_content/AdventOfCode.SharedUI/aocJsInterop.js").AsTask());
+			   "import", "/smabJsInterop.js").AsTask());
+			   //"import", "./_content/smabPlayground2020.Client/smabJsInterop.js").AsTask());
 		}
 
 		public async ValueTask<string> CopyToClipboard(ElementReference reference) {

@@ -14,7 +14,8 @@ namespace smab.PlexInfo.Models {
 		string Key,
 		string? ParentKey,
 		string? GrandparentKey,
-		string Guid,
+		// There are now 2 values "guid" and "Guid" the latter of which is an array
+		// string Guid,
 		string? ParentGuid,
 		string? GrandparentGuid,
 		string? Studio,

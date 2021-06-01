@@ -3,7 +3,8 @@
 	(
 		int? Id,
 		string? Filter,
-		string Tag
+		string Tag,
+		int? Count
 	) {
 		public override string ToString() => Tag;
 	};
