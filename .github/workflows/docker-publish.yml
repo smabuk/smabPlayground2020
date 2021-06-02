@@ -1,13 +1,10 @@
 name: Docker-deploy
 
 on:
-  workflow_dispatch:
-  
   push:
     # Publish `dev` as Docker `latest` image.
     branches:
       - dev
-      - docker-deploy
 
     # Publish `v1.2.3` tags as releases.
     tags:
@@ -33,9 +30,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
-      - name: Ls
-        run: ls smabPlayground2020/Server/.
 
       - name: Build image
         # run: docker build . --file Dockerfile --tag $IMAGE_NAME
