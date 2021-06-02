@@ -5,6 +5,7 @@ on:
     # Publish `dev` as Docker `latest` image.
     branches:
       - dev
+      - docker-create
 
     # Publish `v1.2.3` tags as releases.
     tags:
@@ -31,9 +32,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Ls
+        run: ls .
+
       - name: Build image
         # run: docker build . --file Dockerfile --tag $IMAGE_NAME
-        run: docker build . --file Server/Dockerfile --tag $IMAGE_NAME
+        run: docker build . --file Dockerfile --tag $IMAGE_NAME
 
       - name: Log into registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
