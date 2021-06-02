@@ -1,4 +1,4 @@
-name: Docker-deploy
+name: Publish releases to Docker Hub
 
 on:
   push:
@@ -14,10 +14,9 @@ env:
   IMAGE_NAME: smabplayground2020server
 
 jobs:
-
   # Push image to Docker Hub.
   # See also https://docs.docker.com/ci-cd/github-actions/
-  push:
+  docker:
     # Ensure test job passes before pushing image.
     runs-on: ubuntu-latest
 
