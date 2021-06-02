@@ -20,16 +20,15 @@ jobs:
   push:
     # Ensure test job passes before pushing image.
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
 
     steps:
-      - name: Prepare
+      - name: Checkout
       - uses: actions/checkout@v2
 
       - name: Prepare
         id: prep
         run: |
-          DOCKER_IMAGE=${{ secrets.DOCKER_HUB_USERNAME }}/smabplayground2020server
+          DOCKER_IMAGE=${{secrets.DOCKER_HUB_USERNAME}}/smabplayground2020server
           VERSION=edge
           if [[ $GITHUB_REF == refs/tags/* ]]; then
             VERSION=${GITHUB_REF#refs/tags/v}
