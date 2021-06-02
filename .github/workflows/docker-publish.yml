@@ -35,11 +35,11 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Ls
-        run: ls .
+        run: ls smabPlayground2020/Server/.
 
       - name: Build image
         # run: docker build . --file Dockerfile --tag $IMAGE_NAME
-        run: docker build . --file Dockerfile --tag $IMAGE_NAME
+        run: docker build . --file smabPlayground2020/Server/Dockerfile --tag $IMAGE_NAME
 
       - name: Log into registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
