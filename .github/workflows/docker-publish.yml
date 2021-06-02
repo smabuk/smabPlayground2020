@@ -1,4 +1,4 @@
-name: Docker
+name: Docker-deploy
 
 on:
   workflow_dispatch:
@@ -7,7 +7,7 @@ on:
     # Publish `dev` as Docker `latest` image.
     branches:
       - dev
-      - docker-create
+      - docker-deploy
 
     # Publish `v1.2.3` tags as releases.
     tags:
