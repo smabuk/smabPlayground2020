@@ -25,6 +25,7 @@ namespace smabPlayground2020.Server
 		{
 			httpClient.BaseAddress = new Uri(plexSettings.Value.Server);
 			httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
+			httpClient.Timeout = new(0, 3, 0);
 			_httpClient = httpClient;
 			token = plexSettings.Value.Token;
 		}
