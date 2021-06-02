@@ -76,7 +76,7 @@ jobs:
           context: ./
           file: smabPlayground2020/Server/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/$IMAGE_NAME:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/smabplayground2020server:latest
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
 
