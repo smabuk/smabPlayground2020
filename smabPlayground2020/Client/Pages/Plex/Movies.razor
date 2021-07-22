@@ -6,6 +6,15 @@
 <Title Value="Plex Movies - smabPlayground2020"></Title>
 
 <p><em>@Message</em></p>
+@if (SelectedItems.Any()) {
+<h3>Selected Items:</h3>
+<ul>
+    @foreach (MovieSummary selected in SelectedItems)
+    {
+        <li>@selected.Title</li>
+    }
+</ul>
+}
 @if (items is not null)
 {
     @*<SfGrid DataSource="@items" AllowPaging="true" AllowExcelExport="true" AllowSelection="true" AllowSorting="true" AllowFiltering="true">
@@ -24,6 +33,8 @@
     @foreach (var item in items)
     {
         <div class="card">
+            <input type="checkbox" @onchange="_ => HandleChange(item)"/>
+           <div class="tickmark"></div>
             <a href="/Plex/Details/@item.Id" title="@item.Title"><img src="/PlexInfo/Photo?url=@(item.Thumb)&width=@(THUMB_WIDTH)&height=@(THUMB_HEIGHT)" class="card-img" loading="lazy" alt="..." /></a>
             <div class="card-body">
                 <a href="/Plex/Details/@item.Id" title="@item.Title"><div class="card-title text-truncate">@item.Title</div></a>
@@ -52,4 +63,25 @@
         items = piState.MoviesList.Where(m => m.LibraryId != 8).OrderBy(m => m.LibraryTitle).ToList();
         Message = $"Showing {items.Count} movies";
     }
+
+
+    [Parameter]
+    public List<MovieSummary> SelectedItems { get; set; } = new();
+
+    [Parameter]
+    public EventCallback<List<MovieSummary>> SelectedItemsChanged { get; set; }
+
+    void HandleChange(MovieSummary item)
+    {
+        if (SelectedItems.Contains(item))
+        {
+            SelectedItems.Remove(item);
+        }
+        else
+        {
+            SelectedItems.Add(item);
+        }
+        SelectedItemsChanged.InvokeAsync(SelectedItems);
+    }
+
 }
