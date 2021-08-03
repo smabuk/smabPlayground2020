@@ -69,7 +69,7 @@ namespace smabPlayground2020.Server {
 			// Web APIs
 			services.AddControllersWithViews()
 				.AddJsonOptions(options => {
-					options.JsonSerializerOptions.IgnoreNullValues = true;
+					options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
 				});
 			services.AddSwaggerGen(c => {
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "smabPlayground2020", Version = "v1" });
