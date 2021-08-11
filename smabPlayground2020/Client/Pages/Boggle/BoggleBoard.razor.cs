@@ -25,7 +25,7 @@ namespace smabPlayground2020.Client.Pages.Boggle {
 		}
 
 		private void SelectSlot(MouseEventArgs e, BoggleSlot slot) {
-			string letter = slot.Die.FaceValue.Value ?? String.Empty;
+			string letter = slot.Die?.FaceValue.Value ?? String.Empty;
 			if (lastSlot is not null && lastSlot == slot) {
 				Console.WriteLine($"Word:  {currentWord}  Score: {ScoreWord(currentWord, BoggleTray.BoggleSetType)}");
 				// ToDo: Check Word
