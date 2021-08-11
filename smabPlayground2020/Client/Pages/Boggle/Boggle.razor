@@ -3,7 +3,7 @@
 @page "/boggle/{NoOfPlayers:int}"
 @page "/boggle/{boggleType}/{NoOfPlayers:int}"
 @implements IDisposable
-<Title Value="@Title"></Title>
+<PageTitle>@Title</PageTitle>
 <div class="row my-auto">
 	<button class="btn btn-primary w-80" @onclick="() => StartNewGame()">New Game</button>
 </div>

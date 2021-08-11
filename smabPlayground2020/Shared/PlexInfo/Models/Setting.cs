@@ -1,14 +1,14 @@
-﻿namespace smab.PlexInfo.Models {
-	public record Setting
-	(
-		string Id,
-		string Label,
-		string Summary,
-		string Type,
-		object Default,
-		object Value,
-		bool Hidden,
-		bool Advanced,
-		string Group
-	);
-}
+﻿namespace smab.PlexInfo.Models;
+
+public record Setting
+(
+	string Id,
+	string Label,
+	string Summary,
+	string Type,
+	object Default,
+	object Value,
+	bool Hidden,
+	bool Advanced,
+	string Group
+);

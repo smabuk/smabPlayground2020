@@ -1,62 +1,60 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Diagnostics;
 
 using Smab.DiceAndTiles;
 
 using static Smab.DiceAndTiles.BoggleDice.BoggleType;
 
-namespace Smab.Boggle.Models {
-	public partial class BoggleTray {
+namespace Smab.Boggle.Models;
 
-		public BoggleDice BoggleSet { get; set; } = new();
-		public BoggleDice.BoggleType BoggleSetType { get; set; } = Classic4x4;
-		public List<BoggleSlot> Slots { get; set; } = new();
+public partial class BoggleTray {
 
-		public int Width => BoggleSet.BoardSize;
-		public int Height => BoggleSet.BoardSize;
-		public int DiceCount => BoggleSet.NoOfDice;
-		// public GameStatus Status { get; set; }
+	public BoggleDice BoggleSet { get; set; } = new();
+	public BoggleDice.BoggleType BoggleSetType { get; set; } = Classic4x4;
+	public List<BoggleSlot> Slots { get; set; } = new();
 
-		public Stopwatch Stopwatch { get; set; } = new();
+	public int Width => BoggleSet.BoardSize;
+	public int Height => BoggleSet.BoardSize;
+	public int DiceCount => BoggleSet.NoOfDice;
+	// public GameStatus Status { get; set; }
 
-		public BoggleTray() {
-			Reset();
-		}
+	public Stopwatch Stopwatch { get; set; } = new();
 
-		public BoggleTray(BoggleDice.BoggleType boggleSetType) {
-			BoggleSetType = boggleSetType;
-			Reset();
-		}
+	public BoggleTray() {
+		Reset();
+	}
 
-		public void Reset() {
-			StartNewGame(BoggleSetType);
-		}
+	public BoggleTray(BoggleDice.BoggleType boggleSetType) {
+		BoggleSetType = boggleSetType;
+		Reset();
+	}
 
-		private void StartNewGame(BoggleDice.BoggleType boggleSetType) {
-			BoggleSet = new BoggleDice(boggleSetType);
-			BoggleSet.ShakeAndFillBoard();
-			int id = 1;
-			int setIndex = 0;
-			for (int i = 1; i <= Height; i++) {
-				for (int j = 1; j <= Width; j++) {
-					Slots.Add(new BoggleSlot(id++, j, i, BoggleSet.Board[setIndex++]));
-				}
+	public void Reset() {
+		StartNewGame(BoggleSetType);
+	}
+
+	private void StartNewGame(BoggleDice.BoggleType boggleSetType) {
+		BoggleSet = new BoggleDice(boggleSetType);
+		BoggleSet.ShakeAndFillBoard();
+		int id = 1;
+		int setIndex = 0;
+		for (int i = 1; i <= Height; i++) {
+			for (int j = 1; j <= Width; j++) {
+				Slots.Add(new BoggleSlot(id++, j, i, BoggleSet.Board[setIndex++]));
 			}
-			Slots.ForEach(s => s.AdjacentSlots = GetAdjacentSlots(s.X, s.Y));
-			Stopwatch.Reset();
-			Stopwatch.Start();
 		}
+		Slots.ForEach(s => s.AdjacentSlots = GetAdjacentSlots(s.X, s.Y));
+		Stopwatch.Reset();
+		Stopwatch.Start();
+	}
 
-		public void EndGame() {
-			Stopwatch.Stop();
-		}
+	public void EndGame() {
+		Stopwatch.Stop();
+	}
 
-		public List<BoggleSlot> GetAdjacentSlots(int x, int y) {
-			IEnumerable<BoggleSlot> adjacentSlots =
-				Slots.Where(slot => slot.X >= (x - 1) && slot.X <= (x + 1) && slot.Y >= (y - 1) && slot.Y <= (y + 1));
-			IEnumerable<BoggleSlot> currentSlot = Slots.Where(slot => slot.X == x && slot.Y == y);
-			return adjacentSlots.Except(currentSlot).ToList();
-		}
+	public List<BoggleSlot> GetAdjacentSlots(int x, int y) {
+		IEnumerable<BoggleSlot> adjacentSlots =
+			Slots.Where(slot => slot.X >= (x - 1) && slot.X <= (x + 1) && slot.Y >= (y - 1) && slot.Y <= (y + 1));
+		IEnumerable<BoggleSlot> currentSlot = Slots.Where(slot => slot.X == x && slot.Y == y);
+		return adjacentSlots.Except(currentSlot).ToList();
 	}
 }

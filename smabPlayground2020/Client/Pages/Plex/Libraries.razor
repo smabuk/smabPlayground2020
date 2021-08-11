@@ -2,7 +2,7 @@
 @using smab.PlexInfo.Models
 @inject PlexInfoClient plexClient
 @inject PlexInfoState piState
-<Title Value="Plex Libraries - smabPlayground2020"></Title>
+<PageTitle>Plex Libraries - smabPlayground2020</PageTitle>
 
 <h3>Libraries</h3>
 
@@ -11,7 +11,7 @@
 <div class="card" style="max-width: 300px;">
     <div class="row g-0">
         <div class="col-md-4">
-            <img src="/PlexInfo/resource/@((item.Thumb ?? "video.png").Replace(@"/:/resources/", ""))" width="80px" alt="@item.Title" />
+            <img src="/PlexInfo/resource/@((item.Thumb ?? "video.png").Replace(@"/:/resources/", ""))" width="80" alt="@item.Title" />
         </div>
         <div class="col-md-8">
             <div class="card-body text-center mt-3">

@@ -1,12 +1,12 @@
-﻿namespace smab.PlexInfo.Models {
-	public record RoleSubitem
-	(
-		string? Role,
-		string? Thumb,
-		int? Id,
-		string? Filter,
-		string Tag,
-		int? Count
+﻿namespace smab.PlexInfo.Models;
 
-	) : Subitem(Id, Filter, Tag, Count);
-}
+public record RoleSubitem
+(
+	string? Role,
+	string? Thumb,
+	int? Id,
+	string? Filter,
+	string Tag,
+	int? Count
+
+) : Subitem(Id, Filter, Tag, Count);
