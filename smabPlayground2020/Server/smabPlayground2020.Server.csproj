@@ -4,6 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <UserSecretsId>smabPlayground2020.Server-EE1E484E-3974-4F76-A65F-766B6A81CB68</UserSecretsId>
     <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..</DockerfileContext>
   </PropertyGroup>
