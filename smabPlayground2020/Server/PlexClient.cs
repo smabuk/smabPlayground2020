@@ -21,6 +21,9 @@ public class PlexClient : IPlexClient
 		httpClient.Timeout = new(0, 3, 0);
 		_httpClient = httpClient;
 		token = plexSettings.Value.Token;
+		if (String.IsNullOrWhiteSpace(token) || token == "TOKEN") {
+			throw new ArgumentNullException(nameof(plexSettings.Value.Token), "Plex token must have a value");
+		}
 	}
 
 	public async Task<LibraryItem> GetLibraryRoot()
