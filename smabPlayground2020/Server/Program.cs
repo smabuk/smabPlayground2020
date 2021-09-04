@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 using smab.PlexInfo;
+using smab.TT;
 
 using smabPlayground2020.Server;
 using smabPlayground2020.Server.Data;
@@ -58,6 +59,8 @@ builder.Services.AddHttpClient<IPlexClient, PlexClient>()
 			return true;
 		}
 	});
+
+builder.Services.AddScoped<ITT365Service, TT365Reader>();
 
 
 builder.Services.AddRazorPages();
