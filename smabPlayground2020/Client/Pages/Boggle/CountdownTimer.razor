@@ -1,76 +1,85 @@
 ﻿@page "/countdown"
+@using System.Timers
+@implements IDisposable
 <PageTitle>Countdown Timer - smabPlayground2020</PageTitle>
 <div style="position: relative; top: 200px;">
 	<div class="wrap">
 		<h1><strong>@Heading</strong></h1>
 
-		<div class="countdown user-select-none" @onclick="DecrementTime" @oncontextmenu="DecrementTime"  @oncontextmenu:preventDefault>
-		   @if (ShowHours)
+		<div class="countdown user-select-none" @oncontextmenu:preventDefault>
+			@if (ShowHours)
 			{
 				<div class="bloc-time hours" data-init-value="@currentTimer.Hours">
-				<span class="count-title">Hours</span>
+					<span class="count-title">Hours</span>
 
-				<div class="figure hours hours-1">
-					<span class="top">@(currentTimer.Hours / 10)</span>
-					<span class="top-back"><span>@(currentTimer.Hours / 10)</span></span>
-					<span class="bottom">@(currentTimer.Hours / 10)</span>
-					<span class="bottom-back"><span>@(currentTimer.Hours / 10)</span></span>
-				</div>
+					<div class="figure hours hours-1">
+						<span class="top">@(currentTimer.Hours / 10)</span>
+						<span class="top-back"><span>@(currentTimer.Hours / 10)</span></span>
+						<span class="bottom">@(currentTimer.Hours / 10)</span>
+						<span class="bottom-back"><span>@(currentTimer.Hours / 10)</span></span>
+					</div>
 
-				<div class="figure hours hours-2">
-					<span class="top">@(currentTimer.Hours % 10)</span>
-					<span class="top-back"><span>@(currentTimer.Hours % 10)</span></span>
-					<span class="bottom">@(currentTimer.Hours % 10)</span>
-					<span class="bottom-back"><span>@(currentTimer.Hours % 10)</span></span>
+					<div class="figure hours hours-2">
+						<span class="top">@(currentTimer.Hours % 10)</span>
+						<span class="top-back"><span>@(currentTimer.Hours % 10)</span></span>
+						<span class="bottom">@(currentTimer.Hours % 10)</span>
+						<span class="bottom-back"><span>@(currentTimer.Hours % 10)</span></span>
+					</div>
 				</div>
-			</div>
 			}
 			@if (ShowMinutes)
 			{
 				<div class="bloc-time min" data-init-value="@currentTimer.Minutes">
-				<span class="count-title">Minutes</span>
+					<span class="count-title">Minutes</span>
 
-				<div class="figure min min-1">
-					<span class="top">@(currentTimer.Minutes / 10)</span>
-					<span class="top-back"><span>@(currentTimer.Minutes / 10)</span></span>
-					<span class="bottom">@(currentTimer.Minutes / 10)</span>
-					<span class="bottom-back"><span>@(currentTimer.Minutes / 10)</span></span>
-				</div>
+					<div class="figure min min-1">
+						<span class="top">@(currentTimer.Minutes / 10)</span>
+						<span class="top-back"><span>@(currentTimer.Minutes / 10)</span></span>
+						<span class="bottom">@(currentTimer.Minutes / 10)</span>
+						<span class="bottom-back"><span>@(currentTimer.Minutes / 10)</span></span>
+					</div>
 
-				<div class="figure min min-2">
-					<span class="top">@(currentTimer.Minutes % 10)</span>
-					<span class="top-back"><span>@(currentTimer.Minutes % 10)</span></span>
-					<span class="bottom">@(currentTimer.Minutes % 10)</span>
-					<span class="bottom-back"><span>@(currentTimer.Minutes % 10)</span></span>
+					<div class="figure min min-2">
+						<span class="top">@(currentTimer.Minutes % 10)</span>
+						<span class="top-back"><span>@(currentTimer.Minutes % 10)</span></span>
+						<span class="bottom">@(currentTimer.Minutes % 10)</span>
+						<span class="bottom-back"><span>@(currentTimer.Minutes % 10)</span></span>
+					</div>
 				</div>
-			</div>
 			}
 			@if (ShowSeconds)
 			{
 				<div class="bloc-time sec" data-init-value="@currentTimer.Seconds">
-				<span class="count-title">Seconds</span>
+					<span class="count-title">Seconds</span>
 
-				<div class="figure sec sec-1">
-					<span class="top">@(currentTimer.Seconds / 10)</span>
-					<span class="top-back"><span>@(currentTimer.Seconds / 10)</span></span>
-					<span class="bottom">@(currentTimer.Seconds / 10)</span>
-					<span class="bottom-back"><span>@(currentTimer.Seconds / 10)</span></span>
-				</div>
+					<div class="figure sec sec-1">
+						<span class="top">@(currentTimer.Seconds / 10)</span>
+						<span class="top-back"><span>@(currentTimer.Seconds / 10)</span></span>
+						<span class="bottom">@(currentTimer.Seconds / 10)</span>
+						<span class="bottom-back"><span>@(currentTimer.Seconds / 10)</span></span>
+					</div>
 
-				<div class="figure sec sec-2">
-					<span class="top">@(currentTimer.Seconds % 10)</span>
-					<span class="top-back"><span>@(currentTimer.Seconds % 10)</span></span>
-					<span class="bottom">@(currentTimer.Seconds % 10)</span>
-					<span class="bottom-back"><span>@(currentTimer.Seconds % 10)</span></span>
+					<div class="figure sec sec-2">
+						<span class="top">@(currentTimer.Seconds % 10)</span>
+						<span class="top-back"><span>@(currentTimer.Seconds % 10)</span></span>
+						<span class="bottom">@(currentTimer.Seconds % 10)</span>
+						<span class="bottom-back"><span>@(currentTimer.Seconds % 10)</span></span>
+					</div>
 				</div>
-			</div>
 			}
 		</div>
-	</div>
+@*		<div>@(over ? "Time's up!" : "")</div>
+		<button @onclick="@(() => paused = !paused)">
+			@(paused ? "Resume" : "Pause")
+		</button>
+		<button @onclick="@Reset">Restart</button>
+*@	</div>
 </div>
 
 @code {
-	// Inspired by https://codepen.io/doriancami/pen/jEJvaV
+	// Inspired by the following articles
+	// https://codepen.io/doriancami/pen/jEJvaV
+	// https://www.30secondsofblazor.net/components/CountDown
 
 	public TimeSpan currentTimer;
 
@@ -86,18 +95,47 @@
 	[Parameter]
 	public bool ShowSeconds { get; set; } = true;
 
-	protected override void OnInitialized()
-	{
-		currentTimer = Start;
-	}
 
-	private void DecrementTime()
+	Timer timer = new() { Interval = 1000 };
+	bool paused;
+	bool over;
+
+
+	protected override void OnParametersSet() => Reset();
+
+	protected override void OnAfterRender(bool firstRender)
 	{
-		if (currentTimer.TotalSeconds > 0)
+		if (firstRender)
+		{
+			timer.Elapsed += DecrementTime;
+			timer.Enabled = true;
+			timer.Start();
+		}
+	}
+	private void DecrementTime(object? obj, System.EventArgs e)
+	{
+		if (paused || over) return;
+
+		if (currentTimer.TotalSeconds <= 0)
+		{
+			over = true;
+		}
+		else if (currentTimer.TotalSeconds > 0)
 		{
 			currentTimer = currentTimer.Subtract(new(0, 0, 1));
 		}
+		StateHasChanged();
 		// Console.WriteLine($"Current Timer: {currentTimer.ToString()}");
 	}
 
+	void Reset()
+	{
+		currentTimer = Start;
+		paused = false;
+		over = false;
+	}
+
+    public void Dispose() {
+		timer.Dispose();
+	}
 }

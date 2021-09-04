@@ -19,9 +19,9 @@
 		</div>
 	}
 </div>
-@*<div class="row my-auto">
-		<CountdownTimer Heading="Timer" ShowHours="false" Start="@TimerLength" />
-	</div>*@
+<div class="row my-auto">
+	<CountdownTimer Heading="Timer" ShowHours="true" Start="@TimerLength" />
+</div>
 
 @using static Smab.DiceAndTiles.BoggleDice.BoggleType;
 @code {
@@ -46,7 +46,7 @@
             {
                 await Task.Delay(500);
                 CurrentTimer = TimerLength - BoggleTray.Stopwatch.Elapsed;
-                Console.WriteLine($"{CurrentTimer:dd\\.hh\\:mm\\:ss}");
+                //Console.WriteLine($"{CurrentTimer:dd\\.hh\\:mm\\:ss}");
             }
             Console.WriteLine($"{(CancelTimer ? "Cancelled" : "End")} Game: {BoggleTray.BoggleSetType.ToString()}");
             BoggleTray.EndGame();
