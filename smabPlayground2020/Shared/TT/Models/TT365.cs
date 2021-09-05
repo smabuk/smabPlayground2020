@@ -19,6 +19,9 @@ public class TT365Models
     //    MatchNo = false
     //}
 
+
+	public record ReadingTeam (Team Team, FixturesView FixturesView);
+
     public class FixturesView
     {
         public string Caption { get; set; } = "";
