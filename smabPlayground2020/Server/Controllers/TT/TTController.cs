@@ -4,7 +4,7 @@ using smab.TT;
 
 namespace smabPlayground2020.Server.Controllers.TT;
 
-[Route("/TT/[action]")]
+[Route("/api/TT/[action]")]
 public partial class TTController : Controller {
 	private readonly ITT365Service _tt365;
 	private readonly IWebHostEnvironment _env;

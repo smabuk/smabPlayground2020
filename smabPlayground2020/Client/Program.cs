@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
+using smab.TT;
+
 using smabPlayground2020.Client;
 
 using Syncfusion.Blazor;
@@ -27,5 +29,8 @@ builder.Services.AddSyncfusionBlazor();
 // PlexInfo
 builder.Services.AddHttpClient<PlexInfoClient>(client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress));
 builder.Services.AddSingleton<PlexInfoState>();
+
+builder.Services.AddHttpClient<TT365Client>(client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress));
+
 
 await builder.Build().RunAsync();

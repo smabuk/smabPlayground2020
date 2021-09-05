@@ -60,7 +60,7 @@ builder.Services.AddHttpClient<IPlexClient, PlexClient>()
 		}
 	});
 
-builder.Services.AddScoped<ITT365Service, TT365Reader>();
+builder.Services.AddSingleton<ITT365Service, TT365Reader>();
 
 
 builder.Services.AddRazorPages();

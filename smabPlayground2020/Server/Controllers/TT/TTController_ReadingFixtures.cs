@@ -12,6 +12,7 @@ namespace smabPlayground2020.Server.Controllers.TT {
 
         [HttpGet]
 		[Route("{TeamName}")]
+		[Route("/TT/[action]/{TeamName}")]
 		public async Task<IActionResult> ReadingFixtures(String TeamName = "", string Command = "")
         {
 			TeamName = TeamName.Replace("_", " ");
