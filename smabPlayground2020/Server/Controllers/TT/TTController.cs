@@ -3,13 +3,13 @@
 using smab.TT;
 using smab.TT.Models;
 
+using static smab.TT.Models.TT365Models;
+
 namespace smabPlayground2020.Server.Controllers.TT;
 
 [Route("/api/TT/[action]")]
 public partial class TTController : Controller {
 	private readonly ITT365Service _tt365;
-
-	static readonly Dictionary<string, List<string>> teamPlayersList = new();
 
 	public TTController(ITT365Service tt365Service) {
 		_tt365 = tt365Service;
@@ -47,9 +47,6 @@ public partial class TTController : Controller {
 		if (team is null) {
 			return NotFound();
 		}
-		List<string>? teamplayers = (from p in team.Players
-									 select p.Name + " (" + p.WinPercentage + ")").ToList();
-		teamPlayersList.TryAdd(TeamName, teamplayers);
 
 		return Ok(team);
 	}
@@ -59,14 +56,13 @@ public partial class TTController : Controller {
 	public async Task<IActionResult> TeamPlayersList(String TeamName) {
 		TeamName = TeamName.Replace("_", " ");
 
-		if (!teamPlayersList.ContainsKey(TeamName)) {
-			_ = await Team(TeamName);
-		}
-		if (teamPlayersList.ContainsKey(TeamName)) {
-			return Ok(teamPlayersList[TeamName]);
-		} else { 
+		TT365Models.Team? team = await _tt365.GetTeamStats(TeamName);
+		if (team is null) {
 			return NotFound();
 		}
+		List<string>? teamplayers = (from p in team.Players
+									 select p.Name + " (" + p.WinPercentage + ")").ToList();
+		return Ok(teamplayers);
 	}
 
 

@@ -7,7 +7,7 @@
 
 
 @if (readingTeam is null) {
-    <h3>Loading...</h3>
+    <h3>Loading... @TeamName ...</h3>
 } else {
 <h3><a href="@readingTeam.FixturesView.URL" target="_blank" rel="noopener"><i class="fas fa-external-link-square-alt"></i></a> @TeamName</h3>
 @*<h3>@Model.readingTeam.FixturesView.Caption</h3>*@
@@ -16,8 +16,8 @@
 	@foreach (var fixture in readingTeam.FixturesView.Fixtures!)
 	{
 		<div class="row">
-			<div class="col-12 col-sm-4 col-md-3 col-lg-2"><strong>@(fixture.HomeTeam.Contains("Curzon") || fixture.HomeTeam.Contains("RBL") ? "19:00" : "19:30") @fixture.Date.ToString("ddd dd MMM")</strong></div>
-			<div class="col-12 col-sm-8 col-md-9 col-lg-10">
+			<div class="col-12 col-sm-5 col-md-4 col-lg-3"><strong>@(fixture.HomeTeam.Contains("Curzon") || fixture.HomeTeam.Contains("RBL") ? "19:00" : "19:30") @fixture.Date.ToString("ddd dd MMM")</strong></div>
+			<div class="col-12 col-sm-7 col-md-8 col-lg-9">
 				@if (@fixture.IsCompleted)
 				{
 					@if (fixture.HomeTeam.Equals(@readingTeam.Team.Name))
@@ -34,7 +34,7 @@
 			</div>
 		</div>
 		<div class="row justify-content-end">
-			<div class="col-12 col-md-9 col-lg-10">
+			<div class="col-12 col-md-8 col-lg-9">
 				@if (fixture.HomeTeam.Equals(@readingTeam.Team.Name))
 				{
 					@teamPlayersList[fixture.AwayTeam];
@@ -125,19 +125,17 @@
     protected override async Task OnParametersSetAsync() {
 		TeamName = TeamName.Replace("_", " ");
         readingTeam = await _tt365Client.GetReadingTeam(TeamName);
-        foreach (var fixture in readingTeam.FixturesView.Fixtures) 
-        {
-		    if (!teamPlayersList.ContainsKey(fixture.HomeTeam)) {
-                teamPlayersList.TryAdd(fixture.HomeTeam, String.Join(", ", await _tt365Client.GetTeamPlayers(fixture.HomeTeam)));
-		    }
-		    if (!teamPlayersList.ContainsKey(fixture.AwayTeam)) {
-                teamPlayersList.TryAdd(fixture.AwayTeam, String.Join(", ", await _tt365Client.GetTeamPlayers(fixture.AwayTeam)));
-		    }
+        if (readingTeam is not null) {
+            foreach (var fixture in readingTeam.FixturesView.Fixtures!) 
+            {
+		        if (!teamPlayersList.ContainsKey(fixture.HomeTeam)) {
+                    teamPlayersList.TryAdd(fixture.HomeTeam, String.Join(", ", await _tt365Client.GetTeamPlayers(fixture.HomeTeam)));
+		        }
+		        if (!teamPlayersList.ContainsKey(fixture.AwayTeam)) {
+                    teamPlayersList.TryAdd(fixture.AwayTeam, String.Join(", ", await _tt365Client.GetTeamPlayers(fixture.AwayTeam)));
+		        }
+            }
         }
     }
-
-
-
-
 
 }
