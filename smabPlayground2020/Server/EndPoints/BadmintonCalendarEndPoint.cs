@@ -10,8 +10,8 @@ public static partial class BadmintonCalendarEndPoint
 {
 	public const string DefaultBadmintonCalendarByTeamRoute = "/calendar/badminton/{Division}/{TeamName}";
 
-	public static Func<string, string, string, IReadingBadmintonReader, HttpContext, Task<IResult>> GetCalendarByTeam =
-	async (string Division, string TeamName, string Command, IReadingBadmintonReader _badmintonReader, HttpContext context) =>
+	public static Func<string, string, string?, IReadingBadmintonReader, HttpContext, Task<IResult>> GetCalendarByTeam =
+	async (string Division, string TeamName, string? Command, IReadingBadmintonReader _badmintonReader, HttpContext context) =>
 	{
 		TeamName = TeamName.Replace("_", " ");
 			List<Fixture>? fixtures = await _badmintonReader.GetFixtures(Division, TeamName);
