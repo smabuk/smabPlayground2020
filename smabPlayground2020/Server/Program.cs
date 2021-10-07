@@ -5,10 +5,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 using smab.PlexInfo;
+using smab.ReadingBadminton;
 using smab.TT;
 
 using smabPlayground2020.Server;
 using smabPlayground2020.Server.Data;
+using smabPlayground2020.Server.EndPoints;
 using smabPlayground2020.Server.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -61,6 +63,7 @@ builder.Services.AddHttpClient<IPlexClient, PlexClient>()
 	});
 
 builder.Services.AddSingleton<ITT365Service, TT365Reader>();
+builder.Services.AddSingleton<IReadingBadmintonReader, ReadingBadmintonReader>();
 
 
 builder.Services.AddRazorPages();
@@ -110,5 +113,7 @@ app.UseAuthorization();
 app.MapRazorPages();
 app.MapControllers();
 app.MapFallbackToFile("index.html");
+
+app.MapGet("/calendar/badminton/{Division}/{TeamName}", BadmintonCalendarEndPoint.GetCalendarByTeam);
 
 app.Run();
