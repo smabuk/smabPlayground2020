@@ -42,6 +42,11 @@
     {
         if (firstRender)
         {
+            // TODO: Use Timer() or PeriodicTimer()
+            // https://docs.microsoft.com/en-us/dotnet/api/system.threading.timer?view=net-6.0
+            // public CancellationToken cancellationToken;
+            // var timer = new PeriodicTimer(TimeSpan.FromSeconds(0.5));
+            // await timer.WaitForNextTickAsync(cancellationToken);
             while ((TimerLength - BoggleTray.Stopwatch.Elapsed).TotalSeconds >= 0 && CancelTimer == false)
             {
                 await Task.Delay(500);
