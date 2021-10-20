@@ -29,18 +29,12 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Smab.Calendar" Version="1.0.0" />
-    <PackageReference Include="Syncfusion.Blazor" Version="18.3.0.50" />
-    <PackageReference Include="Syncfusion.Blazor.WordProcessor" Version="18.3.0.50" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Watch Include="**\*.razor" />
-    <Watch Include="**\*.css" />
+    <PackageReference Include="Syncfusion.Blazor" Version="19.3.0.46" />
   </ItemGroup>
 
 </Project>

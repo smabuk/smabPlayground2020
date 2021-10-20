@@ -17,19 +17,13 @@
 
   <ItemGroup>
     <PackageReference Include="Smab.DiceAndTiles" Version="0.2.4" />
-    <PackageReference Include="Syncfusion.Blazor" Version="18.3.0.50" />
-    <PackageReference Include="Syncfusion.Blazor.WordProcessor" Version="18.3.0.50" />
+    <PackageReference Include="Syncfusion.Blazor" Version="19.3.0.46" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Shared\smabPlayground2020.Shared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Watch Include="**\*.razor" />
-    <Watch Include="**\*.css" />
-  </ItemGroup>
-  
   <ItemGroup>
     <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
   </ItemGroup>
