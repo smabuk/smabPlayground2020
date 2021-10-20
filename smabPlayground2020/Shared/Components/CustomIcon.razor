@@ -28,9 +28,6 @@
     public string? Name { get; set; }
 
     [Parameter]
-    public object? Value { get; set; }
-
-    [Parameter]
     public IconType Type { get; set; } = IconType.FontAwesomeSolid;
 
     [Parameter]
@@ -43,7 +40,7 @@
     public DateOnly? Date { get; set; }
 
     [Parameter]
-    public int? MajorVersion { get; set; } = 6;
+    public bool? FixedWidth { get; set; }
 
     [Parameter]
     public string Class { get; set; } = "";
@@ -95,6 +92,10 @@
             {
                 cssClass += $" fa-{Size}";
             }
+        }
+
+        if (FixedWidth == true) {
+            cssClass += " fa-fw";
         }
 
         switch (Name) {
