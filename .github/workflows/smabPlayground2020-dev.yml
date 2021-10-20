@@ -18,6 +18,7 @@ jobs:
     - name: Setup .NET Core SDK ${{ env.DOTNET_CORE_VERSION }}
       uses: actions/setup-dotnet@v1.8.0
       with:
+        include-prerelease: True
         dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
     - name: Restore packages
       run: dotnet restore "${{ env.PROJECT_PATH }}"
