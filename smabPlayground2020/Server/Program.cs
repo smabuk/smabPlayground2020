@@ -6,7 +6,6 @@ using Microsoft.OpenApi.Models;
 
 using smab.PlexInfo;
 using smab.ReadingBadminton;
-using smab.TT;
 
 using smabPlayground2020.Server;
 using smabPlayground2020.Server.Data;
@@ -62,7 +61,6 @@ builder.Services.AddHttpClient<IPlexClient, PlexClient>()
 		}
 	});
 
-builder.Services.AddSingleton<ITT365Service, TT365Reader>();
 builder.Services.AddSingleton<IReadingBadmintonReader, ReadingBadmintonReader>();
 
 
