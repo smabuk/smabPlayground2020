@@ -10,36 +10,36 @@
             <div class="card">
                 <h5 class="card-header">CustomIcon</h5>
                 <div class="card-body">
-                    <CustomIcon icon="envelope" /> should appear as: <i class="fas fa-envelope"></i>
+                    <CustomIcon Icon="envelope" /> should appear as: <i class="fas fa-envelope"></i>
                     <code>
                         &lt;CustomIcon icon="envelope" /&gt;
                     </code>
                     <br />
-                    <CustomIcon icon="envelope" type="@IconType.FontAwesomeRegular" /> should appear as: <i class="far fa-envelope"></i>
+                    <CustomIcon Icon="envelope" Type="@IconType.FontAwesomeRegular" /> should appear as: <i class="far fa-envelope"></i>
                     <code>
                         &lt;CustomIcon icon="envelope" type="@@IconType.FontAwesomeRegular" /&gt;
                     </code>
                     <br />
-                    <CustomIcon icon="envelope" class="text-primary" /> should appear as: <i class="fas fa-envelope text-primary"></i>
+                    <CustomIcon Icon="envelope" Class="text-primary" /> should appear as: <i class="fas fa-envelope text-primary"></i>
                     <code>
                         &lt;CustomIcon icon="envelope" class="text-primary" /&gt;
                     </code>
                     <br />
-                    <CustomIcon icon="envelope" size="2" /> should appear as: <i class="fas fa-envelope fa-2x"></i>
+                    <CustomIcon Icon="envelope" Size="2" /> should appear as: <i class="fas fa-envelope fa-2x"></i>
                     <code>
-                        &lt;CustomIcon icon="envelope" size="2" /&gt;
+                        &lt;CustomIcon icon="envelope" Size="2" /&gt;
                     </code>
                     <br />
-                    <CustomIcon icon="envelope" size="lg" /> should appear as: <i class="fas fa-envelope fa-lg"></i>
+                    <CustomIcon Icon="envelope" Size="lg" /> should appear as: <i class="fas fa-envelope fa-lg"></i>
                     <code>
                         &lt;CustomIcon icon="envelope" size="lg" /&gt;
                     </code>
                     <br />
-                    <CustomIcon icon="hand-rock" type="@IconType.FontAwesomeRegular" />
-                    <CustomIcon icon="hand-paper" type="@IconType.FontAwesomeRegular" />
-                    <CustomIcon icon="hand-scissors" type="@IconType.FontAwesomeRegular" />
-                    <CustomIcon icon="hand-lizard" type="@IconType.FontAwesomeRegular" />
-                    <CustomIcon icon="hand-spock" type="@IconType.FontAwesomeRegular" />
+                    <CustomIcon Icon="hand-rock" Type="@IconType.FontAwesomeRegular" />
+                    <CustomIcon Icon="hand-paper" Type="@IconType.FontAwesomeRegular" />
+                    <CustomIcon Icon="hand-scissors" Type="@IconType.FontAwesomeRegular" />
+                    <CustomIcon Icon="hand-lizard" Type="@IconType.FontAwesomeRegular" />
+                    <CustomIcon Icon="hand-spock" Type="@IconType.FontAwesomeRegular" />
                     <code>
                         Rock, Paper, Scissors, Lizard, Spock !!!
                     </code>
@@ -48,29 +48,29 @@
             <div class="card">
                 <h5 class="card-header">Named layered CustomIcons</h5>
                 <div class="card-body">
-                    <CustomIcon name="calendar-date" size="4" date="@DateOnly.FromDateTime(DateTime.UtcNow)" />
-                    <CustomIcon name="calendar-date" size="4" date="@(new DateOnly(2018, 9, 30))" type="@IconType.FontAwesomeRegular" />
-                    <CustomIcon name="calendar-date" size="4" date="@DateOnly.FromDateTime(DateTime.UtcNow).AddDays(90)" type="@IconType.FontAwesome5Light" />
-                    <CustomIcon name="today" size="4" style="color: #691238" />
+                    <CustomIcon Name="calendar-date" Size="4" Date="@DateOnly.FromDateTime(DateTime.UtcNow)" />
+                    <CustomIcon Name="calendar-date" Size="4" Date="@(new DateOnly(2018, 9, 30))" Type="@IconType.FontAwesomeRegular" />
+                    <CustomIcon Name="calendar-date" Size="4" Date="@DateOnly.FromDateTime(DateTime.UtcNow).AddDays(90)" Type="@IconType.FontAwesome5Light" />
+                    <CustomIcon Name="today" Size="4" style="color: #691238" />
                     <br />
                     <code>
-                        &lt;CustomIcon name="calendar" date="@@DateOnly.FromDateTime(DateTime.UtcNow)" /&gt;
+                        &lt;CustomIcon Name="calendar" date="@@DateOnly.FromDateTime(DateTime.UtcNow)" /&gt;
                     </code>
                     <br />
                     <code>
-                        &lt;CustomIcon name="calendar" date="@@(new DateOnly(2018, 9, 30))" type="@@IconType.FontAwesomeRegular" /&gt;
+                        &lt;CustomIcon Name="calendar" date="@@(new DateOnly(2018, 9, 30))" type="@@IconType.FontAwesomeRegular" /&gt;
                     </code>
                     <br />
                     <code>
-                        &lt;CustomIcon name="calendar" date="@@DateOnly.FromDateTime(DateTime.UtcNow).AddDays(90)" type="@IconType.FontAwesomeLight" /&gt;
+                        &lt;CustomIcon Name="calendar" date="@@DateOnly.FromDateTime(DateTime.UtcNow).AddDays(90)" type="@IconType.FontAwesomeLight" /&gt;
                     </code>
                     <br />
                     <code>
-                        &lt;CustomIcon name="today" style="color: #691238" /&gt;
+                        &lt;CustomIcon Name="today" style="color: #691238" /&gt;
                     </code>
                     <br />
-                    <CustomIcon name="counter" icon="envelope" size="4" position="@CustomIconPosition.TopRight">327</CustomIcon>
-                    <CustomIcon name="counter" icon="envelope" size="4" position="@CustomIconPosition.TopLeft">327</CustomIcon>
+                    <CustomIcon Name="counter" Icon="envelope" Size="4" Position="@CustomIconPosition.TopRight">327</CustomIcon>
+                    <CustomIcon Name="counter" Icon="envelope" Size="4" Position="@CustomIconPosition.TopLeft">327</CustomIcon>
                     <br />
                     <code>
                         &lt;CustomIcon name="counter" icon="envelope" position="@@CustomIconPosition.TopRight"&gt;327&lt;/CustomIcon-custom&gt;
@@ -79,6 +79,39 @@
                     <code>
                         &lt;CustomIcon name="counter" icon="envelope" position="@@CustomIconPosition.TopLeft"&gt;327&lt;/CustomIcon-custom&gt;
                     </code>
+                    <br />
+                    <CustomIcon Name="circular-brand" Size="3" Icon="twitch" style="color: mediumpurple;" />
+                    <CustomIcon Name="circular-brand" Size="3" Icon="youtube" style="color: red;" />
+                    <CustomIcon Name="circular-brand" Size="3" Icon="twitter" style="color: mediumblue;" />
+                    <CustomIcon Name="circular-brand" Size="3" Icon="twitter" Type="@IconType.FontAwesomeRegular" style="color: mediumblue;" />
+                    <CustomIcon Name="circular-brand" Size="3" Icon="twitter" Type="@IconType.FontAwesomeThin" style="color: mediumblue;" />
+                    <CustomIcon Name="circular-brand" Size="3" Icon="github" Type="@IconType.FontAwesomeThin" style="color: green;" />
+                    <br />
+                    <br />
+                    <span class="fa-stack fa-3x" style="color: mediumpurple;">
+                        <i class="fa-solid fa-circle fa-stack-2x"></i>
+                        <i class="fa-brands fa-twitch fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <span class="fa-stack fa-3x" style="color: red;">
+                        <i class="fa-solid fa-circle fa-stack-2x"></i>
+                        <i class="fa-brands fa-youtube fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <span class="fa-stack fa-3x" style="color: blue;">
+                        <i class="fa-solid fa-square fa-stack-2x"></i>
+                        <i class="fa-brands fa-twitter fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <span class="fa-stack fa-3x" style="color: blue;">
+                        <i class="fa-regular fa-circle fa-stack-2x"></i>
+                        <i class="fa-brands fa-twitter fa-stack-1x"></i>
+                    </span>
+                    <span class="fa-stack fa-3x" style="color: blue;">
+                        <i class="fa-thin fa-circle fa-stack-2x"></i>
+                        <i class="fa-brands fa-twitter fa-stack-1x"></i>
+                    </span>
+                    <span class="fa-stack fa-3x" style="color: green;">
+                        @*<i class="fa-solid fa-circle fa-stack-2x"></i>*@
+                        <i class="fa-brands fa-github fa-stack-2x"></i>
+                    </span>
                     <br />
                 </div>
             </div>

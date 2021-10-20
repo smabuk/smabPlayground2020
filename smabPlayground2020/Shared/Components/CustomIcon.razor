@@ -6,6 +6,11 @@
         <i class="@($"{faTypeString} {iconName}")" @attributes="InputAttributes"></i>
         <span class="@($"fa-layers-counter fa-layers-{position}")">@ChildContent</span>
     </span>
+} else if (Name == "circular-brand") {
+     <span class="@($"{cssClass} fa-stack")" @attributes="InputAttributes">
+      <i class="@($"{faTypeString} fa-circle fa-stack-2x")"></i>
+      <i class="@($"fa-brands {iconName} fa-stack-1x {(faTypeString.Contains("solid") ? "fa-inverse" :"")}")"></i>
+    </span>
 } else if (Name == "calendar-date"  || Name == "today") {
     @if(Name == "today") { Date = DateOnly.FromDateTime(DateTime.UtcNow); }
     <span class="@cssClass fa-layers fa-fw">

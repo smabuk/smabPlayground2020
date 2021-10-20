@@ -22,15 +22,6 @@ public enum IconType {
 	OpenIcon = 201,
 }
 
-//public enum FontAwesomeType {
-//	Solid,
-//	Regular,
-//	Light,
-//	DuoTone,
-//	Thin,
-//	Brands
-//}
-
 public enum CustomIconPosition {
 	TopLeft,
 	TopRight,
