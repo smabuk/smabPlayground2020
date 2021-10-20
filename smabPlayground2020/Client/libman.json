@@ -3,7 +3,7 @@
   "defaultProvider": "unpkg",
   "libraries": [
     {
-      "library": "@fortawesome/fontawesome-free@5.15.1",
+      "library": "@fortawesome/fontawesome-free@6.0.0-beta2",
       "destination": "wwwroot/lib/fortawesome/fontawesome-free/",
       "files": [
         "js/all.min.js",
