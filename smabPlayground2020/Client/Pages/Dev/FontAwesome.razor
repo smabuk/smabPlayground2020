@@ -1,14 +1,14 @@
 ﻿@using smabPlayground2020.Shared.Components.FontAwesome
 @page "/fontawesome"
 
-<h2>Icons using the Fa component</h2>
+<h2>FontAwesome Fa component</h2>
 
 <div class="container-fluid">
 	<div class="card">
-		<h2 class="card-header">Font Awesome</h2>
+		<h2 class="card-header">Examples</h2>
 		<div class="">
 			<div class="card">
-				<h5 class="card-header">Fa</h5>
+				<h5 class="card-header">Single glyphs</h5>
 				<div class="card-body">
 					<Fa Icon="envelope" /> should appear as: <i class="fas fa-envelope"></i>
 					<code>
@@ -46,25 +46,23 @@
 					<br />
 					<div style="column-count: 2;">
 						<div style="font-size: 2rem;">
-							<div><Fa FixedWidth="true" Icon="skating" style="background:DodgerBlue" /> Skating</div>
-							<div><Fa FixedWidth="true" Icon="skiing" style="background:SkyBlue" /> Skiing</div>
-							<div><Fa FixedWidth="true" Icon="skiing-nordic" style="background:DodgerBlue" /> Nordic Skiing</div>
-							<div><Fa FixedWidth="true" Icon="snowboarding" style="background:SkyBlue" /> Snowboarding</div>
-							<div><Fa FixedWidth="true" Icon="snowplow" style="background:DodgerBlue" /> Snowplow</div>
+							<div><Fa FixedWidth="true" Icon="skating" style="background:DodgerBlue"/> Skating</div>
+							<div><Fa FixedWidth="true" Icon="skiing" style="background:SkyBlue;" /> Skiing</div>
+							<div><Fa FixedWidth="true" Icon="skiing-nordic" style="background:DodgerBlue;" /> Nordic Skiing</div>
+							<div><Fa FixedWidth="true" Icon="snowboarding" style="background:SkyBlue;" /> Snowboarding</div>
 						</div>
-						<div style="font-size: 2rem;">
-							<div><i class="fa-solid fa-skating fa-fw" style="background:DodgerBlue"></i> Skating</div>
-							<div><i class="fa-solid fa-skiing fa-fw" style="background:SkyBlue"></i> Skiing</div>
-							<div><i class="fa-solid fa-skiing-nordic fa-fw" style="background:DodgerBlue"></i> Nordic Skiing</div>
-							<div><i class="fa-solid fa-snowboarding fa-fw" style="background:SkyBlue"></i> Snowboarding</div>
-							<div><i class="fa-solid fa-snowplow fa-fw" style="background:DodgerBlue"></i> Snowplow</div>
+						<div style="font-size: 2rem; margin-bottom: 0;">
+							<div><i class="fa-solid fa-skating fa-fw" style="background:DodgerBlue;"></i> Skating</div>
+							<div><i class="fa-solid fa-skiing fa-fw" style="background:SkyBlue;"></i> Skiing</div>
+							<div><i class="fa-solid fa-skiing-nordic fa-fw" style="background:DodgerBlue;"></i> Nordic Skiing</div>
+							<div><i class="fa-solid fa-snowboarding fa-fw" style="background:SkyBlue;"></i> Snowboarding</div>
 						</div>
 					</div>
 					<br />
 				</div>
 			</div>
 			<div class="card">
-				<h5 class="card-header">Named layered Fas</h5>
+				<h5 class="card-header">Calendar</h5>
 				<div class="card-body">
 					<Fa Name="calendar-date" Size="4" Date="@DateOnly.FromDateTime(DateTime.UtcNow)" />
 					<Fa Name="calendar-date" Size="4" Date="@(new DateOnly(2018, 9, 30))" Type="@FaType.Regular" />
@@ -86,7 +84,11 @@
 					<code>
 						&lt;Fa Name="today" style="color: #691238" /&gt;
 					</code>
-					<br />
+				</div>
+			</div>
+			<div class="card">
+				<h5 class="card-header">Counter</h5>
+				<div class="card-body">
 					<Fa Name="counter" Icon="envelope" Size="4" Position="@FaPosition.TopRight">123</Fa>
 					<Fa Name="counter" Icon="envelope" Size="4" Position="@FaPosition.TopLeft">456</Fa>
 					<br />
@@ -97,16 +99,21 @@
 					<code>
 						&lt;Fa name="counter" icon="envelope" position="@@FaPosition.TopLeft"&gt;456&lt;/Fa-custom&gt;
 					</code>
-					<br />
-					<Fa Name="circle-brand" Size="3" Icon="twitch" style="color: mediumpurple;" />
+				</div>
+			</div>
+			<div class="card">
+				<h5 class="card-header">Brands</h5>
+				<div class="card-body">
+					<Fa Name="circle-brand" Size="3" Icon="twitch" style="color: #a562cf;" />
 					<Fa Name="circle-brand" Size="3" Icon="youtube" style="color: red;" />
-					<Fa Name="circle-brand" Size="3" Icon="twitter" style="color: blue;" />
-					<Fa Name="square-brand" Size="3" Icon="linkedin" style="color: mediumblue;" />
-					<Fa Name="circle-brand" Size="3" Icon="github" Type="@FaType.Thin" style="color: green;" />
-					<Fa Name="circle-brand" Size="3" Icon="font-awesome" Type="@FaType.Thin" style="color: steelblue;" />
+					<Fa Name="circle-brand" Size="3" Icon="twitter" style="color: #1DA1F2;" />
+					<Fa Name="square-brand" Size="3" Icon="linkedin" style="color: #0077b5;" />
+					<span class="fa-stack fa-3x"><Fa Icon="github" Type="@FaType.Brands" class="fa-stack" style="color: #2dba4e;" /></span>
+					<span class="fa-stack fa-3x"><Fa Icon="facebook" Type="@FaType.Brands" class="fa-stack" style="color: #4267B2;" /></span>
 					<br />
 					<br />
-					<span class="fa-stack fa-3x" style="color: mediumpurple;">
+					<div><p>should look like</p></div>
+					<span class="fa-stack fa-3x" style="color: #a562cf;">
 						<i class="fa-solid fa-circle fa-stack-2x"></i>
 						<i class="fa-brands fa-twitch fa-stack-1x fa-inverse"></i>
 					</span>
@@ -114,17 +121,29 @@
 						<i class="fa-solid fa-circle fa-stack-2x"></i>
 						<i class="fa-brands fa-youtube fa-stack-1x fa-inverse"></i>
 					</span>
-					<span class="fa-stack fa-3x" style="color: blue;">
+					<span class="fa-stack fa-3x" style="color: #1DA1F2;">
 						<i class="fa-solid fa-circle fa-stack-2x"></i>
 						<i class="fa-brands fa-twitter fa-stack-1x fa-inverse"></i>
 					</span>
-					<span class="fa-stack fa-3x" style="color: mediumblue;">
+					<span class="fa-stack fa-3x" style="color: #0077b5;">
 						<i class="fa-solid fa-square fa-stack-2x"></i>
 						<i class="fa-brands fa-linkedin fa-stack-1x fa-inverse"></i>
 					</span>
-					<span class="fa-stack fa-3x" style="color: green;">
+					<span class="fa-stack fa-3x" style="color: #2dba4e;">
 						<i class="fa-brands fa-github fa-stack-2x"></i>
 					</span>
+					<span class="fa-stack fa-3x" style="color: #4267B2;">
+						<i class="fa-brands fa-facebook fa-stack-2x"></i>
+					</span>
+				</div>
+			</div>
+			<div class="card">
+				<h5 class="card-header">Pro features</h5>
+				<div class="card-body">
+					<Fa Name="circle-brand" Size="3" Icon="font-awesome" Type="@FaType.Thin" style="color: steelblue;" />
+					<br />
+					<br />
+					<div><p>should look like</p></div>
 					<span class="fa-stack fa-3x" style="color: steelblue;">
 						<i class="fa-thin fa-circle fa-stack-2x"></i>
 						<i class="fa-brands fa-font-awesome fa-stack-1x"></i>
