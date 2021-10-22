@@ -1,0 +1,137 @@
+﻿@using smabPlayground2020.Shared.Components.FontAwesome
+@page "/fontawesome"
+
+<h2>Icons using the Fa component</h2>
+
+<div class="container-fluid">
+	<div class="card">
+		<h2 class="card-header">Font Awesome</h2>
+		<div class="">
+			<div class="card">
+				<h5 class="card-header">Fa</h5>
+				<div class="card-body">
+					<Fa Icon="envelope" /> should appear as: <i class="fas fa-envelope"></i>
+					<code>
+						&lt;Fa icon="envelope" /&gt;
+					</code>
+					<br />
+					<Fa Icon="envelope" Type="@FaType.Regular" /> should appear as: <i class="far fa-envelope"></i>
+					<code>
+						&lt;Fa icon="envelope" type="@@FaType.Regular" /&gt;
+					</code>
+					<br />
+					<Fa Icon="envelope" Class="text-primary" /> should appear as: <i class="fas fa-envelope text-primary"></i>
+					<code>
+						&lt;Fa icon="envelope" class="text-primary" /&gt;
+					</code>
+					<br />
+					<Fa Icon="envelope" Size="2" /> should appear as: <i class="fas fa-envelope fa-2x"></i>
+					<code>
+						&lt;Fa icon="envelope" Size="2" /&gt;
+					</code>
+					<br />
+					<Fa Icon="envelope" Size="lg" /> should appear as: <i class="fas fa-envelope fa-lg"></i>
+					<code>
+						&lt;Fa icon="envelope" size="lg" /&gt;
+					</code>
+					<br />
+					<Fa Type="@FaType.Regular" Icon="hand-rock" />
+					<Fa Type="@FaType.Regular" Icon="hand-paper" />
+					<Fa Type="@FaType.Regular" Icon="hand-scissors" />
+					<Fa Type="@FaType.Regular" Icon="hand-lizard" />
+					<Fa Type="@FaType.Regular" Icon="hand-spock" />
+					<code>
+						Rock, Paper, Scissors, Lizard, Spock !!!
+					</code>
+					<br />
+					<div style="column-count: 2;">
+						<div style="font-size: 2rem;">
+							<div><Fa FixedWidth="true" Icon="skating" style="background:DodgerBlue" /> Skating</div>
+							<div><Fa FixedWidth="true" Icon="skiing" style="background:SkyBlue" /> Skiing</div>
+							<div><Fa FixedWidth="true" Icon="skiing-nordic" style="background:DodgerBlue" /> Nordic Skiing</div>
+							<div><Fa FixedWidth="true" Icon="snowboarding" style="background:SkyBlue" /> Snowboarding</div>
+							<div><Fa FixedWidth="true" Icon="snowplow" style="background:DodgerBlue" /> Snowplow</div>
+						</div>
+						<div style="font-size: 2rem;">
+							<div><i class="fa-solid fa-skating fa-fw" style="background:DodgerBlue"></i> Skating</div>
+							<div><i class="fa-solid fa-skiing fa-fw" style="background:SkyBlue"></i> Skiing</div>
+							<div><i class="fa-solid fa-skiing-nordic fa-fw" style="background:DodgerBlue"></i> Nordic Skiing</div>
+							<div><i class="fa-solid fa-snowboarding fa-fw" style="background:SkyBlue"></i> Snowboarding</div>
+							<div><i class="fa-solid fa-snowplow fa-fw" style="background:DodgerBlue"></i> Snowplow</div>
+						</div>
+					</div>
+					<br />
+				</div>
+			</div>
+			<div class="card">
+				<h5 class="card-header">Named layered Fas</h5>
+				<div class="card-body">
+					<Fa Name="calendar-date" Size="4" Date="@DateOnly.FromDateTime(DateTime.UtcNow)" />
+					<Fa Name="calendar-date" Size="4" Date="@(new DateOnly(2018, 9, 30))" Type="@FaType.Regular" />
+					<Fa Name="calendar-date" Size="4" Date="@DateOnly.FromDateTime(DateTime.UtcNow).AddDays(90)" Type="@FaType.FontAwesome5Light" />
+					<Fa Name="today" Size="4" style="color: #691238" />
+					<br />
+					<code>
+						&lt;Fa Name="calendar" date="@@DateOnly.FromDateTime(DateTime.UtcNow)" /&gt;
+					</code>
+					<br />
+					<code>
+						&lt;Fa Name="calendar" date="@@(new DateOnly(2018, 9, 30))" type="@@FaType.Regular" /&gt;
+					</code>
+					<br />
+					<code>
+						&lt;Fa Name="calendar" date="@@DateOnly.FromDateTime(DateTime.UtcNow).AddDays(90)" type="@FaType.FontAwesome5Light" /&gt;
+					</code>
+					<br />
+					<code>
+						&lt;Fa Name="today" style="color: #691238" /&gt;
+					</code>
+					<br />
+					<Fa Name="counter" Icon="envelope" Size="4" Position="@FaPosition.TopRight">123</Fa>
+					<Fa Name="counter" Icon="envelope" Size="4" Position="@FaPosition.TopLeft">456</Fa>
+					<br />
+					<code>
+						&lt;Fa name="counter" icon="envelope" position="@@FaPosition.TopRight"&gt;123&lt;/Fa-custom&gt;
+					</code>
+					<br />
+					<code>
+						&lt;Fa name="counter" icon="envelope" position="@@FaPosition.TopLeft"&gt;456&lt;/Fa-custom&gt;
+					</code>
+					<br />
+					<Fa Name="circle-brand" Size="3" Icon="twitch" style="color: mediumpurple;" />
+					<Fa Name="circle-brand" Size="3" Icon="youtube" style="color: red;" />
+					<Fa Name="circle-brand" Size="3" Icon="twitter" style="color: blue;" />
+					<Fa Name="square-brand" Size="3" Icon="linkedin" style="color: mediumblue;" />
+					<Fa Name="circle-brand" Size="3" Icon="github" Type="@FaType.Thin" style="color: green;" />
+					<Fa Name="circle-brand" Size="3" Icon="font-awesome" Type="@FaType.Thin" style="color: steelblue;" />
+					<br />
+					<br />
+					<span class="fa-stack fa-3x" style="color: mediumpurple;">
+						<i class="fa-solid fa-circle fa-stack-2x"></i>
+						<i class="fa-brands fa-twitch fa-stack-1x fa-inverse"></i>
+					</span>
+					<span class="fa-stack fa-3x" style="color: red;">
+						<i class="fa-solid fa-circle fa-stack-2x"></i>
+						<i class="fa-brands fa-youtube fa-stack-1x fa-inverse"></i>
+					</span>
+					<span class="fa-stack fa-3x" style="color: blue;">
+						<i class="fa-solid fa-circle fa-stack-2x"></i>
+						<i class="fa-brands fa-twitter fa-stack-1x fa-inverse"></i>
+					</span>
+					<span class="fa-stack fa-3x" style="color: mediumblue;">
+						<i class="fa-solid fa-square fa-stack-2x"></i>
+						<i class="fa-brands fa-linkedin fa-stack-1x fa-inverse"></i>
+					</span>
+					<span class="fa-stack fa-3x" style="color: green;">
+						<i class="fa-brands fa-github fa-stack-2x"></i>
+					</span>
+					<span class="fa-stack fa-3x" style="color: steelblue;">
+						<i class="fa-thin fa-circle fa-stack-2x"></i>
+						<i class="fa-brands fa-font-awesome fa-stack-1x"></i>
+					</span>
+					<br />
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

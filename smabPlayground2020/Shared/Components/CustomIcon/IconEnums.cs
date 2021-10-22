@@ -1,4 +1,4 @@
-﻿namespace smabPlayground2020.Shared.Components;
+﻿namespace smabPlayground2020.Shared.Components.CustomIcon;
 
 public enum IconType {
 	FontAwesome5Solid = 1,

@@ -1,0 +1,133 @@
+﻿@if (Name is null)
+{
+    <i class="@($"{cssClass} {faTypeString} {iconName}")" @attributes="InputAttributes">@ChildContent</i>
+} else if (Name == "counter") {
+    <span class="@cssClass fa-layers fa-fw">
+        <i class="@($"{faTypeString} {iconName}")" @attributes="InputAttributes"></i>
+        <span class="@($"fa-layers-counter fa-layers-{position}")">@ChildContent</span>
+    </span>
+} else if (Name.EndsWith("-brand")) {
+     <span class="@($"{cssClass} fa-stack")" @attributes="InputAttributes">
+      <i class="@($"{faTypeString} fa-{Name.Replace("-brand", "")} fa-stack-2x")"></i>
+      <i class="@($"fa-brands {iconName} fa-stack-1x {(faTypeString.Contains("solid") ? "fa-inverse" :"")}")"></i>
+    </span>
+} else if (Name == "calendar-date"  || Name == "today") {
+    @if(Name == "today") { Date = DateOnly.FromDateTime(DateTime.UtcNow); }
+    <span class="@cssClass fa-layers fa-fw">
+        <i class="@($"{faTypeString} fa-calendar")" @attributes="InputAttributes"></i>
+        <span class="@($"fa-layers-text {span1.inverse}")" data-fa-transform="@span1.dataTransform" style="@span1.style">@Date?.ToString("MMMM")</span>
+        <span class="@($"fa-layers-text {span2.inverse}")" data-fa-transform="@span2.dataTransform" style="@span2.style">@Date?.ToString("dd")</span>
+    </span>
+}
+
+@code {
+    [Parameter]
+    public string? Icon { get; set; }
+
+    [Parameter]
+    public string? Name { get; set; }
+
+    [Parameter]
+    public FaType Type { get; set; } = FaType.Solid;
+
+    [Parameter]
+    public FaPosition Position { get; set; } = FaPosition.TopRight;
+
+    [Parameter]
+    public string? Size { get; set; }
+
+    [Parameter]
+    public DateOnly? Date { get; set; }
+
+    [Parameter]
+    public bool? FixedWidth { get; set; }
+
+    [Parameter]
+    public string Class { get; set; } = "";
+
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object> InputAttributes { get; set; } =
+        new Dictionary<string, object>();
+
+    string iconName = "";
+    string faTypeString = "";
+    string position = "";
+    string cssClass { get; set; } = "";
+    (string inverse, string dataTransform, string style) span1;
+    (string inverse, string dataTransform, string style) span2;
+
+
+    protected override void OnInitialized() {
+        if (string.IsNullOrWhiteSpace(Icon) && string.IsNullOrWhiteSpace(Name))
+        {
+            if (string.IsNullOrWhiteSpace(ChildContent?.ToString()))
+            {
+                return;
+            }
+        }
+
+        cssClass = Class;
+        Name = Name?.ToLowerInvariant();
+        iconName = string.IsNullOrWhiteSpace(Icon) ? "" : $"fa-{Icon.Trim()}";
+        position = Position.ToString().Replace("R","-R").Replace("L","-L").ToLowerInvariant();
+
+        faTypeString = (int)Type switch
+        {
+            <= 600 => $"fa{Type.ToString().ToLower().Replace("fontawesome5", "").Substring(0, 1)}",
+            _ => $"fa-{Type.ToString().ToLower().Replace("fontawesome", "").Replace("fa", "")}",
+        };
+
+        if (!string.IsNullOrWhiteSpace(Size))
+        {
+            if (int.TryParse(Size, out int sizeValue) && sizeValue > 0)
+            {
+                cssClass += $" fa-{sizeValue}x";
+            }
+            else
+            {
+                cssClass += $" fa-{Size}";
+            }
+        }
+
+        if (FixedWidth == true) {
+            cssClass += " fa-fw";
+        }
+
+        switch (Name) {
+            case "today":
+            case "calendar-date":
+                SetUpCalendar();
+                break;
+            default:
+                break;
+
+        }
+
+    }
+
+    public void SetUpCalendar() {
+        switch (Type)
+        {
+            case FaType.FontAwesome5Solid:
+            case FaType.Solid:
+                span1 = (inverse: "fa-inverse", "shrink-13.5 up-4.8", "font-weight:500");
+                span2 = (inverse: "fa-inverse", "shrink-8.5 down-2.5", "font-weight:900");
+                break;
+            case FaType.FontAwesome5Regular:
+            case FaType.Regular:
+                span1 = (inverse: "fa-inverse", "shrink-13.5 up-4.6", "font-weight:500");
+                span2 = (inverse: "", "shrink-8.5 down-1.6", "font-weight:900");
+                break;
+            case FaType.FontAwesome5Light:
+            case FaType.Light:
+                span1 = (inverse: "", "shrink-14 up-4.2", "font-weight:900");
+                span2 = (inverse: "", "shrink-8.5 down-2", "font-weight:900");
+                break;
+        }
+    }
+
+}
