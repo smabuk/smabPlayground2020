@@ -15,9 +15,9 @@
 						&lt;Fa icon="envelope" /&gt;
 					</code>
 					<br />
-					<Fa Icon="envelope" Type="@FaType.Regular" /> should appear as: <i class="far fa-envelope"></i>
+					<Fa Icon="envelope" Type="FaType.Regular" /> should appear as: <i class="far fa-envelope"></i>
 					<code>
-						&lt;Fa icon="envelope" type="@@FaType.Regular" /&gt;
+						&lt;Fa icon="envelope" type="FaType.Regular" /&gt;
 					</code>
 					<br />
 					<Fa Icon="envelope" Class="text-primary" /> should appear as: <i class="fas fa-envelope text-primary"></i>
@@ -35,11 +35,11 @@
 						&lt;Fa icon="envelope" size="lg" /&gt;
 					</code>
 					<br />
-					<Fa Type="@FaType.Regular" Icon="hand-rock" />
-					<Fa Type="@FaType.Regular" Icon="hand-paper" />
-					<Fa Type="@FaType.Regular" Icon="hand-scissors" />
-					<Fa Type="@FaType.Regular" Icon="hand-lizard" />
-					<Fa Type="@FaType.Regular" Icon="hand-spock" />
+					<Fa Type="FaType.Regular" Icon="hand-rock" />
+					<Fa Type="FaType.Regular" Icon="hand-paper" />
+					<Fa Type="FaType.Regular" Icon="hand-scissors" />
+					<Fa Type="FaType.Regular" Icon="hand-lizard" />
+					<Fa Type="FaType.Regular" Icon="hand-spock" />
 					<code>
 						Rock, Paper, Scissors, Lizard, Spock !!!
 					</code>
@@ -65,8 +65,7 @@
 				<h5 class="card-header">Calendar</h5>
 				<div class="card-body">
 					<Fa Name="calendar-date" Size="4" Date="@DateOnly.FromDateTime(DateTime.UtcNow)" />
-					<Fa Name="calendar-date" Size="4" Date="@(new DateOnly(2018, 9, 30))" Type="@FaType.Regular" />
-					<Fa Name="calendar-date" Size="4" Date="@DateOnly.FromDateTime(DateTime.UtcNow).AddDays(90)" Type="@FaType.FontAwesome5Light" />
+					<Fa Name="calendar-date" Size="4" Date="@(new DateOnly(2018, 9, 30))" Type="FaType.Regular" />
 					<Fa Name="today" Size="4" style="color: #691238" />
 					<br />
 					<code>
@@ -74,11 +73,7 @@
 					</code>
 					<br />
 					<code>
-						&lt;Fa Name="calendar" date="@@(new DateOnly(2018, 9, 30))" type="@@FaType.Regular" /&gt;
-					</code>
-					<br />
-					<code>
-						&lt;Fa Name="calendar" date="@@DateOnly.FromDateTime(DateTime.UtcNow).AddDays(90)" type="@FaType.FontAwesome5Light" /&gt;
+						&lt;Fa Name="calendar" date="@@(new DateOnly(2018, 9, 30))" type="FaType.Regular" /&gt;
 					</code>
 					<br />
 					<code>
@@ -90,49 +85,53 @@
 				<h5 class="card-header">Counter</h5>
 				<div class="card-body">
 					<Fa Name="counter" Icon="envelope" Size="4" Position="@FaPosition.TopRight">123</Fa>
-					<Fa Name="counter" Icon="envelope" Size="4" Position="@FaPosition.TopLeft">456</Fa>
+					<Fa Name="counter" Icon="envelope" Size="4" Position="@FaPosition.TopLeft" RotateBy="27">456</Fa>
+					<Fa Name="counter" Icon="envelope" Size="4" Position="@FaPosition.BottomLeft" Flip="FaFlip.Horizontal">789</Fa>
 					<br />
 					<code>
-						&lt;Fa name="counter" icon="envelope" position="@@FaPosition.TopRight"&gt;123&lt;/Fa-custom&gt;
+						&lt;Fa name="counter" icon="envelope" position="FaPosition.TopRight"&gt;123&lt;/Fa&gt;
 					</code>
 					<br />
 					<code>
-						&lt;Fa name="counter" icon="envelope" position="@@FaPosition.TopLeft"&gt;456&lt;/Fa-custom&gt;
+						&lt;Fa name="counter" icon="envelope" position="FaPosition.TopLeft" RotateBy="27"&gt;456&lt;/Fa&gt;
+					</code>
+					<code>
+						&lt;Fa name="counter" icon="envelope" position="FaPosition.BottomLeft" Flip="FaFlip.Horizontal"&gt;789&lt;/Fa&gt;
 					</code>
 				</div>
 			</div>
 			<div class="card">
 				<h5 class="card-header">Brands</h5>
 				<div class="card-body">
-					<Fa Name="circle-brand" Size="3" Icon="twitch" style="color: #a562cf;" />
-					<Fa Name="circle-brand" Size="3" Icon="youtube" style="color: red;" />
-					<Fa Name="circle-brand" Size="3" Icon="twitter" style="color: #1DA1F2;" />
-					<Fa Name="square-brand" Size="3" Icon="linkedin" style="color: #0077b5;" />
-					<span class="fa-stack fa-3x"><Fa Icon="github" Type="@FaType.Brands" class="fa-stack" style="color: #2dba4e;" /></span>
-					<span class="fa-stack fa-3x"><Fa Icon="facebook" Type="@FaType.Brands" class="fa-stack" style="color: #4267B2;" /></span>
+					<Fa Name="circle-brand" Size="2" Icon="twitch" style="color: #a562cf;" />
+					<Fa Name="circle-brand" Size="2" Icon="youtube" style="color: red;" />
+					<Fa Name="circle-brand" Size="2" Icon="twitter" style="color: #1DA1F2;" />
+					<Fa Name="square-brand" Size="2" Icon="linkedin" style="color: #0077b5;" />
+					<span class="fa-stack fa-2x"><Fa Icon="github" Type="@FaType.Brands" class="fa-stack" style="color: #2dba4e;" /></span>
+					<span class="fa-stack fa-2x"><Fa Icon="facebook" Type="@FaType.Brands" class="fa-stack" style="color: #4267B2;" /></span>
 					<br />
 					<br />
 					<div><p>should look like</p></div>
-					<span class="fa-stack fa-3x" style="color: #a562cf;">
+					<span class="fa-stack fa-2x" style="color: #a562cf;">
 						<i class="fa-solid fa-circle fa-stack-2x"></i>
 						<i class="fa-brands fa-twitch fa-stack-1x fa-inverse"></i>
 					</span>
-					<span class="fa-stack fa-3x" style="color: red;">
+					<span class="fa-stack fa-2x" style="color: red;">
 						<i class="fa-solid fa-circle fa-stack-2x"></i>
 						<i class="fa-brands fa-youtube fa-stack-1x fa-inverse"></i>
 					</span>
-					<span class="fa-stack fa-3x" style="color: #1DA1F2;">
+					<span class="fa-stack fa-2x" style="color: #1DA1F2;">
 						<i class="fa-solid fa-circle fa-stack-2x"></i>
 						<i class="fa-brands fa-twitter fa-stack-1x fa-inverse"></i>
 					</span>
-					<span class="fa-stack fa-3x" style="color: #0077b5;">
+					<span class="fa-stack fa-2x" style="color: #0077b5;">
 						<i class="fa-solid fa-square fa-stack-2x"></i>
 						<i class="fa-brands fa-linkedin fa-stack-1x fa-inverse"></i>
 					</span>
-					<span class="fa-stack fa-3x" style="color: #2dba4e;">
+					<span class="fa-stack fa-2x" style="color: #2dba4e;">
 						<i class="fa-brands fa-github fa-stack-2x"></i>
 					</span>
-					<span class="fa-stack fa-3x" style="color: #4267B2;">
+					<span class="fa-stack fa-2x" style="color: #4267B2;">
 						<i class="fa-brands fa-facebook fa-stack-2x"></i>
 					</span>
 				</div>
@@ -140,15 +139,25 @@
 			<div class="card">
 				<h5 class="card-header">Pro features</h5>
 				<div class="card-body">
-					<Fa Name="circle-brand" Size="3" Icon="font-awesome" Type="@FaType.Thin" style="color: steelblue;" />
+					<p>These will be missing their outlines or broken unless you have the Pro version of FontAwesome.</p>
+					<Fa Name="circle-brand" Size="2" Icon="font-awesome" Type="FaType.Thin" style="color: steelblue;" /> 
+					should be enclosed in a circular outline
 					<br />
+					<code>
+						&lt;Fa Name="circle-brand" Size="2" Icon="font-awesome" Type="FaType.Thin" style="color: steelblue;" /&gt;
+					</code>
 					<br />
-					<div><p>should look like</p></div>
-					<span class="fa-stack fa-3x" style="color: steelblue;">
-						<i class="fa-thin fa-circle fa-stack-2x"></i>
-						<i class="fa-brands fa-font-awesome fa-stack-1x"></i>
-					</span>
+					<Fa Name="calendar-date" Size="4" Date="@DateOnly.FromDateTime(DateTime.UtcNow).AddDays(90)" Type="FaType.Light" />
+					<Fa Name="today" Size="4" Type="@FaType.Thin" />
+					should have outlines
 					<br />
+					<code>
+						&lt;Fa Name="calendar" Date="@@DateOnly.FromDateTime(DateTime.UtcNow).AddDays(90)" Type="FaType.Light" /&gt;
+					</code>
+					<br />
+					<code>
+						&lt;Fa Name="today" Type="@FaType.Thin" /&gt;
+					</code>
 				</div>
 			</div>
 		</div>

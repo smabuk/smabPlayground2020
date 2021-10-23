@@ -20,3 +20,9 @@ public enum FaPosition {
 	BottomLeft,
 	BottomRight
 }
+
+public enum FaFlip {
+	Horizontal,
+	Vertical,
+	Both
+}
