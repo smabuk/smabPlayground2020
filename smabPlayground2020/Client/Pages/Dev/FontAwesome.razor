@@ -3,7 +3,7 @@
 
 <h2>FontAwesome Fa component</h2>
 
-<div class="container-fluid">
+<div class="container">
 	<div class="card">
 		<h2 class="card-header">Examples</h2>
 		<div class="">
@@ -149,6 +149,7 @@
 					<br />
 					<Fa Name="calendar-date" Size="4" Date="@DateOnly.FromDateTime(DateTime.UtcNow).AddDays(90)" Type="FaType.Light" />
 					<Fa Name="today" Size="4" Type="@FaType.Thin" />
+					<Fa Name="today" Size="4" Type="@FaType.DuoTone" />
 					should have outlines
 					<br />
 					<code>
@@ -157,6 +158,10 @@
 					<br />
 					<code>
 						&lt;Fa Name="today" Type="@FaType.Thin" /&gt;
+					</code>
+					<br />
+					<code>
+						&lt;Fa Name="today" Type="@FaType.DuoTone" /&gt;
 					</code>
 				</div>
 			</div>
