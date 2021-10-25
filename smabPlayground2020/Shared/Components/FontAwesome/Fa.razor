@@ -1,26 +1,26 @@
-﻿@if (Name is null)
+﻿@if (name is null)
 {
-	<i class="@($"{cssClass} {faTypeString} {iconName}")" style="@style" @attributes="InputAttributes">@ChildContent</i>
+	<i class="@($"{cssClass} {type} {iconName}")" style="@style" @attributes="InputAttributes">@ChildContent</i>
 }
-else if (Name == "counter")
+else if (name == FaName.Counter)
 {
 	<span class="@cssClass fa-layers fa-fw" style="@style">
-		<i class="@($"{faTypeString} {iconName}")" @attributes="InputAttributes"></i>
+		<i class="@($"{type} {iconName}")" @attributes="InputAttributes"></i>
 		<span class="@($"fa-layers-counter fa-layers-{position}")">@ChildContent</span>
 	</span>
 }
-else if (Name.EndsWith("-brand"))
+else if (name.EndsWith(FaName.BrandSuffix))
 {
 	<span class="@($"{cssClass} fa-stack")" @attributes="InputAttributes" style="@style">
-		<i class="@($"{faTypeString} fa-{Name.Replace("-brand", "")} fa-stack-2x")"></i>
-		<i class="@($"fa-brands {iconName} fa-stack-1x {(faTypeString.Contains("solid") ? "fa-inverse" :"")}")"></i>
+		<i class="@($"{type} fa-{name.Replace("-brand", "")} fa-stack-2x")"></i>
+		<i class="@($"fa-brands {iconName} fa-stack-1x {(type.Contains("solid") ? "fa-inverse" :"")}")"></i>
 	</span>
 }
-else if (Name == "calendar-date" || Name == "today")
+else if (name == FaName.CalendarDate || name == FaName.Today)
 {
-	@if (Name == "today") { Date = DateOnly.FromDateTime(DateTime.UtcNow); }
+	@if (name == "today") { Date = DateOnly.FromDateTime(DateTime.UtcNow); }
 	<span class="@cssClass fa-layers fa-fw" style="@style">
-		<i class="@($"{faTypeString} fa-calendar")" @attributes="InputAttributes"></i>
+		<i class="@($"{type} {FaIcon.Calendar}")" @attributes="InputAttributes"></i>
 		<span class="@($"fa-layers-text {span1.inverse}")" data-fa-transform="@span1.dataTransform" style="@span1.style">@Date?.ToString("MMMM")</span>
 		<span class="@($"fa-layers-text {span2.inverse}")" data-fa-transform="@span2.dataTransform" style="@span2.style">@Date?.ToString("dd")</span>
 	</span>
@@ -69,14 +69,14 @@ else if (Name == "calendar-date" || Name == "today")
 		new Dictionary<string, object>();
 
 	string iconName = "";
-	string faTypeString = "";
+	string? name = "";
+	string type = "";
 	string position = "";
 	string cssClass = "";
 	string? style = "";
 	(string inverse, string dataTransform, string style) span1;
 	(string inverse, string dataTransform, string style) span2;
-	List<string> cssVars = new();
-
+	
 
 	protected override void OnInitialized()
 	{
@@ -90,15 +90,10 @@ else if (Name == "calendar-date" || Name == "today")
 
 		cssClass = Class;
 		style = Style;
-		Name = Name?.ToLowerInvariant();
-		iconName = string.IsNullOrWhiteSpace(Icon) ? "" : $"fa-{Icon.Trim()}";
-		position = Position.ToString().Replace("R", "-R").Replace("L", "-L").ToLowerInvariant();
-
-		faTypeString = (int)Type switch
-		{
-			<= 600 => $"fa{Type.ToString().ToLower().Replace("fontawesome5", "").Substring(0, 1)}",
-			_ => $"fa-{Type.ToString().ToLower().Replace("fontawesome", "").Replace("fa", "")}",
-		};
+		name = Name?.ToLowerInvariant();
+		iconName = string.IsNullOrWhiteSpace(Icon) ? "" : Icon.StartsWith("fa-") ? Icon.Trim() : $"fa-{Icon.Trim()}";
+		position = Position.ToString();
+		type = Type.ToString();
 
 		if (!string.IsNullOrWhiteSpace(Size))
 		{
@@ -117,7 +112,8 @@ else if (Name == "calendar-date" || Name == "today")
 			cssClass += " fa-fw";
 		}
 
-		if (Flip is not null) {
+		if (Flip is not null)
+		{
 			cssClass += $" fa-flip-{Flip?.ToString().Replace("None", "").ToLowerInvariant()}";
 		}
 
@@ -137,21 +133,17 @@ else if (Name == "calendar-date" || Name == "today")
 						style += $"--fa-rotate-angle: {RotateBy}deg;";
 						break;
 				}
-			} else {
+			}
+			else
+			{
 				cssClass += $" fa-rotate-by";
 				style += $"--fa-rotate-angle: {RotateBy}";
 			}
 		}
 
-		switch (Name)
+		if (name == FaName.Today || name == FaName.CalendarDate)
 		{
-			case "today":
-			case "calendar-date":
 				SetUpCalendar();
-				break;
-			default:
-				break;
-
 		}
 
 		style = string.IsNullOrWhiteSpace(style) ? null : style;
@@ -160,33 +152,30 @@ else if (Name == "calendar-date" || Name == "today")
 
 	public void SetUpCalendar()
 	{
-		switch (Type)
+		if (Type == FaType.Solid || Type == FaType.FontAwesome5Solid)
 		{
-			case FaType.FontAwesome5Solid:
-			case FaType.Solid:
-				span1 = (inverse: "fa-inverse", "shrink-13.5 up-4.4", "font-weight:500");
-				span2 = (inverse: "fa-inverse", "shrink-8.5 down-2.5", "font-weight:900");
-				break;
-			case FaType.FontAwesome5Regular:
-			case FaType.Regular:
-				span1 = (inverse: "fa-inverse", "shrink-13.5 up-4", "font-weight:500");
-				span2 = (inverse: "", "shrink-8.5 down-2", "font-weight:900");
-				break;
-			case FaType.FontAwesome5DuoTone:
-			case FaType.DuoTone:
-				span1 = (inverse: "fa-inverse", "shrink-13.5 up-3.8", "font-weight:500");
-				span2 = (inverse: "fa-inverse", "shrink-8.5 down-2.5", "font-weight:900");
-				break;
-			case FaType.FontAwesome5Light:
-			case FaType.Light:
-				span1 = (inverse: "", "shrink-14 up-4.2", "font-weight:900");
-				span2 = (inverse: "", "shrink-8.5 down-2", "font-weight:900");
-				break;
-			case FaType.Thin:
-				span1 = (inverse: "", "shrink-13.5 up-4", "font-weight:900");
-				span2 = (inverse: "", "shrink-8.5 down-2.2", "font-weight:900");
-				break;
+			span1 = (inverse: "fa-inverse", "shrink-13.5 up-4.4", "font-weight:500");
+			span2 = (inverse: "fa-inverse", "shrink-8.5 down-2.5", "font-weight:900");
+		}
+		else if (Type == FaType.Regular || Type == FaType.FontAwesome5Regular)
+		{
+			span1 = (inverse: "fa-inverse", "shrink-13.5 up-4", "font-weight:500");
+			span2 = (inverse: "", "shrink-8.5 down-2", "font-weight:900");
+		}
+		else if (Type == FaType.DuoTone || Type == FaType.FontAwesome5DuoTone)
+		{
+			span1 = (inverse: "fa-inverse", "shrink-13.5 up-3.8", "font-weight:500");
+			span2 = (inverse: "fa-inverse", "shrink-8.5 down-2.5", "font-weight:900");
+		}
+		else if (Type == FaType.Light || Type == FaType.FontAwesome5Light)
+		{
+			span1 = (inverse: "", "shrink-14 up-4.2", "font-weight:900");
+			span2 = (inverse: "", "shrink-8.5 down-2", "font-weight:900");
+		}
+		else if (Type == FaType.Thin || Type == FaType.FontAwesome5Thin)
+		{
+			span1 = (inverse: "", "shrink-13.5 up-4", "font-weight:900");
+			span2 = (inverse: "", "shrink-8.5 down-2.2", "font-weight:900");
 		}
 	}
-
 }
