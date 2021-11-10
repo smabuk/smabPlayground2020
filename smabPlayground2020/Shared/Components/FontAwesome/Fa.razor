@@ -54,8 +54,12 @@ else if (name == FaName.CalendarDate || name == FaName.Today)
 	[Parameter]
 	public DateOnly? Date { get; set; }
 
+	/// <summary>
+	/// Fixed width
+	/// This accepts the implied mapping of <param>fw</param>
+	/// </summary>
 	[Parameter]
-	public bool? FixedWidth { get; set; }
+	public bool? FW { get; set; }
 
 	[Parameter]
 	public string Class { get; set; } = "";
@@ -107,7 +111,7 @@ else if (name == FaName.CalendarDate || name == FaName.Today)
 			}
 		}
 
-		if (FixedWidth == true)
+		if (FW is not null)
 		{
 			cssClass += " fa-fw";
 		}
