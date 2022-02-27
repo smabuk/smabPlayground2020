@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Options;
+﻿using System.Text.Json;
+
+using Microsoft.Extensions.Options;
 
 using smab.PlexInfo;
 using smab.PlexInfo.Models;
@@ -236,13 +238,16 @@ public class PlexClient : IPlexClient
 
 		var response = await _httpClient.GetAsync($"{query}?X-Plex-Token={token}{optionsString}");
 
-		return response.IsSuccessStatusCode switch
-		{
-			false => null,
-			true when response.Content.Headers.ContentType?.ToString() == "application/json" 
-				=> await response.Content.ReadFromJsonAsync<T>(),
-			_ => null
-		};
+		if (response.IsSuccessStatusCode && response.Content.Headers.ContentType?.ToString() == "application/json") {
+			string json = await response.Content.ReadAsStringAsync();
+			json = json
+				.Replace("\"guid\"", "\"guidfix\"")
+				.Replace("\"rating\"", "\"ratingfix\"");
+			JsonSerializerOptions? jsonOptions = new(JsonSerializerDefaults.Web);
+			return JsonSerializer.Deserialize<T>(json, jsonOptions);
+		}
+
+		return null;
 	}
 
 	private async Task<byte[]?> CallPlexApiAndReturnImage(string query, IEnumerable<PlexOption>? options = null)

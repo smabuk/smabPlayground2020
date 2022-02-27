@@ -13,8 +13,6 @@ public record Metadata
 	string Key,
 	string? ParentKey,
 	string? GrandparentKey,
-	// There are now 2 values "guid" and "Guid" the latter of which is an array
-	// string Guid,
 	string? ParentGuid,
 	string? GrandparentGuid,
 	string? Studio,
@@ -30,7 +28,6 @@ public record Metadata
 	string? Summary,
 	int? Index,
 	int? ParentIndex,
-	double? Rating,
 	double? AudienceRating,
 	int? ViewCount,
 	int? Year,
@@ -67,6 +64,21 @@ public record Metadata
 	List<Subitem>? Similar,
 	List<Location>? Location
 ) {
+
+	// There are now 2 values "rating" and "Rating" the latter of which is an array
+	[JsonPropertyName("ratingfix")]
+	public double? Rating { get; init; }
+
+	[JsonPropertyName("Rating")]
+	public List<RatingSubitem>? Ratings { get; init; }
+
+	// There are now 2 values "guid" and "Guid" the latter of which is an array
+	[JsonPropertyName("guidfix")]
+	public string? Guid { get; init; }
+
+	[JsonPropertyName("Guid")]
+	public List<GuidSubitem>? Guids { get; init; }
+
 
 	[JsonPropertyName("addedAt")]
 	[JsonConverter(typeof(JsonUnixDateConverter))]
