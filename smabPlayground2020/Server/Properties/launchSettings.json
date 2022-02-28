@@ -38,7 +38,7 @@
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}",
-      "applicationUrl": "https://localhost:5001;http://localhost:5000",
+      "applicationUrl": "https://localhost:7158;http://localhost:5158",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -49,7 +49,7 @@
     //  "environmentVariables": {
     //    "ASPNETCORE_ENVIRONMENT": "Production"
     //  },
-    //  "applicationUrl": "https://localhost:5001;http://localhost:5000",
+    //  "applicationUrl": "https://localhost:7158;http://localhost:5158",
     //  "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}"
     //},
     "WSL 2": {
@@ -57,7 +57,7 @@
       "launchBrowser": true,
       "launchUrl": "https://localhost:5001",
       "environmentVariables": {
-        "ASPNETCORE_URLS": "https://localhost:5001;http://localhost:5000",
+        "ASPNETCORE_URLS": "https://localhost:7158;http://localhost:5158",
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "distributionName": ""
