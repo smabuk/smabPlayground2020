@@ -1,42 +1,13 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.ResponseCompression;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.OpenApi.Models;
 
 using smab.PlexInfo;
 using smab.ReadingBadminton;
 
 using smabPlayground2020.Server;
-using smabPlayground2020.Server.Data;
 using smabPlayground2020.Server.EndPoints;
-using smabPlayground2020.Server.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-	options.UseSqlite(connectionString));
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => {
-		options.SignIn.RequireConfirmedAccount = false;
-		options.Password.RequiredLength = 6;
-		options.Password.RequireDigit = false;
-		options.Password.RequireUppercase = false;
-		options.Password.RequireLowercase = false;
-		options.Password.RequireNonAlphanumeric = false;
-		options.User.RequireUniqueEmail = true;
-	})
-	.AddRoles<IdentityRole>()
-	.AddEntityFrameworkStores<ApplicationDbContext>();
-
-builder.Services.AddIdentityServer()
-	.AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
-
-builder.Services.AddAuthentication()
-	.AddIdentityServerJwt();
 
 builder.Services.AddControllersWithViews()
 	.AddJsonOptions(options => {
@@ -46,7 +17,6 @@ builder.Services.AddControllersWithViews()
 builder.Services.AddSwaggerGen(c => {
 	c.SwaggerDoc("v1", new OpenApiInfo { Title = "smabPlayground2020", Version = "v1" });
 });
-
 
 // Plex settings
 builder.Services.Configure<PlexSettings>(builder.Configuration.GetSection(nameof(PlexSettings)));
@@ -63,7 +33,6 @@ builder.Services.AddHttpClient<IPlexClient, PlexClient>()
 
 builder.Services.AddSingleton<IReadingBadmintonReader, ReadingBadmintonReader>();
 
-
 builder.Services.AddRazorPages();
 builder.Services.AddResponseCaching();
 builder.Services.AddResponseCompression(options => {
@@ -71,14 +40,11 @@ builder.Services.AddResponseCompression(options => {
 	options.Providers.Add<GzipCompressionProvider>();
 });
 
-
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment()) {
 	app.UseDeveloperExceptionPage();
-	app.UseMigrationsEndPoint();
 	app.UseWebAssemblyDebugging();
 	app.UseSwagger();
 	app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "smabPlayground2020 v1"));
@@ -91,7 +57,6 @@ if (app.Environment.IsDevelopment()) {
 app.UseHttpsRedirection();
 
 app.UseBlazorFrameworkFiles();
-app.UseStaticFiles();
 
 app.UseResponseCompression();
 app.UseResponseCaching();
@@ -102,11 +67,6 @@ app.UseStaticFiles(new StaticFileOptions {
 });
 
 app.UseRouting();
-
-app.UseIdentityServer();
-app.UseAuthentication();
-app.UseAuthorization();
-
 
 app.MapRazorPages();
 app.MapControllers();
