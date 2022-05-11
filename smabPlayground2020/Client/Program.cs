@@ -19,7 +19,7 @@ builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().Cre
 builder.Services.AddScoped<SmabJsInterop>();
 
 //Register Syncfusion license 
-Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(@"NTIyMTAyQDMxMzkyZTMzMmUzME1xMUhmSEhHeXJUbWNhZDdaZUJTTHNqb1VPUks2eC93Ny9HSXN5UngrUGc9;NTIyMTAzQDMxMzkyZTMzMmUzMFF4U2d3TUFNWTNlT1RSMGEzSTZSMzJBOWUxZ1FKb0Q1RWlxYkwwUDBLK009");
+Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(@"NjM1OTE3QDMyMzAyZTMxMmUzMGdvZHV0bElJVDdpeWN0bFFvOHh2VmdXTGlwZjJiOWVBWTlKdTJJa2x3VVk9");
 builder.Services.AddSyncfusionBlazor();
 
 // PlexInfo
