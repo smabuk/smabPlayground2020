@@ -24,13 +24,13 @@
                     <div class="plex-header-title"><h2 class="card-title">@info.Title</h2></div>
                     <div class="plex-header-title"><h3 class="card-title">@info.ParentTitle - Episode @info.Index</h3></div>
                 } else {
-                    <div class="plex-header-title"><h1 class="card-title">@info.Title</h1></div>
+                    <div class="plex-header-title"><h1 class="card-title">@info.Title</h1><h4 class="card-title">@info.Tagline</h4></div>
                 }
                 <div class="plex-header-info-lh">
                     @if (info.OriginallyAvailableAt is not null) {
-                        DateTime originallyAvailableAt = DateTime.Parse(info.OriginallyAvailableAt);
+                        DateOnly originallyAvailableAt = DateOnly.Parse(info.OriginallyAvailableAt);
                         if (originallyAvailableAt.Year > 1) {
-                            <div class="card-title">@originallyAvailableAt.ToDateLongMonthYearString()</div>
+                            <div class="card-title">@originallyAvailableAt.ToLongDateString()</div>
                         }
                     }
                     @if (info.Type == "episode") {
