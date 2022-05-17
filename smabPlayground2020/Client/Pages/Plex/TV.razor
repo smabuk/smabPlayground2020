@@ -1,6 +1,4 @@
 ﻿@page "/plex/tv"
-@using smab.PlexInfo.Models
-@using smabPlayground2020.Shared.Helpers
 @inject PlexInfoClient plexClient
 @inject PlexInfoState piState
 <PageTitle>Plex TV Shows - smabPlayground2020</PageTitle>
@@ -28,7 +26,7 @@
                 @if (item.OriginallyAvailableAt is not null) {
                     if (item.OriginallyAvailableAt?.Year > 1)
                     {
-                        <div class="card-subtitle">@item.OriginallyAvailableAt?.ToDateLongMonthYearString()</div>
+                        <div class="card-subtitle">@item.OriginallyAvailableAt?.ToLongDateString()</div>
                     }
                 }
             </div>

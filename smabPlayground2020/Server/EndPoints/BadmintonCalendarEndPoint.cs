@@ -1,7 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 
-using smab.ReadingBadminton;
-using smab.ReadingBadminton.Models;
+using Smab.ReadingBadminton;
+using Smab.ReadingBadminton.Models;
 
 using Smab.Calendar;
 

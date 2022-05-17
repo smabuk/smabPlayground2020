@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-using smab.PlexInfo.Models;
+using Smab.PlexInfo;
+using Smab.PlexInfo.Models;
 
 namespace smabPlayground2020.Server.Controllers;
 
@@ -72,9 +73,10 @@ public class PlexInfoController : ControllerBase {
 						Episodes: m.LeafCount ?? 0,
 						ViewedEpisodes: m.ViewedLeafCount ?? 0,
 						AddedAt: m.AddedAt,
-						Rating: m.Rating,
-						OriginallyAvailableAt: (m.OriginallyAvailableAt is not null) ? DateTime.Parse(m.OriginallyAvailableAt) : DateTime.MinValue
-				))
+						Rating: m.Rating
+					) {
+						OriginallyAvailableAt = (m.OriginallyAvailableAt is not null) ? DateOnly.Parse(m.OriginallyAvailableAt) : ((m.Year is not null) ? new(m.Year ?? 1, 1, 1) : null)
+					})
 			?? new List<TvShowSummary>());
 		return Ok(itemsList);
 	}

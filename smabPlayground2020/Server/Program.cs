@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.OpenApi.Models;
 
-using smab.PlexInfo;
-using smab.ReadingBadminton;
+using Smab.PlexInfo;
+using Smab.ReadingBadminton;
 
-using smabPlayground2020.Server;
 using smabPlayground2020.Server.EndPoints;
 
 var builder = WebApplication.CreateBuilder(args);

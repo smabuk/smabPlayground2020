@@ -1,4 +1,4 @@
-﻿using smab.PlexInfo.Models;
+﻿using Smab.PlexInfo.Models;
 
 namespace smabPlayground2020.Client;
 
