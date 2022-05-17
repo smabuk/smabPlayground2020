@@ -47,6 +47,8 @@
 
 @code {
 
+	private readonly int SHORT_MOVIE_LIBRARY_ID = 8;
+
     private const int THUMB_WIDTH = 200;
     private const int THUMB_HEIGHT = 300;
 
@@ -62,7 +64,11 @@
             piState.MoviesList = ((await plexClient.GetMoviesList()) ?? new()).ToList();
         }
         allItems = piState.MoviesList;
-        items = allItems.Where(m => m.LibraryId != 8).OrderBy(m => m.LibraryTitle).ToList();
+        items = allItems
+                .Where(m => m.LibraryId != SHORT_MOVIE_LIBRARY_ID)
+                .OrderByDescending(m => m.OriginallyAvailableAt)
+                .ThenBy(m => m.LibraryTitle)
+                .ToList();
         //items = items.Where(m => m.Title.StartsWith("A")).ToList();
         Message = $"Showing {items.Count} movies";
     }

@@ -1,4 +1,7 @@
-﻿namespace smab.PlexInfo.Models;
+﻿using smabPlayground2020.Shared.Helpers;
+using System.Text.Json.Serialization;
+
+namespace smab.PlexInfo.Models;
 
 public record MovieSummary
 (
@@ -10,6 +13,9 @@ public record MovieSummary
 	int Duration,
 	string? Thumb,
 	DateTime? AddedAt,
-	double? Rating,
-	string? OriginallyAvailableAt
-);
+	double? Rating
+	
+) {
+	[JsonConverter(typeof(JsonDateOnlyConverter))]
+	public DateOnly? OriginallyAvailableAt { get; init; }
+};
