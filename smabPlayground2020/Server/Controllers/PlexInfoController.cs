@@ -38,19 +38,18 @@ public class PlexInfoController : ControllerBase {
 		// SelectMany flattens the returned structure to IEnumerable<MovieSummary>
 		var itemsList = items.SelectMany(i => i.MediaContainer?.Metadata?
 			.Select(m =>
-				new MovieSummary(
-						LibraryId: i.MediaContainer.LibrarySectionID ?? 0,
-						LibraryTitle: i.MediaContainer.LibrarySectionTitle ?? "",
-						Id: int.Parse(m.Key.Replace(@"/library/metadata/", "").Replace(@"/children", "")),
-						Title: m.Title,
-						Year: m.Year,
-						Duration: m.Duration ?? 0,
-						Thumb: m.Thumb,
-						AddedAt: m.AddedAt,
-						Rating: m.Rating
-					) { 
-						OriginallyAvailableAt = (m.OriginallyAvailableAt is not null) ? DateOnly.Parse(m.OriginallyAvailableAt) : ((m.Year is not null) ? new(m.Year ?? 1, 1, 1) : null )
-					})
+				new MovieSummary() {
+					LibraryId = i.MediaContainer.LibrarySectionID ?? 0,
+					LibraryTitle = i.MediaContainer.LibrarySectionTitle ?? "",
+					Id = int.Parse(m.Key.Replace(@"/library/metadata/", "").Replace(@"/children", "")),
+					Title = m.Title,
+					Year = m.Year,
+					Duration = m.Duration ?? 0,
+					Thumb = m.Thumb,
+					AddedAt = m.AddedAt,
+					Rating = m.Rating,
+					OriginallyAvailableAt = (m.OriginallyAvailableAt is not null) ? DateOnly.Parse(m.OriginallyAvailableAt) : ((m.Year is not null) ? new(m.Year ?? 1, 1, 1) : null),
+				})
 			?? new List<MovieSummary>());
 		return Ok(itemsList);
 	}
@@ -58,25 +57,24 @@ public class PlexInfoController : ControllerBase {
 	[HttpGet(Name = nameof(TvShowsList))]
 	public async Task<IActionResult> TvShowsList() {
 		var items = await _plexClient.GetTvShows();
-		// SelectMany flattens the returned structure to IEnumerable<TvSeriesSummary>
+		// SelectMany flattens the returned structure to IEnumerable<TvShowSummary>
 		var itemsList = items.SelectMany(i => i.MediaContainer?.Metadata?
 			.Select(m =>
-				new TvShowSummary(
-						LibraryId: i.MediaContainer.LibrarySectionID ?? 0,
-						LibraryTitle: i.MediaContainer.LibrarySectionTitle ?? "",
-						Id: int.Parse(m.Key.Replace(@"/library/metadata/", "").Replace(@"/children", "")),
-						Title: m.Title,
-						Year: m.Year,
-						Duration: m.Duration ?? 0,
-						Thumb: m.Thumb,
-						Seasons: m.ChildCount ?? 0,
-						Episodes: m.LeafCount ?? 0,
-						ViewedEpisodes: m.ViewedLeafCount ?? 0,
-						AddedAt: m.AddedAt,
-						Rating: m.Rating
-					) {
-						OriginallyAvailableAt = (m.OriginallyAvailableAt is not null) ? DateOnly.Parse(m.OriginallyAvailableAt) : ((m.Year is not null) ? new(m.Year ?? 1, 1, 1) : null)
-					})
+				new TvShowSummary() {
+					LibraryId = i.MediaContainer.LibrarySectionID ?? 0,
+					LibraryTitle = i.MediaContainer.LibrarySectionTitle ?? "",
+					Id = int.Parse(m.Key.Replace(@"/library/metadata/", "").Replace(@"/children", "")),
+					Title = m.Title,
+					Year = m.Year,
+					Duration = m.Duration ?? 0,
+					Thumb = m.Thumb,
+					AddedAt = m.AddedAt,
+					Rating = m.Rating,
+					OriginallyAvailableAt = (m.OriginallyAvailableAt is not null) ? DateOnly.Parse(m.OriginallyAvailableAt) : ((m.Year is not null) ? new(m.Year ?? 1, 1, 1) : null),
+					Seasons = m.ChildCount ?? 0,
+					Episodes = m.LeafCount ?? 0,
+					ViewedEpisodes = m.ViewedLeafCount ?? 0,
+				})
 			?? new List<TvShowSummary>());
 		return Ok(itemsList);
 	}

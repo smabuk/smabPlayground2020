@@ -50,5 +50,13 @@
   {
     "outputFile": "Pages/Boggle/BoggleSlotUI.razor.css",
     "inputFile": "Pages/Boggle/BoggleSlotUI.razor.scss"
+  },
+  {
+    "outputFile": "Pages/Plex/MovieCard.razor.css",
+    "inputFile": "Pages/Plex/MovieCard.razor.scss"
+  },
+  {
+    "outputFile": "Pages/Plex/TVCard.razor.css",
+    "inputFile": "Pages/Plex/TVCard.razor.scss"
   }
 ]

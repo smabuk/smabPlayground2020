@@ -10,27 +10,7 @@
     @*<Virtualize Items="@items" Context="item" >*@
     @foreach (var item in items)
     {
-        <div class="card">
-            <a href="/Plex/Details/@item.Id" title="@item.Title">
-                @if (String.IsNullOrEmpty(item.Thumb)) {
-                    <img src="/images/tv.png" class="card-img" loading="lazy" alt="..." />
-                } else {
-                    <img src="/PlexInfo/Photo?url=@(item.Thumb)&width=@(THUMB_WIDTH)&height=@(THUMB_HEIGHT)" class="card-img" loading="lazy" alt="..." />
-                }
-            </a>
-            <div class="card-body">
-                <a href="/Plex/Details/@item.Id" title="@item.Title">
-                    <div class="text-truncate">@item.Title</div>
-                </a>
-                <div class="card-subtitle">@item.Seasons @((item.Seasons == 1) ? "season" : "seasons")</div>
-                @if (item.OriginallyAvailableAt is not null) {
-                    if (item.OriginallyAvailableAt?.Year > 1)
-                    {
-                        <div class="card-subtitle">@item.OriginallyAvailableAt?.ToLongDateString()</div>
-                    }
-                }
-            </div>
-        </div>
+        <TVCard Item="item" />
     }
     @*</Virtualize>*@
 </div>
