@@ -103,6 +103,7 @@ public class PlexClient : IPlexClient
 		results.Add(result);
 		return results;
 	}
+
 	public async Task<LibraryItem> GetMovieCollections()
 	{
 		List<PlexOption> options = new()
@@ -120,6 +121,34 @@ public class PlexClient : IPlexClient
 		{
 			throw new NullReferenceException("No collections found");
 		}
+		return result;
+	}
+
+	public async Task<List<MovieSummary>> GetMoviesList() 
+	{
+		var items = await GetAllMovies();
+		// SelectMany flattens the returned structure to IEnumerable<MovieSummary>
+		List<MovieSummary> result = items.SelectMany(i => i.MediaContainer?.Metadata?
+			.Select(m =>
+				new MovieSummary() {
+					LibraryId = i.MediaContainer.LibrarySectionID ?? 0,
+					LibraryTitle = i.MediaContainer.LibrarySectionTitle ?? "",
+					Id = int.Parse(m.Key.Replace(@"/library/metadata/", "").Replace(@"/children", "")),
+					Title = m.Title,
+					Year = m.Year,
+					Duration = m.Duration ?? 0,
+					Thumb = m.Thumb,
+					AddedAt = m.AddedAt,
+					Rating = m.Rating,
+					OriginallyAvailableAt = (m.OriginallyAvailableAt is not null) ? DateOnly.Parse(m.OriginallyAvailableAt) : ((m.Year is not null) ? new(m.Year ?? 1, 1, 1) : null),
+				})
+			?? new List<MovieSummary>())
+			.ToList();
+
+		if (result is null) {
+			throw new NullReferenceException("No movies found");
+		}
+
 		return result;
 	}
 
@@ -150,6 +179,36 @@ public class PlexClient : IPlexClient
 		}
 		results.Add(result);
 		return results;
+	}
+
+	public async Task<List<TvShowSummary>> GetTvShowsList(int? start = null, int? size = null)
+	{
+		var items = await GetTvShows();
+		// SelectMany flattens the returned structure to IEnumerable<TvShowSummary>
+		List<TvShowSummary> result = items.SelectMany(i => i.MediaContainer?.Metadata?
+			.Select(m =>
+				new TvShowSummary() {
+					LibraryId = i.MediaContainer.LibrarySectionID ?? 0,
+					LibraryTitle = i.MediaContainer.LibrarySectionTitle ?? "",
+					Id = int.Parse(m.Key.Replace(@"/library/metadata/", "").Replace(@"/children", "")),
+					Title = m.Title,
+					Year = m.Year,
+					Duration = m.Duration ?? 0,
+					Thumb = m.Thumb,
+					AddedAt = m.AddedAt,
+					Rating = m.Rating,
+					OriginallyAvailableAt = (m.OriginallyAvailableAt is not null) ? DateOnly.Parse(m.OriginallyAvailableAt) : ((m.Year is not null) ? new(m.Year ?? 1, 1, 1) : null),
+					Seasons = m.ChildCount ?? 0,
+					Episodes = m.LeafCount ?? 0,
+					ViewedEpisodes = m.ViewedLeafCount ?? 0,
+				})
+			?? new List<TvShowSummary>())
+			.ToList();
+		if (result is null) {
+			throw new NullReferenceException("No movies found");
+		}
+
+		return result;
 	}
 
 	public async Task<LibraryItem?> GetItem(int id)

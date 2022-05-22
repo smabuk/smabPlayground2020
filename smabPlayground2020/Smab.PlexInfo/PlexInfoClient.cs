@@ -2,7 +2,7 @@
 
 namespace Smab.PlexInfo;
 
-public class PlexInfoClient
+public class PlexInfoClient : IPlexClient 
 {
 	public HttpClient Client { get; }
 
@@ -40,16 +40,16 @@ public class PlexInfoClient
 		return (await Client.GetFromJsonAsync<LibraryItem>($"PlexInfo/librarysections")) ?? new();
 	}
 
-	public async Task<List<MovieSummary>?> GetMoviesList()
+	public async Task<List<MovieSummary>> GetMoviesList()
 	{
 		List<MovieSummary>? items = await Client.GetFromJsonAsync<List<MovieSummary>>($"PlexInfo/movieslist");
-		return items;
+		return items ?? new();
 	}
 
-	public async Task<List<TvShowSummary>?> GetTvShowsList()
+	public async Task<List<TvShowSummary>> GetTvShowsList()
 	{
 		List<TvShowSummary>? items = await Client.GetFromJsonAsync<List<TvShowSummary>>($"PlexInfo/tvshowslist");
-		return items;
+		return items ?? new();
 	}
 
 }
