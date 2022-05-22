@@ -8,6 +8,7 @@ public record ItemSummary {
 	public int Duration { get; init; }
 	public string? Thumb { get; init; }
 	public DateTime? AddedAt { get; init; }
+	public double? AudienceRating { get; init; }
 	public double? Rating { get; init; }
 	[JsonConverter(typeof(JsonDateOnlyConverter))]
 	public DateOnly? OriginallyAvailableAt { get; init; }

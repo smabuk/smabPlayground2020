@@ -139,6 +139,7 @@ public class PlexClient : IPlexClient
 					Duration = m.Duration ?? 0,
 					Thumb = m.Thumb,
 					AddedAt = m.AddedAt,
+					AudienceRating = m.AudienceRating,
 					Rating = m.Rating,
 					OriginallyAvailableAt = (m.OriginallyAvailableAt is not null) ? DateOnly.Parse(m.OriginallyAvailableAt) : ((m.Year is not null) ? new(m.Year ?? 1, 1, 1) : null),
 				})
@@ -196,6 +197,7 @@ public class PlexClient : IPlexClient
 					Duration = m.Duration ?? 0,
 					Thumb = m.Thumb,
 					AddedAt = m.AddedAt,
+					AudienceRating = m.AudienceRating,
 					Rating = m.Rating,
 					OriginallyAvailableAt = (m.OriginallyAvailableAt is not null) ? DateOnly.Parse(m.OriginallyAvailableAt) : ((m.Year is not null) ? new(m.Year ?? 1, 1, 1) : null),
 					Seasons = m.ChildCount ?? 0,
