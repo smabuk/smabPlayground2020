@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-using Smab.PlexInfo;
-using Smab.PlexInfo.Models;
-
-namespace smabPlayground2020.Server.Controllers;
+namespace Smab.PlexInfo.Server.Controllers;
 
 [ApiController]
 [Route("[controller]/[action]")]
