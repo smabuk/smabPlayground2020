@@ -17,10 +17,9 @@
 @if (items is not null)
 {
 <div class="card-group">
-    @foreach(MovieSummary item in items)
-    {
+    <Virtualize Items="items" Context="item" OverscanCount="400">
         <MovieCard Item="item" OnItemChangedCallback="HandleChange" />
-    }
+    </Virtualize>
 </div>
 }
 
