@@ -1,7 +1,8 @@
 ﻿namespace Smab.PlexInfo.Models;
 
-public record TvShowSummary : ItemSummary {
-	public int Seasons { get; init; }
-	public int Episodes { get; init; }
-	public int ViewedEpisodes { get; init; }
-};
+public record TvShowSummary
+(
+	int Seasons = default,
+	int Episodes = default,
+	int ViewedEpisodes = default
+) : ItemSummary ;

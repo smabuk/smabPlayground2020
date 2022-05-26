@@ -19,17 +19,9 @@ public record LibraryDirectory
 	bool? Directory,
 	int? Hidden,
 	List<Location>? Location,
-	bool? EnableAutoPhotoTags
-) {
-	[JsonConverter(typeof(JsonUnixDateConverterWithNulls))]
-	public DateTime? UpdatedAt { get; init; }
-
-	[JsonConverter(typeof(JsonUnixDateConverterWithNulls))]
-	public DateTime? CreatedAt { get; init; }
-
-	[JsonConverter(typeof(JsonUnixDateConverterWithNulls))]
-	public DateTime? ScannedAt { get; init; }
-
-	[JsonConverter(typeof(JsonUnixDateConverterWithNulls))]
-	public DateTime? ContentChangedAt { get; init; }
-};
+	bool? EnableAutoPhotoTags,
+	[property: JsonConverter(typeof(JsonUnixDateConverterWithNulls))] DateTime? UpdatedAt,
+	[property: JsonConverter(typeof(JsonUnixDateConverterWithNulls))] DateTime? CreatedAt,
+	[property: JsonConverter(typeof(JsonUnixDateConverterWithNulls))] DateTime? ScannedAt,
+	[property: JsonConverter(typeof(JsonUnixDateConverterWithNulls))] DateTime? ContentChangedAt
+);

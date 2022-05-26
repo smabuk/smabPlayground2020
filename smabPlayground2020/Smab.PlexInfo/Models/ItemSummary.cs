@@ -1,15 +1,15 @@
 ﻿namespace Smab.PlexInfo.Models;
-public record ItemSummary {
-	public int LibraryId { get; init; }
-	public string LibraryTitle { get; init; } = default!;
-	public int Id { get; init; }
-	public string Title { get; init; } = default!;
-	public int? Year { get; init; }
-	public int Duration { get; init; }
-	public string? Thumb { get; init; }
-	public DateTime? AddedAt { get; init; }
-	public double? AudienceRating { get; init; }
-	public double? Rating { get; init; }
-	[JsonConverter(typeof(JsonDateOnlyConverter))]
-	public DateOnly? OriginallyAvailableAt { get; init; }
-}
+public record ItemSummary
+(
+	int LibraryId = default,
+	string LibraryTitle = "",
+	int Id = default,
+	string Title = "",
+	int? Year = null,
+	int Duration = default,
+	string? Thumb = null,
+	DateTime? AddedAt = null,
+	double? AudienceRating = null,
+	double? Rating = null,
+	[property: JsonConverter(typeof(JsonDateOnlyConverter))] DateOnly? OriginallyAvailableAt = null
+);

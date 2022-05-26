@@ -58,36 +58,18 @@ public record Metadata
 	List<RoleSubitem>? Role,
 	List<Subitem>? Collection,
 	List<Subitem>? Similar,
-	List<Location>? Location
-) {
-
+	List<Location>? Location,
 	// There are now 2 values "rating" and "Rating" the latter of which is an array
-	[JsonPropertyName("ratingfix")]
-	public double? Rating { get; init; }
-
-	[JsonPropertyName("Rating")]
-	public List<RatingSubitem>? Ratings { get; init; }
-
+	[property: JsonPropertyName("ratingfix")] double? Rating,
+	[property: JsonPropertyName("Rating")] List<RatingSubitem>? Ratings,
 	// There are now 2 values "guid" and "Guid" the latter of which is an array
-	[JsonPropertyName("guidfix")]
-	public string? Guid { get; init; }
-
-	[JsonPropertyName("Guid")]
-	public List<GuidSubitem>? Guids { get; init; }
-
-
-	[JsonPropertyName("addedAt")]
-	[JsonConverter(typeof(JsonUnixDateConverter))]
-	public DateTime AddedAt { get; init; }
-
-	[JsonPropertyName("updatedAt")]
-	[JsonConverter(typeof(JsonUnixDateConverter))]
-	public DateTime UpdatedAt { get; init; }
-
-	[JsonPropertyName("lastViewedAt")]
-	[JsonConverter(typeof(JsonUnixDateConverterWithNulls))]
-	public DateTime? LastViewedAt { get; init; }
-
+	[property: JsonPropertyName("guidfix")] string? Guid,
+	[property: JsonPropertyName("Guid")] List<GuidSubitem>? Guids,
+	[property: JsonPropertyName("addedAt")] [property: JsonConverter(typeof(JsonUnixDateConverter))] DateTime AddedAt,
+	[property: JsonPropertyName("updatedAt")] [property: JsonConverter(typeof(JsonUnixDateConverter))] DateTime UpdatedAt,
+	[property: JsonPropertyName("lastViewedAt")] [property: JsonConverter(typeof(JsonUnixDateConverterWithNulls))] DateTime? LastViewedAt
+)
+{
 	public bool HasMedia => (Media is not null);
 	public bool HasGenres => (Genre is not null);
 	public bool HasDirectors => (Director is not null);
@@ -98,6 +80,4 @@ public record Metadata
 	public bool HasCollections => (Collection is not null);
 	public bool HasSimilar => (Similar is not null);
 	public bool HasLocations => (Location is not null);
-
-
 };

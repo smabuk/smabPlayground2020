@@ -6,6 +6,7 @@ public record Subitem
 	string? Filter,
 	string Tag,
 	int? Count
-) {
+)
+{
 	public override string ToString() => Tag;
 };
