@@ -2,23 +2,28 @@
 using Microsoft.OpenApi.Models;
 
 using Smab.PlexInfo;
+using Smab.PlexInfo.Server;
 using Smab.ReadingBadminton;
 
 using smabPlayground2020.Server.EndPoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Plex settings
+builder.Services.Configure<PlexSettings>(builder.Configuration.GetSection(nameof(PlexSettings)));
+
 builder.Services.AddControllersWithViews()
 	.AddJsonOptions(options => {
 		options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
+	})
+	.AddPlexInfo(options => {
+		options.ThumbnailCacheDuration = builder.Configuration.GetValue<int?>("PlexSettings:ThumbnailCacheDuration") ?? 3600;
 	});
 
 builder.Services.AddSwaggerGen(c => {
 	c.SwaggerDoc("v1", new OpenApiInfo { Title = "smabPlayground2020", Version = "v1" });
 });
 
-// Plex settings
-builder.Services.Configure<PlexSettings>(builder.Configuration.GetSection(nameof(PlexSettings)));
 
 builder.Services.AddHttpClient<IPlexClient, PlexClient>()
 	// The local Plex Server will not have a proper certificate so we have to ignore this
