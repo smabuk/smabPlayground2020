@@ -2,6 +2,7 @@
 using Microsoft.OpenApi.Models;
 
 using Smab.PlexInfo;
+using Smab.PlexInfo.Server;
 using Smab.ReadingBadminton;
 
 using smabPlayground2020.Server.EndPoints;
@@ -11,6 +12,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews()
 	.AddJsonOptions(options => {
 		options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
+	})
+	.AddPlexInfo(options => new PlexInfoServerOptions()
+	{
+		ThumbnailCacheTime = 7200
 	});
 
 builder.Services.AddSwaggerGen(c => {
