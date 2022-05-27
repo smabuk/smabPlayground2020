@@ -17,7 +17,7 @@ builder.Services.AddControllersWithViews()
 		options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
 	})
 	.AddPlexInfo(options => {
-		options.ThumbnailCacheDuration = builder.Configuration.GetValue<int?>("PlexSettings:ThumbnailCacheDuration") ?? 3600;
+		options.ThumbnailCacheDuration = builder.Configuration.GetValue<int?>($"{nameof(PlexSettings)}:{nameof(PlexSettings.ThumbnailCacheDuration)}") ?? 3600;
 	});
 
 builder.Services.AddSwaggerGen(c => {
