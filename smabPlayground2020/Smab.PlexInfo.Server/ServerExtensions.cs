@@ -3,11 +3,11 @@
 namespace Smab.PlexInfo.Server;
 public static class ServerExtensions
 {
-	public static IMvcBuilder AddPlexInfo(this IMvcBuilder builder, Action<PlexInfoServerOptions>? options = null)
+	public static IMvcBuilder AddPlexInfo(this IMvcBuilder builder, Action<PlexSettings>? options = null)
 	{
 		ArgumentNullException.ThrowIfNull(nameof(builder));
 
-		PlexInfoServerOptions plexInfoServerOptions = new();
+		PlexSettings plexInfoServerOptions = new();
 		options?.Invoke(plexInfoServerOptions);
 
 		builder.AddMvcOptions(opt =>

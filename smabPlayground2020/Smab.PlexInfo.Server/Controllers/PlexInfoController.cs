@@ -7,10 +7,10 @@ namespace Smab.PlexInfo.Server.Controllers;
 [Route("[controller]/[action]")]
 public class PlexInfoController : ControllerBase {
 
-	private readonly IOptions<PlexInfoServerOptions> _options;
+	private readonly IOptions<PlexSettings> _options;
 	private readonly IPlexClient _plexClient;
 
-	public PlexInfoController(IPlexClient plexClient, IOptions<PlexInfoServerOptions> options) {
+	public PlexInfoController(IPlexClient plexClient, IOptions<PlexSettings> options) {
 		_plexClient = plexClient;
 		_options = options;
 	}
@@ -84,7 +84,6 @@ public class PlexInfoController : ControllerBase {
 	[HttpGet(Name = nameof(Photo))]
 	// Cache photos/thumbnails for 1 hour (3600 seconds)
 	[ResponseCache(VaryByQueryKeys = new[] { "url", "width", "height" }, CacheProfileName = "PlexInfoThumbnails")]
-	//[ResponseCache(VaryByQueryKeys = new[] { "url", "width", "height" }, Duration = 3600)]
 	public async Task<IActionResult> Photo([FromQuery] string url, [FromQuery] int width = 180, [FromQuery] int height = 270) {
 		byte[]? item = await _plexClient.GetPhotoFromUrl(url, width, height);
 		if (item is null) {
