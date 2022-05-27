@@ -3,28 +3,53 @@
 namespace Smab.PlexInfo.Server;
 public static class ServerExtensions
 {
-	public static IMvcBuilder AddPlexInfo(this IMvcBuilder builder, Action<PlexSettings>? options = null)
+	private static PlexSettings _plexSettings = new();
+
+	public static IServiceCollection AddPlexInfo(this IServiceCollection services, Action<PlexSettings>? options = null)
+	{
+		options?.Invoke(_plexSettings);
+		services.Configure(options);
+
+		services.AddHttpClient<IPlexClient, PlexClient>()
+		// The local Plex Server will not have a proper certificate so we have to ignore this
+		.ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler()
+		{
+			ClientCertificateOptions = ClientCertificateOption.Manual,
+			ServerCertificateCustomValidationCallback =
+			(httpRequestMessage, cert, certChain, policyErrors) =>
+			{
+				return true;
+			}
+		});
+
+		return services;
+	}
+
+	public static IMvcBuilder ConfigurePlexInfoApis(this IMvcBuilder builder, Action<PlexSettings>? options = null)
 	{
 		ArgumentNullException.ThrowIfNull(nameof(builder));
 
-		PlexSettings plexInfoServerOptions = new();
-		options?.Invoke(plexInfoServerOptions);
+		PlexSettings plexSettings = new();
+		options?.Invoke(plexSettings);
+		if (options == null)
+		{
+			plexSettings.ThumbnailCacheDuration = _plexSettings.ThumbnailCacheDuration;
+		}
+		else
+		{
+			_plexSettings.ThumbnailCacheDuration = plexSettings.ThumbnailCacheDuration;
+		}
 
 		builder.AddMvcOptions(opt =>
 			opt.CacheProfiles.Add("PlexInfoThumbnails",
 			new()
 			{
-				Duration = plexInfoServerOptions.ThumbnailCacheDuration
+				Duration = plexSettings.ThumbnailCacheDuration
 			})
 		);
 
 		return builder;
 	}
-	//public static IServiceCollection AddPlexInfo(this IServiceCollection services, Action<PlexInfoServerOptions>? options = null)
-	//{
-	//	services.Configure(options);
-	//	return services;
-	//}
 
 	//public static IApplicationBuilder MapPlexInfo(this IApplicationBuilder app, Action<PlexInfoServerOptions>? options = null)
 	//{

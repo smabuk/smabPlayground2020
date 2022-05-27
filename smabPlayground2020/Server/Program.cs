@@ -10,30 +10,22 @@ using smabPlayground2020.Server.EndPoints;
 var builder = WebApplication.CreateBuilder(args);
 
 // Plex settings
-builder.Services.Configure<PlexSettings>(builder.Configuration.GetSection(nameof(PlexSettings)));
+builder.Services.AddPlexInfo(options =>
+{
+	options.Server = builder.Configuration.GetValue<string>($"{nameof(PlexSettings)}:{nameof(PlexSettings.Server)}") ?? "";
+	options.Token = builder.Configuration.GetValue<string>($"{nameof(PlexSettings)}:{nameof(PlexSettings.Token)}") ?? "";
+	options.ThumbnailCacheDuration = builder.Configuration.GetValue<int?>($"{nameof(PlexSettings)}:{nameof(PlexSettings.ThumbnailCacheDuration)}") ?? 3600;
+});
 
 builder.Services.AddControllersWithViews()
 	.AddJsonOptions(options => {
 		options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
 	})
-	.AddPlexInfo(options => {
-		options.ThumbnailCacheDuration = builder.Configuration.GetValue<int?>($"{nameof(PlexSettings)}:{nameof(PlexSettings.ThumbnailCacheDuration)}") ?? 3600;
-	});
+	.ConfigurePlexInfoApis();
 
 builder.Services.AddSwaggerGen(c => {
 	c.SwaggerDoc("v1", new OpenApiInfo { Title = "smabPlayground2020", Version = "v1" });
 });
-
-
-builder.Services.AddHttpClient<IPlexClient, PlexClient>()
-	// The local Plex Server will not have a proper certificate so we have to ignore this
-	.ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler() {
-		ClientCertificateOptions = ClientCertificateOption.Manual,
-		ServerCertificateCustomValidationCallback =
-		(httpRequestMessage, cert, certChain, policyErrors) => {
-			return true;
-		}
-	});
 
 builder.Services.AddSingleton<IReadingBadmintonReader, ReadingBadmintonReader>();
 
