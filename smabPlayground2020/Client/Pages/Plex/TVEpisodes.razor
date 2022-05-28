@@ -10,7 +10,7 @@
                     @if (String.IsNullOrEmpty(item.Thumb)) {
                         <img src="/images/tv.png" class="card-img" width="@(THUMB_WIDTH)px" height="@(THUMB_HEIGHT)px" alt="..." />
                     } else {
-                        <img src="/PlexInfo/Photo?url=@(item.Thumb)&width=@(THUMB_WIDTH)&height=@(THUMB_HEIGHT)" class="card-img" loading="lazy" alt="..." />
+                        <img src="/PlexInfo/Photo?url=@(item.Thumb)&width=@(THUMB_WIDTH)" class="card-img" loading="lazy" alt="..." />
                     }
                 </a>
                 <div class="card-body">
