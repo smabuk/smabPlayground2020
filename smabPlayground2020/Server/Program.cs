@@ -14,7 +14,7 @@ builder.Services.AddPlexInfo(options =>
 {
 	options.Server = builder.Configuration.GetValue<string>($"{nameof(PlexSettings)}:{nameof(PlexSettings.Server)}") ?? "";
 	options.Token = builder.Configuration.GetValue<string>($"{nameof(PlexSettings)}:{nameof(PlexSettings.Token)}") ?? "";
-	options.ThumbnailCacheDuration = builder.Configuration.GetValue<int?>($"{nameof(PlexSettings)}:{nameof(PlexSettings.ThumbnailCacheDuration)}") ?? 3600;
+	options.ThumbnailCacheDuration = builder.Configuration.GetValue<int?>($"{nameof(PlexSettings)}:{nameof(PlexSettings.ThumbnailCacheDuration)}") ?? 10080;
 });
 
 builder.Services.AddControllersWithViews()

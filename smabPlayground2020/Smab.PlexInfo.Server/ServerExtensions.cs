@@ -44,7 +44,8 @@ public static class ServerExtensions
 			opt.CacheProfiles.Add("PlexInfoThumbnails",
 			new()
 			{
-				Duration = plexSettings.ThumbnailCacheDuration
+				// Multiply by 60 to convert from duration in minutes to seconds
+				Duration = plexSettings.ThumbnailCacheDuration * 60
 			})
 		);
 

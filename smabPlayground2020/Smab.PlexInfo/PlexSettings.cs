@@ -4,5 +4,8 @@ public record PlexSettings {
 	public string Server { get; set; } = "";
 	public string Token { get; set; } = "";
 	public string RootPath { get; set; } = "/";
-	public int ThumbnailCacheDuration { get; set; } = 3600;
+	/// <summary>
+	/// Response Cache time for photo thumbnails (specified in minutes)
+	/// </summary>
+	public int ThumbnailCacheDuration { get; set; } = 10080;
 }
