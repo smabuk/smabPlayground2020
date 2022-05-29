@@ -11,6 +11,9 @@ RUN dotnet --info
 COPY ["smabPlayground2020/Server/smabPlayground2020.Server.csproj", "smabPlayground2020/Server/"]
 COPY ["smabPlayground2020/Client/smabPlayground2020.Client.csproj", "smabPlayground2020/Client/"]
 COPY ["smabPlayground2020/Shared/smabPlayground2020.Shared.csproj", "smabPlayground2020/Shared/"]
+COPY ["smabPlayground2020/Smab.PlexInfo/Smab.PlexInfo.csproj", "smabPlayground2020/Smab.PlexInfo/"]
+COPY ["smabPlayground2020/Smab.PlexInfo.Server/Smab.PlexInfo.Server.csproj", "smabPlayground2020/Smab.PlexInfo.Server/"]
+COPY ["smabPlayground2020/Smab.PlexInfo.UI/Smab.PlexInfo.UI.csproj", "smabPlayground2020/Smab.PlexInfo.UI/"]
 RUN dotnet restore "smabPlayground2020/Server/smabPlayground2020.Server.csproj"
 COPY . .
 WORKDIR "/src/smabPlayground2020/Server"
