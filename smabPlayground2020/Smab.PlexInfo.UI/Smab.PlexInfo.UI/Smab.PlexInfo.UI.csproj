@@ -11,4 +11,8 @@
 		<PackageReference Include="Smab.Helpers" Version="1.1.1" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Smab.PlexInfo\Smab.PlexInfo.csproj" />
+	</ItemGroup>
+
 </Project>

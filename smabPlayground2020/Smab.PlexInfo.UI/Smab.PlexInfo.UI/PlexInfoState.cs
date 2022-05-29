@@ -1,6 +1,6 @@
 ﻿using Smab.PlexInfo.Models;
 
-namespace smabPlayground2020.Client;
+namespace Smab.PlexInfo.UI;
 
 public class PlexInfoState
 {
