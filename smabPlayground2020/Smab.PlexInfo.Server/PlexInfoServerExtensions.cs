@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Smab.PlexInfo.Server;
 public static class PlexInfoServerExtensions
 {
+	public static readonly int DEFAULT_DURATION = 60 * 24; // 24 hours
 	private static PlexSettings _plexSettings = new();
 
 	public static WebApplicationBuilder? AddPlexInfoServer(this WebApplicationBuilder? builder)
@@ -63,7 +64,7 @@ public static class PlexInfoServerExtensions
 			new()
 			{
 				// Multiply by 60 to convert from duration in minutes to seconds
-				Duration = _plexSettings.ThumbnailCacheDuration * 60
+				Duration = (_plexSettings.ThumbnailCacheDuration ?? DEFAULT_DURATION) * 60
 			})
 		);
 
