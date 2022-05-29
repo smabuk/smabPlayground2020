@@ -5,15 +5,6 @@
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
-
-	<ItemGroup>
-	  <Content Remove="compilerconfig.json" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Include="compilerconfig.json" />
-	</ItemGroup>
-
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.5" />
 		<PackageReference Include="Smab.Helpers" Version="1.1.1" />
@@ -21,6 +12,14 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Smab.PlexInfo\Smab.PlexInfo.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Remove="compilerconfig.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="compilerconfig.json" />
 	</ItemGroup>
 
 </Project>
