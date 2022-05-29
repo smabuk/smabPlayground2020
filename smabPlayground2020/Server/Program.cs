@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.OpenApi.Models;
 
-using Smab.PlexInfo;
 using Smab.PlexInfo.Server;
 using Smab.ReadingBadminton;
 
@@ -9,13 +8,7 @@ using smabPlayground2020.Server.EndPoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Plex settings
-builder.Services.AddPlexInfo(options =>
-{
-	options.Server = builder.Configuration.GetValue<string>($"{nameof(PlexSettings)}:{nameof(PlexSettings.Server)}") ?? "";
-	options.Token = builder.Configuration.GetValue<string>($"{nameof(PlexSettings)}:{nameof(PlexSettings.Token)}") ?? "";
-	options.ThumbnailCacheDuration = builder.Configuration.GetValue<int?>($"{nameof(PlexSettings)}:{nameof(PlexSettings.ThumbnailCacheDuration)}") ?? 10080;
-});
+builder.AddPlexInfoServer();
 
 builder.Services.AddControllersWithViews()
 	.AddJsonOptions(options => {

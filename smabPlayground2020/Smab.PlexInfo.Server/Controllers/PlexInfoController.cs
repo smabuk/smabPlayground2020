@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 
 namespace Smab.PlexInfo.Server.Controllers;
 
@@ -7,12 +6,10 @@ namespace Smab.PlexInfo.Server.Controllers;
 [Route("[controller]/[action]")]
 public class PlexInfoController : ControllerBase {
 
-	private readonly IOptions<PlexSettings> _options;
 	private readonly IPlexClient _plexClient;
 
-	public PlexInfoController(IPlexClient plexClient, IOptions<PlexSettings> options) {
+	public PlexInfoController(IPlexClient plexClient) {
 		_plexClient = plexClient;
-		_options = options;
 	}
 
 	[HttpGet(Name = nameof(LibraryRoot))]

@@ -14,6 +14,10 @@ public class PlexClient : IPlexClient
 
 	public PlexClient(HttpClient httpClient, IOptions<PlexSettings> plexSettings)
 	{
+		ArgumentNullException.ThrowIfNull(httpClient, nameof(httpClient));
+		ArgumentNullException.ThrowIfNull(plexSettings.Value.Server, nameof(plexSettings.Value.Server));
+		ArgumentNullException.ThrowIfNull(plexSettings.Value.Token, nameof(plexSettings.Value.Token));
+
 		httpClient.BaseAddress = new Uri(plexSettings.Value.Server);
 		httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
 		httpClient.Timeout = new(0, 3, 0);
