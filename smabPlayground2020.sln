@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Smab.PlexInfo", "smabPlaygr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Smab.PlexInfo.Server", "smabPlayground2020\Smab.PlexInfo.Server\Smab.PlexInfo.Server.csproj", "{60021935-BEB4-4BB3-8691-F6841DA8E58C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Smab.PlexInfo.UI", "smabPlayground2020\Smab.PlexInfo.UI\Smab.PlexInfo.UI\Smab.PlexInfo.UI.csproj", "{247260BD-1EFA-4F8E-B49D-BECDA6910C05}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Smab.PlexInfo.UI", "smabPlayground2020\Smab.PlexInfo.UI\Smab.PlexInfo.UI.csproj", "{247260BD-1EFA-4F8E-B49D-BECDA6910C05}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

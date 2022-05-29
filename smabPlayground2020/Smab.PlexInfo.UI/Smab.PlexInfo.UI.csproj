@@ -12,7 +12,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\Smab.PlexInfo\Smab.PlexInfo.csproj" />
+	  <ProjectReference Include="..\Smab.PlexInfo\Smab.PlexInfo.csproj" />
 	</ItemGroup>
 
 </Project>

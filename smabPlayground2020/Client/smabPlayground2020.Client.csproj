@@ -21,9 +21,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Shared\smabPlayground2020.Shared.csproj" />
-    <ProjectReference Include="..\Smab.PlexInfo.UI\Smab.PlexInfo.UI\Smab.PlexInfo.UI.csproj" />
     <ProjectReference Include="..\Smab.PlexInfo\Smab.PlexInfo.csproj" />
+    <ProjectReference Include="..\Smab.PlexInfo.UI\Smab.PlexInfo.UI.csproj" />
+    <ProjectReference Include="..\Shared\smabPlayground2020.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
