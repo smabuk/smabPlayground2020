@@ -1,9 +1,9 @@
 ﻿
 using HtmlAgilityPack;
 
-using smab.ReadingBadminton.Models;
+using Smab.ReadingBadminton.Models;
 
-namespace smab.ReadingBadminton;
+namespace Smab.ReadingBadminton;
 
 public class ReadingBadmintonReader : IReadingBadmintonReader {
 

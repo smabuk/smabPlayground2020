@@ -1,35 +1,24 @@
 ﻿using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.OpenApi.Models;
 
-using smab.PlexInfo;
-using smab.ReadingBadminton;
+using Smab.PlexInfo.Server;
+using Smab.ReadingBadminton;
 
-using smabPlayground2020.Server;
 using smabPlayground2020.Server.EndPoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddPlexInfoServer();
+
 builder.Services.AddControllersWithViews()
 	.AddJsonOptions(options => {
 		options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
-	});
+	})
+	.ConfigurePlexInfoApis();
 
 builder.Services.AddSwaggerGen(c => {
 	c.SwaggerDoc("v1", new OpenApiInfo { Title = "smabPlayground2020", Version = "v1" });
 });
-
-// Plex settings
-builder.Services.Configure<PlexSettings>(builder.Configuration.GetSection(nameof(PlexSettings)));
-
-builder.Services.AddHttpClient<IPlexClient, PlexClient>()
-	// The local Plex Server will not have a proper certificate so we have to ignore this
-	.ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler() {
-		ClientCertificateOptions = ClientCertificateOption.Manual,
-		ServerCertificateCustomValidationCallback =
-		(httpRequestMessage, cert, certChain, policyErrors) => {
-			return true;
-		}
-	});
 
 builder.Services.AddSingleton<IReadingBadmintonReader, ReadingBadmintonReader>();
 

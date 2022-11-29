@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace smab.ReadingBadminton.Models;
+namespace Smab.ReadingBadminton.Models;
 
 public class ReadingFixtures {
 	public List<Fixture>? Fixtures { get; set; }
