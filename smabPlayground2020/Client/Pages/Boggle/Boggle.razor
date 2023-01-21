@@ -26,6 +26,7 @@
 @using static Smab.DiceAndTiles.BoggleDice.BoggleType;
 @code {
 
+
     public Smab.Boggle.Models.BoggleTray BoggleTray { get; set; } = new();
     public BoggleDice.BoggleType BoggleSetType { get; set; } = Classic4x4;
     public TimeSpan TimerLength { get; set; } = new(0, 3, 0);
@@ -47,10 +48,10 @@
             // public CancellationToken cancellationToken;
             // var timer = new PeriodicTimer(TimeSpan.FromSeconds(0.5));
             // await timer.WaitForNextTickAsync(cancellationToken);
-            while ((TimerLength - BoggleTray.Stopwatch.Elapsed).TotalSeconds >= 0 && CancelTimer == false)
+            while ((TimerLength - BoggleTray.ElapsedTime).TotalSeconds >= 0 && CancelTimer == false)
             {
                 await Task.Delay(500);
-                CurrentTimer = TimerLength - BoggleTray.Stopwatch.Elapsed;
+                CurrentTimer = TimerLength - BoggleTray.ElapsedTime;
                 //Console.WriteLine($"{CurrentTimer:dd\\.hh\\:mm\\:ss}");
             }
             Console.WriteLine($"{(CancelTimer ? "Cancelled" : "End")} Game: {BoggleTray.BoggleSetType.ToString()}");

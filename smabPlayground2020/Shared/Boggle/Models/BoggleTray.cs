@@ -8,6 +8,8 @@ namespace Smab.Boggle.Models;
 
 public partial class BoggleTray {
 
+	private long _timerStart;
+	
 	public BoggleDice BoggleSet { get; set; } = new();
 	public BoggleDice.BoggleType BoggleSetType { get; set; } = Classic4x4;
 	public List<BoggleSlot> Slots { get; set; } = new();
@@ -17,7 +19,8 @@ public partial class BoggleTray {
 	public int DiceCount => BoggleSet.NoOfDice;
 	// public GameStatus Status { get; set; }
 
-	public Stopwatch Stopwatch { get; set; } = new();
+	public TimeSpan ElapsedTime => Stopwatch.GetElapsedTime(_timerStart);
+	//private TimeSpan TimeRemaining => TimerLength.Subtract(Stopwatch.GetElapsedTime(_timerStart));
 
 	public BoggleTray() {
 		Reset();
@@ -43,12 +46,11 @@ public partial class BoggleTray {
 			}
 		}
 		Slots.ForEach(s => s.AdjacentSlots = GetAdjacentSlots(s.X, s.Y));
-		Stopwatch.Reset();
-		Stopwatch.Start();
+		_timerStart = Stopwatch.GetTimestamp();
 	}
 
 	public void EndGame() {
-		Stopwatch.Stop();
+		//Stopwatch.Stop();
 	}
 
 	public List<BoggleSlot> GetAdjacentSlots(int x, int y) {
