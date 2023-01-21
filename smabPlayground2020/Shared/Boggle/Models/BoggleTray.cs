@@ -39,7 +39,7 @@ public partial class BoggleTray {
 		int setIndex = 0;
 		for (int i = 1; i <= Height; i++) {
 			for (int j = 1; j <= Width; j++) {
-				Slots.Add(new BoggleSlot(id++, j, i, BoggleSet.Board[setIndex++]));
+				Slots.Add(new BoggleSlot(id++, j, i, (LetterDie)BoggleSet.Board[setIndex++].Die));
 			}
 		}
 		Slots.ForEach(s => s.AdjacentSlots = GetAdjacentSlots(s.X, s.Y));
